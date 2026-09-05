@@ -107,8 +107,9 @@ h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.12;letter-spacin
 header{position:sticky;top:0;z-index:100;background:rgba(244,239,230,.82);backdrop-filter:blur(14px) saturate(120%);-webkit-backdrop-filter:blur(14px) saturate(120%);border-bottom:1px solid transparent;transition:.3s}
 header.scrolled{border-bottom-color:var(--line);background:rgba(244,239,230,.95)}
 .nav{display:flex;align-items:center;justify-content:space-between;height:84px;gap:24px}
-.brand{display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:13px}
 .crest{width:46px;height:46px;flex:none}
+.crest-portrait{height:50px;width:auto;flex:none;object-fit:contain;object-position:bottom}
 .brand .word{display:flex;flex-direction:column;line-height:1}
 .brand .word b{font-family:var(--serif);font-weight:700;font-size:1.2rem;letter-spacing:.24em;color:var(--ink)}
 [dir="rtl"] .brand .word b{letter-spacing:.05em}
@@ -144,13 +145,53 @@ header.scrolled{border-bottom-color:var(--line);background:rgba(244,239,230,.95)
 .mobile-menu a{font-family:var(--serif);font-size:1.9rem;color:var(--ink);padding:16px 0;border-bottom:1px solid var(--line)}
 .mobile-menu .m-actions{margin-top:auto;display:flex;flex-direction:column;gap:12px}
 
-.hero{position:relative;overflow:hidden;padding:clamp(52px,7vw,104px) 0 clamp(48px,6vw,88px)}
+.hero{position:relative;overflow:hidden;padding:0 0 clamp(40px,5vw,72px)}
 .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(40px,5vw,80px);align-items:center}
 .hero-copy .eyebrow{margin-bottom:24px}
 .hero h1{margin-bottom:26px}
 .hero h1 em{font-style:italic;color:var(--wine);font-weight:400}
 .hero .lede{margin-bottom:36px}
-.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:44px}
+.serif-he{font-family:var(--serif-he)}
+/* ---- Rotating hero banners (from the brand handoff) ---- */
+.hero-banners{position:relative;width:100%;container-type:inline-size;background:#0d1526;overflow:hidden;aspect-ratio:24/10;margin-bottom:clamp(28px,4vw,56px)}
+.hb-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity 1s var(--ease),visibility 1s var(--ease)}
+.hb-slide.on{opacity:1;visibility:visible}
+.hb-img{position:absolute;top:0;bottom:0;width:60%;height:100%;object-fit:cover}
+.hb-slide[data-side="left"] .hb-img{left:0}
+.hb-slide[data-side="right"] .hb-img{right:0}
+.hb-img.hb-portrait{width:56%;object-position:center 22%;filter:sepia(.12) contrast(1.02)}
+.hb-scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,21,38,0) 30%,rgba(13,21,38,.72) 47%,#0d1526 60%)}
+.hb-slide[data-side="right"] .hb-scrim{background:linear-gradient(270deg,rgba(13,21,38,0) 30%,rgba(13,21,38,.72) 47%,#0d1526 60%)}
+.hb-glow{position:absolute;inset:0;background:radial-gradient(120% 80% at 74% 30%,rgba(201,164,76,.16),rgba(201,164,76,0) 60%)}
+.hb-glow.glow-left{background:radial-gradient(120% 80% at 26% 28%,rgba(201,164,76,.16),rgba(201,164,76,0) 60%)}
+.hb-text{position:absolute;top:0;bottom:0;width:44%;display:flex;flex-direction:column;justify-content:center;gap:2.2cqw;padding:7cqw 6cqw;pointer-events:none}
+.hb-slide[data-side="left"] .hb-text{right:0}
+.hb-slide[data-side="right"] .hb-text{left:0}
+.hb-kicker{font-family:var(--serif);font-size:1.05cqw;letter-spacing:.34em;text-transform:uppercase;color:#c9a44c}
+.hb-h{font-family:var(--serif-he);font-size:5.4cqw;font-weight:400;line-height:1.04;color:#f4efe4;margin:0}
+.hb-rule{width:7cqw;height:.14cqw;min-height:1px;background:#c9a44c}
+.hb-sub{font-size:1.7cqw;font-weight:300;line-height:1.5;color:#cfc7b6;max-width:26ch;margin:0}
+.hb-latin{font-family:var(--serif);font-size:1.2cqw;letter-spacing:.1em;color:#97907f}
+.hb-corner{position:absolute;width:2.2cqw;height:2.2cqw;border:.1cqw solid rgba(201,164,76,.5);pointer-events:none}
+.hb-corner.tl{top:2.2cqw;left:2.2cqw;border-right:0;border-bottom:0}
+.hb-corner.bl{bottom:2.2cqw;left:2.2cqw;border-right:0;border-top:0}
+.hb-corner.tr{top:2.2cqw;right:2.2cqw;border-left:0;border-bottom:0}
+.hb-corner.br{bottom:2.2cqw;right:2.2cqw;border-left:0;border-top:0}
+.hb-slide[data-side="left"] .hb-corner{left:auto;right:2.2cqw}
+.hb-slide[data-side="left"] .hb-corner.tl{border-right:.1cqw solid rgba(201,164,76,.5);border-left:0}
+.hb-slide[data-side="left"] .hb-corner.bl{border-right:.1cqw solid rgba(201,164,76,.5);border-left:0}
+.hb-dots{position:absolute;bottom:2.4cqw;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:5}
+.hb-dots button{width:9px;height:9px;border-radius:50%;background:rgba(201,164,76,.35);transition:.3s;cursor:pointer;padding:0}
+.hb-dots button.on{background:#c9a44c;transform:scale(1.25)}
+.hb-slide .hb-kicker,.hb-slide .hb-h,.hb-slide .hb-rule,.hb-slide .hb-sub,.hb-slide .hb-latin{opacity:0;transform:translateY(12px)}
+.hb-slide.on .hb-kicker{animation:hbRise .7s .05s var(--ease) forwards}
+.hb-slide.on .hb-h{animation:hbRise .7s .16s var(--ease) forwards}
+.hb-slide.on .hb-rule{animation:hbRise .7s .27s var(--ease) forwards}
+.hb-slide.on .hb-sub{animation:hbRise .7s .36s var(--ease) forwards}
+.hb-slide.on .hb-latin{animation:hbRise .7s .45s var(--ease) forwards}
+@keyframes hbRise{to{opacity:1;transform:none}}
+.hero-belt{display:flex;align-items:center;justify-content:space-between;gap:clamp(24px,4vw,60px);flex-wrap:wrap}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px}
 .hero-stats{display:flex;gap:clamp(24px,4vw,52px);flex-wrap:wrap}
 .hero-stats .stat{position:relative;padding-inline-start:20px}
 .hero-stats .stat::before{content:"";position:absolute;inset-inline-start:0;top:4px;bottom:4px;width:1px;background:var(--brass)}
@@ -428,9 +469,25 @@ footer{background:var(--ink);color:var(--paper);padding:80px 0 34px}
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .reveal.in{opacity:1;transform:none}
 
+@media(max-width:820px){
+  /* Below the 24:10 crop, the banner becomes a full-bleed portrait with the
+     text anchored to the bottom over a navy gradient. */
+  .hero-banners{aspect-ratio:4/5;max-height:80vh}
+  .hb-img,.hb-slide[data-side="left"] .hb-img,.hb-slide[data-side="right"] .hb-img{width:100%;left:0;right:0}
+  .hb-img.hb-portrait{width:100%;object-position:center 18%}
+  .hb-scrim,.hb-slide[data-side="right"] .hb-scrim{background:linear-gradient(to top,#0d1526 9%,rgba(13,21,38,.74) 42%,rgba(13,21,38,.12) 72%)}
+  .hb-text,.hb-slide[data-side="left"] .hb-text,.hb-slide[data-side="right"] .hb-text{width:100%;left:0;right:0;justify-content:flex-end;align-items:center;text-align:center;padding:0 26px 66px;gap:14px}
+  .hb-kicker{font-size:11px;letter-spacing:.28em}
+  .hb-h{font-size:clamp(30px,9vw,42px)}
+  .hb-rule{width:56px;height:1px}
+  .hb-sub{font-size:15px;max-width:34ch}
+  .hb-latin{font-size:12px}
+  .hb-corner{display:none}
+}
 @media(max-width:1024px){
   .hero-grid{grid-template-columns:1fr;gap:48px}
   .feature-card{max-width:540px}
+  .hero-belt{justify-content:center;text-align:center}
   .lot-grid{grid-template-columns:repeat(2,1fr)}
   .dept-grid{grid-template-columns:repeat(2,1fr)}
   .dept.large{grid-column:span 2;grid-row:auto;aspect-ratio:16/10}
@@ -543,6 +600,7 @@ body.zc-links a{text-decoration:underline!important;outline:1px dashed var(--gol
 @media(max-width:820px){
   .nav{gap:10px;height:72px}
   .crest{width:36px;height:36px}
+  .crest-portrait{height:40px}
   .brand{gap:9px;min-width:0}
   .brand .word b{font-size:.98rem;letter-spacing:.1em;white-space:nowrap}
   .brand .word span{font-size:.5rem;letter-spacing:.1em;white-space:nowrap}
@@ -609,7 +667,7 @@ body.zc-links a{text-decoration:underline!important;outline:1px dashed var(--gol
 <header id="header">
   <div class="wrap nav">
     <a href="#" class="brand" aria-label="Zilbershlag — home">
-      <svg class="crest" style="color:var(--ink)"><use href="#zc-crest"/></svg>
+      <img class="crest-portrait" src="assets/portrait-engraved-ink.png" alt="" aria-hidden="true" />
       <span class="word"><b>ZILBERSHLAG</b><span data-i18n="brandSub">The Private Collection · Est. 1962</span></span>
     </a>
     <nav aria-label="Primary">
@@ -649,39 +707,55 @@ body.zc-links a{text-decoration:underline!important;outline:1px dashed var(--gol
 
 <main id="main">
 <section class="hero">
-  <div class="wrap hero-grid">
-    <div class="hero-copy">
-      <span class="eyebrow" data-i18n="heroEyebrow">Purveyors of fine things since 1962</span>
-      <h1 class="h-display serif-auto" data-i18n="heroTitle">A house built on<br/><em>six decades</em><br/>of collecting.</h1>
-      <p class="lede" data-i18n="heroLede">For over sixty years the House of Zilbershlag has gathered the exceptional — fine Jewish and Israeli art, rare Hebrew books, manuscripts, ceremonial silver and Judaica from across the world. The collection is now offered, piece by piece, through daily and weekly auction and by private sale.</p>
-      <div class="hero-cta">
-        <a href="#collection" class="btn btn-wine" data-i18n="heroCta1">Enter the saleroom
-          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg></a>
-        <a href="#how" class="btn btn-ghost" data-i18n="heroCta2">How it works</a>
+  <div class="hero-banners" id="heroBanners" aria-label="Featured collections" role="region">
+    <div class="hb-slide on" data-side="left">
+      <img class="hb-img" src="assets/book-aged.webp" alt="An antique leather-bound Hebrew book with a gilt Star of David and clasp" loading="eager" />
+      <div class="hb-scrim"></div><div class="hb-glow"></div>
+      <div class="hb-text" dir="rtl">
+        <span class="hb-kicker">Zilbershlag · A Private Collection</span>
+        <h2 class="hb-h serif-he">אוֹצַר הַסֵּפֶר הָעִבְרִי</h2>
+        <span class="hb-rule"></span>
+        <p class="hb-sub">ספרי קודש, דפוסים ראשונים, כתבי־יד ומסמכים ציוניים</p>
+        <span class="hb-latin">Hebrew Imprints, Manuscripts &amp; Zionist Documents</span>
       </div>
-      <div class="hero-stats">
-        <div class="stat"><div class="num">4,200+</div><div class="lbl" data-i18n="statPieces">Pieces</div></div>
-        <div class="stat"><div class="num">1962</div><div class="lbl" data-i18n="statEst">Established</div></div>
-        <div class="stat"><div class="num">9</div><div class="lbl" data-i18n="statDepts">Departments</div></div>
-      </div>
+      <span class="hb-corner tl"></span><span class="hb-corner bl"></span>
     </div>
-    <div class="feature-card reveal" id="featureCard">
-      <div class="fc-img">
-        <span class="live-badge"><span class="live-dot"></span><span data-i18n="liveNow">Live now</span></span>
-        <img src="https://images.unsplash.com/photo-1578321272176-b7bbc0679853?auto=format&fit=crop&w=900&q=80" alt="Antique Jewish painting" />
+    <div class="hb-slide" data-side="right">
+      <img class="hb-img" src="assets/menorah-aged.webp" alt="An antique silver ceremonial menorah" loading="lazy" />
+      <div class="hb-scrim"></div><div class="hb-glow glow-left"></div>
+      <div class="hb-text" dir="rtl">
+        <span class="hb-kicker">Ceremonial Silver</span>
+        <h2 class="hb-h serif-he">כְּלֵי כֶסֶף וְיוּדָאִיקָה</h2>
+        <span class="hb-rule"></span>
+        <p class="hb-sub">כתרי תורה ורימונים, מנורות ופריטי ארץ־ישראל היסטוריים</p>
+        <span class="hb-latin">Ceremonial Silver &amp; Eretz Israel Artefacts</span>
       </div>
-      <div class="fc-body">
-        <div class="fc-house">Modern Masters · Lot 1</div>
-        <div class="fc-title">Reuven Rubin — Landscape near Safed (Oil on canvas)</div>
-        <div class="fc-meta">
-          <div class="fc-bid"><div class="k" data-i18n="currentBid">Current bid</div><div class="v" id="featureBid">$86,000</div></div>
-          <div class="countdown" id="featureCountdown" aria-label="Time remaining">
-            <div class="seg"><b data-h>00</b><span data-i18n="hrs">hrs</span></div>
-            <div class="seg"><b data-m>00</b><span data-i18n="min">min</span></div>
-            <div class="seg"><b data-s>00</b><span data-i18n="sec">sec</span></div>
-          </div>
-        </div>
+      <span class="hb-corner tl"></span><span class="hb-corner bl"></span>
+    </div>
+    <div class="hb-slide" data-side="left">
+      <img class="hb-img hb-portrait" src="assets/portrait.jpg" alt="Portrait of the collector, Dudi Zilbershlag, in his study" loading="lazy" />
+      <div class="hb-scrim"></div><div class="hb-glow"></div>
+      <div class="hb-text" dir="rtl">
+        <span class="hb-kicker">The Collector</span>
+        <h2 class="hb-h serif-he">זילברשלג</h2>
+        <span class="hb-rule"></span>
+        <p class="hb-sub">חמישים שנה של איסוף, מחקר ושימור — יהדות, ציונות וארץ ישראל</p>
+        <span class="hb-latin">Collector · Scholar · Custodian</span>
       </div>
+      <span class="hb-corner tl"></span><span class="hb-corner bl"></span>
+    </div>
+    <div class="hb-dots" id="hbDots" role="tablist" aria-label="Choose banner"></div>
+  </div>
+  <div class="wrap hero-belt">
+    <div class="hero-cta">
+      <a href="#collection" class="btn btn-wine" data-i18n="heroCta1">Enter the saleroom
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg></a>
+      <a href="#how" class="btn btn-ghost" data-i18n="heroCta2">How it works</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="num">4,200+</div><div class="lbl" data-i18n="statPieces">Pieces</div></div>
+      <div class="stat"><div class="num">1962</div><div class="lbl" data-i18n="statEst">Established</div></div>
+      <div class="stat"><div class="num">9</div><div class="lbl" data-i18n="statDepts">Departments</div></div>
     </div>
   </div>
 </section>
@@ -839,7 +913,7 @@ body.zc-links a{text-decoration:underline!important;outline:1px dashed var(--gol
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <div class="brand"><svg class="crest" style="color:var(--brass-bright)"><use href="#zc-crest"/></svg>
+        <div class="brand"><img class="crest-portrait" src="assets/portrait-engraved.png" alt="" aria-hidden="true" />
           <span class="word"><b>ZILBERSHLAG</b><span data-i18n="brandSub">The Private Collection · Est. 1962</span></span></div>
         <p data-i18n="footBlurb">A private collection of fine art and rare objects, six decades in the making — offered by daily and weekly auction and by private sale.</p>
         <div class="socials">
@@ -1339,6 +1413,39 @@ function tick(){
   if(currentLot&&currentLot.status!=="buynow"&&currentLot.endsAt){ const rem=fmtRemaining(currentLot.endsAt-tt); $("#modalTime").textContent=(currentLot.status==="live"?t("mClosesIn"):t("mOpensIn"))+rem.text; }
 }
 setInterval(tick,1000); tick();
+
+/* ============================================================
+   Rotating hero banners
+   ============================================================ */
+(function heroBanners(){
+  const root=$("#heroBanners"); if(!root) return;
+  const slides=Array.from(root.querySelectorAll(".hb-slide"));
+  const dotsWrap=$("#hbDots"); if(slides.length<2){ return; }
+  let idx=0, timer=null;
+  const DUR=6500;
+  const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  slides.forEach((s,i)=>{
+    const b=document.createElement("button");
+    b.setAttribute("role","tab"); b.setAttribute("aria-label","Banner "+(i+1));
+    if(i===0) b.classList.add("on");
+    b.addEventListener("click",()=>{ go(i); restart(); });
+    dotsWrap.appendChild(b);
+  });
+  const dots=Array.from(dotsWrap.children);
+  function go(n){
+    idx=(n+slides.length)%slides.length;
+    slides.forEach((s,i)=>s.classList.toggle("on",i===idx));
+    dots.forEach((d,i)=>d.classList.toggle("on",i===idx));
+  }
+  function next(){ go(idx+1); }
+  function restart(){ if(timer){ clearInterval(timer); } if(!reduce) timer=setInterval(next,DUR); }
+  // Pause while the tab is hidden or the pointer rests on the banner.
+  document.addEventListener("visibilitychange",()=>{ if(document.hidden){ if(timer) clearInterval(timer); } else restart(); });
+  root.addEventListener("mouseenter",()=>{ if(timer) clearInterval(timer); });
+  root.addEventListener("mouseleave",restart);
+  restart();
+})();
+
 setInterval(()=>{ const live=LOTS.filter(l=>l.demo&&l.status==="live"&&l.bid); if(!live.length) return; const l=live[Math.floor((Date.now()/7000)%live.length)]; l.bid=Math.round(l.bid*(1+(0.01+(Date.now()%40)/1000))/100)*100; const fb=$("#featureBid"); if(fb) animateMoney(fb, 86000+(Math.floor(Date.now()/8000)%14)*1000); if(currentLot&&currentLot.id===l.id) $("#modalBid").textContent=money(l.bid); render(); },8000);
 
 /* ============================================================
