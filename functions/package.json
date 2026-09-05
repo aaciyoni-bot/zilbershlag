@@ -1,11 +1,11 @@
 {
   "name": "zilbershlag-functions",
   "description": "Auction backend for the House of Zilbershlag (proxy bidding + close).",
-  "engines": { "node": "20" },
+  "engines": { "node": "22" },
   "main": "index.js",
   "dependencies": {
-    "firebase-admin": "^12.6.0",
-    "firebase-functions": "^5.1.0"
+    "firebase-admin": "^12.7.0",
+    "firebase-functions": "^6.1.0"
   },
   "private": true
 }
