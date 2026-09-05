@@ -456,14 +456,16 @@ footer{background:var(--ink);color:var(--paper);padding:80px 0 34px}
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="zc-crest" viewBox="0 0 120 120">
-    <circle cx="60" cy="60" r="57" fill="none" stroke="currentColor" stroke-width="1.4"/>
-    <circle cx="60" cy="60" r="50" fill="none" stroke="currentColor" stroke-width="0.7"/>
-    <path id="zc-top" d="M60,60 m-40,0 a40,40 0 1,1 80,0" fill="none"/>
-    <path id="zc-bot" d="M60,60 m40,0 a40,40 0 1,1 -80,0" fill="none"/>
-    <text font-family="Libre Baskerville, serif" font-size="8.4" letter-spacing="2.6" fill="currentColor"><textPath href="#zc-top" startOffset="50%" text-anchor="middle">THE ZILBERSHLAG COLLECTION</textPath></text>
-    <text font-family="Libre Baskerville, serif" font-size="8" letter-spacing="3" fill="currentColor"><textPath href="#zc-bot" startOffset="50%" text-anchor="middle">· EST · 1962 ·</textPath></text>
-    <text x="60" y="74" text-anchor="middle" font-family="Libre Baskerville, serif" font-weight="700" font-size="42" fill="currentColor">Z</text>
-    <path d="M60 30 l2.2 4.6 5 .7 -3.6 3.6 .9 5 -4.5-2.4 -4.5 2.4 .9-5 -3.6-3.6 5-.7z" fill="currentColor"/>
+    <radialGradient id="wax" cx="40%" cy="34%" r="78%"><stop offset="0%" stop-color="#b5434f"/><stop offset="46%" stop-color="#8b2733"/><stop offset="100%" stop-color="#571620"/></radialGradient>
+    <radialGradient id="sheen" cx="38%" cy="30%" r="42%"><stop offset="0%" stop-color="#ffffff" stop-opacity=".38"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
+    <filter id="drop" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="2.4" stdDeviation="3" flood-color="#320a10" flood-opacity=".5"/></filter>
+    <path filter="url(#drop)" fill="url(#wax)" d="M111,59 C112,74 104,96 84,106 C64,116 34,112 19,97 C6,84 6,52 16,35 C27,16 55,7 76,13 C97,19 110,38 111,59 Z"/>
+    <ellipse cx="47" cy="41" rx="31" ry="23" fill="url(#sheen)"/>
+    <circle cx="60" cy="60" r="42" fill="none" stroke="#4a121b" stroke-width="2" opacity=".55"/>
+    <circle cx="60" cy="59" r="42" fill="none" stroke="#d98a92" stroke-width=".7" opacity=".35"/>
+    <circle cx="60" cy="60" r="34" fill="none" stroke="#3f0e17" stroke-width="2.1" stroke-linecap="round" stroke-dasharray="0.1 6.1" opacity=".5"/>
+    <text x="60" y="79" text-anchor="middle" font-family="'Libre Baskerville', Georgia, serif" font-weight="700" font-size="54" fill="#490f18" opacity=".6">Z</text>
+    <text x="60" y="77.6" text-anchor="middle" font-family="'Libre Baskerville', Georgia, serif" font-weight="700" font-size="54" fill="#bd505a">Z</text>
   </symbol>
 </svg>
 
