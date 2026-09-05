@@ -1,38 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Zilbershlag wax seal">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Zilbershlag monogram">
   <defs>
-    <radialGradient id="wax" cx="40%" cy="34%" r="78%">
-      <stop offset="0%" stop-color="#b5434f"/>
-      <stop offset="46%" stop-color="#8b2733"/>
-      <stop offset="100%" stop-color="#571620"/>
-    </radialGradient>
-    <radialGradient id="sheen" cx="38%" cy="30%" r="42%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity=".38"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </radialGradient>
-    <filter id="drop" x="-25%" y="-25%" width="150%" height="150%">
-      <feDropShadow dx="0" dy="2.4" stdDeviation="3" flood-color="#320a10" flood-opacity=".5"/>
-    </filter>
+    <linearGradient id="zg" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#eBD48a"/>
+      <stop offset="0.5" stop-color="#c9a24e"/>
+      <stop offset="1" stop-color="#9c7a2f"/>
+    </linearGradient>
   </defs>
-
-  <!-- wax blob (slightly irregular, as pressed wax spreads) -->
-  <path filter="url(#drop)" fill="url(#wax)" d="M111,59
-    C112,74 104,96 84,106
-    C64,116 34,112 19,97
-    C6,84 6,52 16,35
-    C27,16 55,7 76,13
-    C97,19 110,38 111,59 Z"/>
-
-  <!-- soft top-left sheen -->
-  <ellipse cx="47" cy="41" rx="31" ry="23" fill="url(#sheen)"/>
-
-  <!-- pressed die edge (debossed ring) -->
-  <circle cx="60" cy="60" r="42" fill="none" stroke="#4a121b" stroke-width="2" opacity=".55"/>
-  <circle cx="60" cy="59" r="42" fill="none" stroke="#d98a92" stroke-width=".7" opacity=".35"/>
-
-  <!-- dotted inner ring -->
-  <circle cx="60" cy="60" r="34" fill="none" stroke="#3f0e17" stroke-width="2.1" stroke-linecap="round" stroke-dasharray="0.1 6.1" opacity=".5"/>
-
-  <!-- embossed Z monogram: recessed shadow + raised face -->
-  <text x="60" y="79" text-anchor="middle" font-family="'Libre Baskerville', Georgia, serif" font-weight="700" font-size="54" fill="#490f18" opacity=".6">Z</text>
-  <text x="60" y="77.6" text-anchor="middle" font-family="'Libre Baskerville', Georgia, serif" font-weight="700" font-size="54" fill="#bd505a">Z</text>
+  <g fill="none" stroke="url(#zg)">
+    <circle cx="60" cy="60" r="55" stroke-width="1.4"/>
+    <circle cx="60" cy="60" r="49" stroke-width="0.7"/>
+    <circle cx="60" cy="60" r="38.5" stroke-width="1.9" stroke-linecap="round" stroke-dasharray="0.1 7.3" opacity="0.85"/>
+  </g>
+  <text x="60" y="80" text-anchor="middle" font-family="'Libre Baskerville', Georgia, serif" font-weight="700" font-size="52" fill="url(#zg)">Z</text>
+  <path d="M60 9 l3.4 4.7 -3.4 4.7 -3.4-4.7 z" fill="url(#zg)"/>
+  <path d="M60 101.6 l3.4 4.7 -3.4 4.7 -3.4-4.7 z" fill="url(#zg)"/>
 </svg>
