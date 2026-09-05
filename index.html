@@ -538,6 +538,34 @@ body.zc-links a{text-decoration:underline!important;outline:1px dashed var(--gol
   .brand .word b{font-size:.9rem;letter-spacing:.05em}
   .hallmark{font-size:.62rem}
 }
+
+/* ============================================================
+   Polish pass — tasteful "juice" for a dignified auction house
+   ============================================================ */
+/* price count-up flash (applied when a bid updates) */
+@keyframes flashGold{0%,14%{color:var(--gold-bright);text-shadow:0 0 16px rgba(220,189,110,.75)}100%{text-shadow:none}}
+.flash-gold{animation:flashGold .7s var(--ease)}
+/* crisp press feedback */
+.btn:active,.lot-btn:active,.chip:active,.tab:active,.a11y-btn:active{transform:scale(.975)}
+/* sheen sweep on the primary lot buttons, like the hero CTA */
+.lot-btn.primary{position:relative;overflow:hidden}
+.lot-btn.primary::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 34%,rgba(255,255,255,.42) 50%,transparent 66%);transform:translateX(-130%)}
+.lot-btn.primary:hover::after{transform:translateX(130%);transition:transform .6s var(--ease)}
+/* a fine gold frame draws in on card hover */
+.lot::after{content:"";position:absolute;inset:0;border:1px solid transparent;border-radius:var(--r-md);pointer-events:none;transition:border-color .45s var(--ease)}
+.lot:hover::after{border-color:rgba(176,141,63,.5)}
+/* the closing clock breathes gold when a lot is near its end */
+@keyframes breathe{0%,100%{opacity:1}50%{opacity:.5}}
+.lot-timer.urgent .t{animation:breathe 1.6s ease-in-out infinite}
+/* live badge gets a soft gold halo */
+.live-badge{box-shadow:0 0 0 1px rgba(220,189,110,.35),0 8px 22px -10px rgba(16,26,60,.5)}
+/* nav links: the gold underline grows from the start edge (already), refined */
+.nav-links a::after{height:1.5px}
+/* section titles carry a small gold flourish */
+.section-head h2::after{content:"";display:block;width:54px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin-top:18px}
+[dir="rtl"] .section-head h2::after{background:linear-gradient(270deg,var(--gold),transparent)}
+.section-head[style*="center"] h2::after{margin-inline:auto;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+@media(prefers-reduced-motion:reduce){.flash-gold,.lot-timer.urgent .t{animation:none!important}}
 </style>
 </head>
 <body>
@@ -972,8 +1000,9 @@ const ADMIN_EMAIL = "aaci.yoni@gmail.com";  // site owner
    Loaded resiliently: if the CDN is unreachable the whole catalogue still
    renders (preview mode) instead of the page breaking. */
 let initializeApp,getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged,
-    getFirestore,collection,doc,getDoc,setDoc,updateDoc,onSnapshot,runTransaction,addDoc,serverTimestamp,Timestamp,query,orderBy;
-let auth=null, db=null, online=false, provider=null;
+    getFirestore,collection,doc,getDoc,setDoc,updateDoc,onSnapshot,runTransaction,addDoc,serverTimestamp,Timestamp,query,orderBy,
+    getStorage,stRef,stUpload,stURL;
+let auth=null, db=null, storage=null, online=false, provider=null;
 
 /* ============================================================
    i18n
@@ -1114,6 +1143,14 @@ const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
 const money = n => "$"+Number(n||0).toLocaleString("en-US");
 const digits = s => parseInt(String(s).replace(/[^0-9]/g,''))||0;
 const initial = s => (String(s||"?").trim()[0]||"?").toUpperCase();
+function animateMoney(el,to){
+  if(!el) return; to=Math.round(to||0);
+  const from=digits(el.textContent)||0;
+  if(from===to){ el.textContent=money(to); return; }
+  el.classList.remove("flash-gold"); void el.offsetWidth; el.classList.add("flash-gold");
+  const dur=680, t0=performance.now();
+  (function step(t){ const p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3); el.textContent=money(Math.round(from+(to-from)*e)); if(p<1) requestAnimationFrame(step); })(performance.now());
+}
 function fmtRemaining(ms){
   if(ms<=0) return {text:LANG==="he"?"הסתיים":"Ended", urgent:false, ended:true};
   const s=Math.floor(ms/1000), d=Math.floor(s/86400), h=Math.floor(s%86400/3600), m=Math.floor(s%3600/60), sec=s%60;
@@ -1220,7 +1257,7 @@ $("#placeBid").addEventListener("click",async ()=>{
     if(l.status==="buynow"){ modalMsg(val?t("mOffered"):t("mReserved")); return; }
     if(l.status!=="live"){ modalMsg(t("mRegistered")); return; }
     if(val<=(l.bid||0)){ modalMsg(t("mBidLow"),true); return; }
-    l.bid=val; $("#modalBid").textContent=money(val); modalMsg(t("mBidPlaced")); render(); return;
+    l.bid=val; animateMoney($("#modalBid"), val); modalMsg(t("mBidPlaced")); render(); return;
   }
   if(!me){ modalMsg(t("mSignInFirst"),true); setTimeout(()=>{ closeModal(); signIn(); },600); return; }
   if(profile && profile.banned){ showBanned(); return; }
@@ -1250,7 +1287,7 @@ function tick(){
   if(currentLot&&currentLot.status!=="buynow"&&currentLot.endsAt){ const rem=fmtRemaining(currentLot.endsAt-tt); $("#modalTime").textContent=(currentLot.status==="live"?t("mClosesIn"):t("mOpensIn"))+rem.text; }
 }
 setInterval(tick,1000); tick();
-setInterval(()=>{ const live=LOTS.filter(l=>l.demo&&l.status==="live"&&l.bid); if(!live.length) return; const l=live[Math.floor((Date.now()/7000)%live.length)]; l.bid=Math.round(l.bid*(1+(0.01+(Date.now()%40)/1000))/100)*100; const fb=$("#featureBid"); if(fb) fb.textContent=money(86000+(Math.floor(Date.now()/8000)%14)*1000); if(currentLot&&currentLot.id===l.id) $("#modalBid").textContent=money(l.bid); render(); },8000);
+setInterval(()=>{ const live=LOTS.filter(l=>l.demo&&l.status==="live"&&l.bid); if(!live.length) return; const l=live[Math.floor((Date.now()/7000)%live.length)]; l.bid=Math.round(l.bid*(1+(0.01+(Date.now()%40)/1000))/100)*100; const fb=$("#featureBid"); if(fb) animateMoney(fb, 86000+(Math.floor(Date.now()/8000)%14)*1000); if(currentLot&&currentLot.id===l.id) $("#modalBid").textContent=money(l.bid); render(); },8000);
 
 /* ============================================================
    Firebase — auth, profile, registration
