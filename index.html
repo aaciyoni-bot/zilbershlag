@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Zilbershlag — Purveyors of Fine Art & Rare Collectibles since 1962</title>
+<meta name="description" content="The House of Zilbershlag — a private collection of fine art, timepieces, jewellery, Judaica and rare objects, assembled over six decades. Offered by daily and weekly auction and by private sale." />
+<meta name="theme-color" content="#f4efe6" />
+
+<meta property="og:title" content="Zilbershlag — Fine Art & Rare Collectibles since 1962" />
+<meta property="og:description" content="A private collection, six decades in the making. Daily & weekly auctions and private sale." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://zilbershlag.com" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@400;500;700&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   ZILBERSHLAG — "The House" design system
+   Heritage institution · ivory & ink · engraved detail
+   Bilingual EN / HE (RTL-aware)
+   ============================================================ */
+:root{
+  --paper:       #f4efe6;
+  --surface:     #faf7f0;
+  --surface-2:   #ece4d5;
+  --surface-3:   #e2d8c5;
+  --line:        rgba(34,28,23,.16);
+  --line-soft:   rgba(34,28,23,.09);
+  --line-strong: rgba(34,28,23,.30);
+  --ink:         #221c17;
+  --text:        #221c17;
+  --text-soft:   #574d40;
+  --text-mute:   #8a7f6c;
+  --text-faint:  #a89c86;
+  --wine:        #6d1f2b;
+  --wine-bright: #8a2b39;
+  --wine-deep:   #4c141d;
+  --wine-soft:   rgba(109,31,43,.10);
+  --brass:       #9a7b3c;
+  --brass-bright:#b9954e;
+  --brass-soft:  rgba(154,123,60,.14);
+  --live:        #8a2b1f;
+  --live-soft:   rgba(138,43,31,.14);
+  --ok:          #3f6d4a;
+  --serif: "Libre Baskerville", Georgia, "Times New Roman", serif;
+  --serif-he: "Frank Ruhl Libre", "Libre Baskerville", Georgia, serif;
+  --sans:  "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r-sm: 3px; --r-md: 6px; --r-lg: 12px; --r-full: 999px;
+  --maxw: 1240px;
+  --shadow-sm: 0 1px 2px rgba(34,28,23,.05);
+  --shadow-lg: 0 40px 90px -50px rgba(34,28,23,.5);
+  --ease: cubic-bezier(.22,.61,.36,1);
+}
+[lang="he"] .serif-auto,[dir="rtl"] h1,[dir="rtl"] h2,[dir="rtl"] h3{font-family:var(--serif-he)}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--paper);color:var(--text);line-height:1.62;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+[hidden]{display:none!important}
+::selection{background:var(--wine);color:var(--paper)}
+:focus-visible{outline:2px solid var(--wine);outline-offset:3px}
+.skip{position:absolute;left:-999px;top:0;z-index:400;background:var(--ink);color:var(--paper);padding:12px 20px;border-radius:0 0 var(--r-md) 0;font-size:.85rem;font-weight:600}
+.skip:focus{left:0}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:var(--paper)}
+::-webkit-scrollbar-thumb{background:var(--surface-3);border-radius:99px;border:2px solid var(--paper)}
+
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(20px,5vw,48px)}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--wine);display:inline-flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--brass)}
+[dir="rtl"] .eyebrow{letter-spacing:.12em}
+.serif{font-family:var(--serif)}
+h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.12;letter-spacing:0;color:var(--ink)}
+.h-display{font-size:clamp(2.5rem,5.6vw,4.6rem);line-height:1.08;font-weight:700}
+.h-section{font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:700}
+.lede{font-size:clamp(1.02rem,1.4vw,1.18rem);color:var(--text-soft);max-width:58ch;line-height:1.75}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:15px 30px;border-radius:var(--r-sm);transition:transform .2s var(--ease),background .25s,color .25s,box-shadow .25s,border-color .25s;white-space:nowrap}
+[dir="rtl"] .btn{letter-spacing:.02em;text-transform:none;font-size:.9rem}
+.btn svg{width:16px;height:16px}
+.btn-primary{background:var(--ink);color:var(--paper)}
+.btn-primary:hover{background:#000;transform:translateY(-2px)}
+.btn-wine{background:var(--wine);color:var(--paper)}
+.btn-wine:hover{background:var(--wine-bright);transform:translateY(-2px)}
+.btn-ghost{border:1px solid var(--line-strong);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink);background:var(--surface)}
+.btn-sm{padding:11px 20px;font-size:.72rem}
+.link-arrow{display:inline-flex;align-items:center;gap:8px;color:var(--wine);font-weight:600;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--brass);padding-bottom:3px;transition:gap .2s}
+[dir="rtl"] .link-arrow{letter-spacing:0;text-transform:none;font-size:.88rem}
+.link-arrow:hover{gap:14px}
+.link-arrow svg{width:14px;height:14px}
+[dir="rtl"] .btn svg,[dir="rtl"] .link-arrow svg{transform:scaleX(-1)}
+
+.hallmark{background:var(--ink);color:var(--paper);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:8px 16px}
+[dir="rtl"] .hallmark{letter-spacing:.06em;text-transform:none;font-size:.8rem}
+.hallmark b{color:var(--brass-bright);font-weight:600}
+.hallmark .sep{opacity:.4;margin:0 12px}
+
+header{position:sticky;top:0;z-index:100;background:rgba(244,239,230,.82);backdrop-filter:blur(14px) saturate(120%);-webkit-backdrop-filter:blur(14px) saturate(120%);border-bottom:1px solid transparent;transition:.3s}
+header.scrolled{border-bottom-color:var(--line);background:rgba(244,239,230,.95)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:84px;gap:24px}
+.brand{display:flex;align-items:center;gap:14px}
+.crest{width:46px;height:46px;flex:none}
+.brand .word{display:flex;flex-direction:column;line-height:1}
+.brand .word b{font-family:var(--serif);font-weight:700;font-size:1.2rem;letter-spacing:.24em;color:var(--ink)}
+[dir="rtl"] .brand .word b{letter-spacing:.05em}
+.brand .word span{font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--text-mute);margin-top:5px}
+[dir="rtl"] .brand .word span{letter-spacing:.1em}
+.nav-links{display:flex;align-items:center;gap:30px;list-style:none}
+.nav-links a{font-size:.82rem;font-weight:500;letter-spacing:.03em;color:var(--text-soft);position:relative;padding:6px 0;transition:color .2s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--wine);transition:width .25s var(--ease)}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{width:100%}
+.nav-actions{display:flex;align-items:center;gap:14px}
+.lang-toggle{display:inline-flex;border:1px solid var(--line-strong);border-radius:var(--r-full);overflow:hidden}
+.lang-toggle button{padding:6px 12px;font-size:.72rem;font-weight:600;letter-spacing:.08em;color:var(--text-mute);transition:.2s}
+.lang-toggle button.on{background:var(--ink);color:var(--paper)}
+.nav-divider{width:1px;height:22px;background:var(--line-strong)}
+.acct{display:inline-flex;align-items:center;gap:9px;font-size:.8rem;font-weight:600;color:var(--ink);cursor:pointer;padding:6px 8px;border-radius:var(--r-sm)}
+.acct:hover{background:var(--surface-2)}
+.acct .av{width:28px;height:28px;border-radius:50%;background:var(--wine);color:#fff;display:grid;place-items:center;font-size:.8rem;font-weight:700;font-family:var(--serif)}
+.acct .nm{max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.admin-link{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brass);border:1px solid var(--brass);padding:7px 12px;border-radius:var(--r-sm)}
+.admin-link:hover{background:var(--brass);color:#fff}
+.signin{font-size:.82rem;font-weight:500;color:var(--text-soft);transition:.2s;cursor:pointer}
+.signin:hover{color:var(--ink)}
+.burger{display:none;flex-direction:column;gap:5px;width:44px;height:44px;align-items:center;justify-content:center}
+.burger span{width:22px;height:1.5px;background:var(--ink);transition:.3s var(--ease)}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+.mobile-menu{position:fixed;inset:0;top:0;z-index:99;background:rgba(244,239,230,.99);backdrop-filter:blur(10px);display:flex;flex-direction:column;padding:120px 40px 40px;gap:4px;transform:translateX(100%);transition:transform .35s var(--ease)}
+[dir="rtl"] .mobile-menu{transform:translateX(-100%)}
+.mobile-menu.open{transform:translateX(0)}
+.mobile-menu a{font-family:var(--serif);font-size:1.9rem;color:var(--ink);padding:16px 0;border-bottom:1px solid var(--line)}
+.mobile-menu .m-actions{margin-top:auto;display:flex;flex-direction:column;gap:12px}
+
+.hero{position:relative;overflow:hidden;padding:clamp(52px,7vw,104px) 0 clamp(48px,6vw,88px)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(40px,5vw,80px);align-items:center}
+.hero-copy .eyebrow{margin-bottom:24px}
+.hero h1{margin-bottom:26px}
+.hero h1 em{font-style:italic;color:var(--wine);font-weight:400}
+.hero .lede{margin-bottom:36px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:44px}
+.hero-stats{display:flex;gap:clamp(24px,4vw,52px);flex-wrap:wrap}
+.hero-stats .stat{position:relative;padding-inline-start:20px}
+.hero-stats .stat::before{content:"";position:absolute;inset-inline-start:0;top:4px;bottom:4px;width:1px;background:var(--brass)}
+.hero-stats .stat .num{font-family:var(--serif);font-size:2.1rem;color:var(--ink);line-height:1}
+.hero-stats .stat .lbl{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--text-mute);margin-top:7px}
+[dir="rtl"] .hero-stats .stat .lbl{letter-spacing:.05em}
+
+.feature-card{position:relative;border-radius:var(--r-lg);overflow:hidden;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-lg)}
+.feature-card::before{content:"";position:absolute;inset:9px;border:1px solid rgba(244,239,230,.4);z-index:3;pointer-events:none;border-radius:calc(var(--r-lg) - 6px)}
+.feature-card .fc-img{position:relative;aspect-ratio:4/3.5;overflow:hidden}
+.feature-card .fc-img img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.feature-card:hover .fc-img img{transform:scale(1.04)}
+.fc-img::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(20,15,10,.94),rgba(20,15,10,.1) 55%,transparent 78%)}
+.live-badge{position:absolute;top:18px;inset-inline-start:18px;z-index:4;display:inline-flex;align-items:center;gap:7px;background:var(--live);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:7px 13px;border-radius:var(--r-sm)}
+[dir="rtl"] .live-badge{letter-spacing:.06em;text-transform:none;font-size:.7rem}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#fff;animation:pulse 1.4s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.fc-body{position:absolute;bottom:0;inset-inline:0;z-index:4;padding:26px;color:#f4efe6}
+.fc-house{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brass-bright);font-weight:600;margin-bottom:10px}
+[dir="rtl"] .fc-house{letter-spacing:.08em}
+.fc-title{font-family:var(--serif);font-size:1.5rem;line-height:1.2;margin-bottom:18px;color:#fff}
+.fc-meta{display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+.fc-bid .k{font-size:.64rem;text-transform:uppercase;letter-spacing:.12em;color:rgba(244,239,230,.65)}
+.fc-bid .v{font-family:var(--serif);font-size:1.7rem;color:#fff}
+.countdown{display:flex;gap:7px}
+.countdown .seg{background:rgba(244,239,230,.12);border:1px solid rgba(244,239,230,.2);border-radius:var(--r-sm);padding:6px 9px;text-align:center;min-width:44px}
+.countdown .seg b{display:block;font-family:var(--serif);font-size:1.2rem;line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+.countdown .seg span{font-size:.54rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(244,239,230,.6)}
+
+.schedule{background:var(--ink);color:var(--paper);padding:clamp(28px,4vw,44px) 0}
+.schedule-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.sch{display:flex;gap:16px;align-items:flex-start}
+.sch-ico{width:44px;height:44px;flex:none;border:1px solid rgba(244,239,230,.3);border-radius:50%;display:grid;place-items:center;color:var(--brass-bright)}
+.sch-ico svg{width:20px;height:20px}
+.sch h4{font-family:var(--serif);font-size:1.2rem;color:#fff;margin-bottom:4px;font-weight:700}
+.sch p{font-size:.86rem;color:rgba(244,239,230,.62);line-height:1.5}
+
+section.block{padding:clamp(64px,9vw,128px) 0}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:52px;flex-wrap:wrap}
+.section-head .eyebrow{margin-bottom:18px}
+.section-head p.sub{color:var(--text-mute);margin-top:14px;max-width:52ch;font-size:1rem}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:40px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.tabs{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:4px;flex-wrap:wrap}
+.tab{padding:9px 18px;border-radius:var(--r-sm);font-size:.76rem;font-weight:600;letter-spacing:.04em;color:var(--text-mute);transition:.2s;display:inline-flex;align-items:center;gap:8px;text-transform:uppercase}
+[dir="rtl"] .tab{text-transform:none;font-size:.86rem;letter-spacing:0}
+.tab.active{background:var(--ink);color:var(--paper)}
+.tab .dot{width:6px;height:6px;border-radius:50%;background:var(--live)}
+.tab .dot.buy{background:var(--brass)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{padding:9px 17px;border-radius:var(--r-full);border:1px solid var(--line-strong);font-size:.78rem;font-weight:500;color:var(--text-soft);white-space:nowrap;transition:.2s;background:var(--surface)}
+.chip:hover{border-color:var(--ink);color:var(--ink)}
+.chip.active{background:var(--wine);color:var(--paper);border-color:var(--wine)}
+
+.lot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.lot{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;transition:transform .35s var(--ease),border-color .35s,box-shadow .35s}
+.lot:hover{transform:translateY(-6px);border-color:var(--line-strong);box-shadow:0 30px 60px -40px rgba(34,28,23,.5)}
+.lot-img{position:relative;aspect-ratio:4/3.3;overflow:hidden;background:var(--surface-2)}
+.lot-img img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.lot:hover .lot-img img{transform:scale(1.05)}
+.lot-tag{position:absolute;top:13px;inset-inline-start:13px;display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:var(--r-sm);font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+[dir="rtl"] .lot-tag{letter-spacing:.04em;font-size:.66rem;text-transform:none}
+.lot-tag.live{background:var(--live);color:#fff}
+.lot-tag.soon{background:rgba(244,239,230,.9);color:var(--ink);border:1px solid var(--line-strong)}
+.lot-tag.buy{background:var(--ink);color:var(--paper)}
+.watch{position:absolute;top:11px;inset-inline-end:11px;width:38px;height:38px;border-radius:50%;background:rgba(244,239,230,.85);display:grid;place-items:center;color:var(--text-soft);transition:.2s;border:1px solid transparent}
+.watch:hover{color:var(--wine);border-color:var(--line-strong)}
+.watch.on{color:var(--wine)}
+.watch svg{width:18px;height:18px}
+.lot-body{padding:22px;display:flex;flex-direction:column;flex:1}
+.lot-house{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--wine);font-weight:600;margin-bottom:10px}
+[dir="rtl"] .lot-house{letter-spacing:.05em}
+.lot-title{font-family:var(--serif);font-size:1.22rem;line-height:1.25;margin-bottom:auto;color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.lot-info{margin-top:18px;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.lot-info .k{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-mute);margin-bottom:6px}
+.lot-info .est{font-size:.84rem;color:var(--text-soft)}
+.lot-info .bid{font-family:var(--serif);font-size:1.4rem;color:var(--ink)}
+.lot-timer{margin-top:15px;display:flex;align-items:center;gap:7px;font-size:.75rem;color:var(--text-soft)}
+.lot-timer svg{width:14px;height:14px;color:var(--text-mute)}
+.lot-timer .t{font-variant-numeric:tabular-nums;font-weight:600}
+.lot-timer.urgent .t{color:var(--live)}
+.lot-timer.avail svg{color:var(--brass)}
+.lot-timer.avail .t{color:var(--text-mute);font-weight:500;font-style:italic}
+.lot-btn{margin-top:16px;width:100%;padding:12px;border-radius:var(--r-sm);font-size:.74rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;transition:.2s var(--ease)}
+[dir="rtl"] .lot-btn{text-transform:none;font-size:.86rem;letter-spacing:0}
+.lot-btn.primary{background:var(--wine);color:var(--paper)}
+.lot-btn.primary:hover{background:var(--wine-bright)}
+.lot-btn.secondary{border:1px solid var(--line-strong);color:var(--ink)}
+.lot-btn.secondary:hover{border-color:var(--ink)}
+.empty{grid-column:1/-1;text-align:center;padding:60px 0;color:var(--text-mute);font-family:var(--serif);font-size:1.2rem;font-style:italic}
+
+.dept-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.dept{position:relative;border-radius:var(--r-md);overflow:hidden;aspect-ratio:3/4;cursor:pointer;border:1px solid var(--line)}
+.dept img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);filter:grayscale(.12) sepia(.06)}
+.dept:hover img{transform:scale(1.05);filter:none}
+.dept::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(20,15,10,.88),rgba(20,15,10,.05) 58%,transparent 76%)}
+.dept-cap{position:absolute;bottom:0;inset-inline:0;z-index:2;padding:22px 20px;color:#f4efe6}
+.dept-cap h3{font-size:1.4rem;margin-bottom:4px;color:#fff}
+.dept-cap span{font-size:.74rem;color:rgba(244,239,230,.72)}
+.dept-cap .go{display:inline-flex;align-items:center;gap:7px;color:var(--brass-bright);font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-top:12px;opacity:0;transform:translateY(6px);transition:.3s var(--ease)}
+.dept:hover .dept-cap .go{opacity:1;transform:translateY(0)}
+.dept-cap .go svg{width:14px;height:14px}
+.dept.large{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
+
+.house{background:var(--ink);color:var(--paper);position:relative;overflow:hidden}
+.house .wrap{position:relative;z-index:1}
+.house-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,88px);align-items:center}
+.house .eyebrow{color:var(--brass-bright)}
+.house .eyebrow::before{background:var(--brass)}
+.house h2{color:#fff;margin:18px 0 22px}
+.house p{color:rgba(244,239,230,.72);font-size:1.06rem;line-height:1.8;margin-bottom:18px}
+.house-seal{display:grid;place-items:center}
+.house-seal svg{width:min(340px,72vw);height:auto;opacity:.9}
+
+.how{background:var(--surface);border-block:1px solid var(--line)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;margin-top:10px}
+.step{padding:42px 36px;background:var(--surface);position:relative;transition:.3s var(--ease);border-inline-end:1px solid var(--line)}
+.step:last-child{border-inline-end:none}
+.step:hover{background:var(--paper)}
+.step-num{font-family:var(--serif);font-size:2.6rem;color:var(--brass);opacity:.5;line-height:1;margin-bottom:20px}
+.step-ico{width:52px;height:52px;border-radius:50%;background:var(--surface-2);border:1px solid var(--line);display:grid;place-items:center;color:var(--wine);margin-bottom:20px}
+.step-ico svg{width:23px;height:23px}
+.step h3{font-size:1.4rem;margin-bottom:12px}
+.step p{color:var(--text-mute);font-size:.94rem}
+
+.stats-band{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+.stats-band .item{padding:22px 12px;border-inline-end:1px solid var(--line)}
+.stats-band .item:last-child{border:none}
+.stats-band .num{font-family:var(--serif);font-size:clamp(2.6rem,4vw,3.6rem);color:var(--wine);line-height:1;font-weight:700}
+.stats-band .lbl{margin-top:12px;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-mute)}
+[dir="rtl"] .stats-band .lbl{letter-spacing:.02em}
+
+.sell{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:clamp(44px,6vw,80px);box-shadow:var(--shadow-lg)}
+.sell::before{content:"";position:absolute;inset:10px;border:1px solid var(--line);border-radius:calc(var(--r-lg) - 6px);pointer-events:none}
+.sell-inner{position:relative;z-index:1;max-width:660px}
+.sell h2{margin:16px 0 18px}
+.sell p{color:var(--text-soft);margin-bottom:32px;font-size:1.08rem;line-height:1.75}
+
+.news{text-align:center;max-width:580px;margin-inline:auto}
+.news h2{margin:16px 0 14px}
+.news p{color:var(--text-mute);margin-bottom:30px;font-size:1rem}
+.news form{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.news input{flex:1;min-width:240px;padding:15px 20px;border-radius:var(--r-sm);background:var(--surface);border:1px solid var(--line-strong);color:var(--ink);font-size:.95rem;font-family:inherit}
+.news input:focus{outline:none;border-color:var(--ink)}
+.news .note{margin-top:16px;font-size:.8rem;color:var(--text-faint)}
+.news .done{color:var(--ok);font-weight:600}
+
+footer{background:var(--ink);color:var(--paper);padding:80px 0 34px}
+.foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:44px;margin-bottom:56px}
+.foot-brand .brand{margin-bottom:20px}
+.foot-brand .brand .word b,.foot-brand .brand .word span{color:var(--paper)}
+.foot-brand p{color:rgba(244,239,230,.6);font-size:.9rem;max-width:38ch;margin-bottom:22px;line-height:1.7}
+.socials{display:flex;gap:12px}
+.socials a{width:42px;height:42px;border-radius:50%;border:1px solid rgba(244,239,230,.24);display:grid;place-items:center;color:rgba(244,239,230,.75);transition:.2s}
+.socials a:hover{border-color:var(--brass-bright);color:var(--brass-bright);transform:translateY(-2px)}
+.socials svg{width:18px;height:18px}
+.foot-col h4{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--paper);margin-bottom:20px;font-weight:600}
+[dir="rtl"] .foot-col h4{letter-spacing:.06em}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.foot-col a{color:rgba(244,239,230,.6);font-size:.88rem;transition:color .2s}
+.foot-col a:hover{color:var(--brass-bright)}
+.foot-bottom{border-top:1px solid rgba(244,239,230,.16);padding-top:26px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.foot-bottom p{color:rgba(244,239,230,.45);font-size:.8rem}
+.foot-bottom .legal{display:flex;gap:22px;flex-wrap:wrap}
+.foot-bottom .legal a{color:rgba(244,239,230,.45);font-size:.8rem;transition:color .2s}
+.foot-bottom .legal a:hover{color:var(--paper)}
+
+/* Modals (shared) */
+.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(20,15,10,.5);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal{background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--r-lg);max-width:940px;width:100%;max-height:90vh;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;box-shadow:var(--shadow-lg);transform:scale(.96) translateY(10px);transition:transform .3s var(--ease)}
+.modal-overlay.open .modal{transform:none}
+.modal-img{position:relative;background:var(--surface-2)}
+.modal-img img{width:100%;height:100%;object-fit:cover;min-height:360px}
+.modal-body{padding:38px;overflow-y:auto;display:flex;flex-direction:column}
+.modal-close{position:absolute;top:16px;inset-inline-end:16px;z-index:3;width:40px;height:40px;border-radius:50%;background:rgba(244,239,230,.92);display:grid;place-items:center;color:var(--ink);transition:.2s}
+.modal-close:hover{transform:rotate(90deg)}
+.modal-close svg{width:20px;height:20px}
+.modal .m-house{color:var(--wine);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;margin-bottom:12px}
+.modal .m-title{font-family:var(--serif);font-size:1.9rem;line-height:1.2;margin-bottom:8px}
+.modal .m-lot{color:var(--text-mute);font-size:.85rem;margin-bottom:24px}
+.m-rows{display:flex;flex-direction:column;gap:14px;padding:20px 0;border-block:1px solid var(--line);margin-bottom:22px}
+.m-row{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.m-row .k{color:var(--text-mute);font-size:.86rem}
+.m-row .v{font-weight:600;text-align:end}
+.m-row .v.big{font-family:var(--serif);font-size:1.7rem;color:var(--wine);font-weight:700}
+.m-bidbox{margin-top:auto}
+.m-bidbox label{display:block;font-size:.8rem;color:var(--text-mute);margin-bottom:9px}
+.m-inputrow{display:flex;gap:10px;margin-bottom:14px}
+.m-inputrow .pfx{display:flex;align-items:center;padding:0 16px;background:var(--surface-2);border:1px solid var(--line-strong);border-radius:var(--r-sm);font-family:var(--serif);font-size:1.1rem;color:var(--wine)}
+.m-inputrow input{flex:1;padding:14px 16px;border-radius:var(--r-sm);background:var(--surface);border:1px solid var(--line-strong);color:var(--ink);font-size:1.05rem;font-family:inherit;font-variant-numeric:tabular-nums}
+.m-inputrow input:focus{outline:none;border-color:var(--ink)}
+.m-place{width:100%}
+.m-note{margin-top:15px;font-size:.77rem;color:var(--text-faint);text-align:center;line-height:1.5}
+.m-success{background:rgba(63,109,74,.1);border:1px solid rgba(63,109,74,.3);color:var(--ok);padding:14px 16px;border-radius:var(--r-sm);font-size:.9rem;font-weight:500;margin-top:14px;display:none;align-items:center;gap:10px}
+.m-success.show{display:flex}
+.m-success svg{width:20px;height:20px;flex-shrink:0}
+
+/* Single-column dialog (registration / banned) */
+.dlg-overlay{position:fixed;inset:0;z-index:220;background:rgba(20,15,10,.55);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s;overflow-y:auto}
+.dlg-overlay.open{opacity:1;pointer-events:auto}
+.dlg{background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--r-lg);max-width:560px;width:100%;box-shadow:var(--shadow-lg);padding:clamp(28px,4vw,44px);position:relative;max-height:92vh;overflow-y:auto;transform:scale(.96);transition:transform .3s var(--ease)}
+.dlg-overlay.open .dlg{transform:none}
+.dlg-crest{width:56px;height:56px;color:var(--wine);margin-bottom:18px}
+.dlg h2{font-size:1.9rem;margin-bottom:8px}
+.dlg .dlg-sub{color:var(--text-mute);font-size:.95rem;margin-bottom:24px;line-height:1.6}
+.f-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.f-field{display:flex;flex-direction:column;gap:6px}
+.f-field.full{grid-column:1/-1}
+.f-field label{font-size:.74rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--text-mute)}
+[dir="rtl"] .f-field label{text-transform:none;letter-spacing:0;font-size:.82rem}
+.f-field input,.f-field select{padding:12px 14px;border-radius:var(--r-sm);background:var(--paper);border:1px solid var(--line-strong);color:var(--ink);font-size:.95rem;font-family:inherit}
+.f-field input:focus,.f-field select:focus{outline:none;border-color:var(--wine)}
+.f-agree{display:flex;align-items:flex-start;gap:10px;margin-top:18px;font-size:.85rem;color:var(--text-soft);line-height:1.5}
+.f-agree input{margin-top:3px;width:16px;height:16px;flex:none;accent-color:var(--wine)}
+.f-agree a{color:var(--wine);text-decoration:underline}
+.dlg-actions{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
+.dlg-err{color:var(--live);font-size:.85rem;font-weight:500;margin-top:14px;min-height:1em}
+.dlg-close{position:absolute;top:16px;inset-inline-end:16px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:var(--text-mute)}
+.dlg-close:hover{background:var(--surface-2);color:var(--ink)}
+.dlg-close svg{width:20px;height:20px}
+.banned-dlg{text-align:center;border-color:var(--live)}
+.banned-dlg .dlg-crest{color:var(--live)}
+
+/* Admin drawer */
+.drawer-overlay{position:fixed;inset:0;z-index:240;background:rgba(20,15,10,.5);opacity:0;pointer-events:none;transition:opacity .3s}
+.drawer-overlay.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;inset-inline-end:0;height:100%;width:min(560px,100%);background:var(--paper);border-inline-start:1px solid var(--line-strong);box-shadow:var(--shadow-lg);z-index:241;transform:translateX(100%);transition:transform .35s var(--ease);display:flex;flex-direction:column}
+[dir="rtl"] .drawer{transform:translateX(-100%)}
+.drawer.open{transform:none}
+.drawer-head{padding:22px 26px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.drawer-head h3{font-size:1.5rem}
+.adm-tabs{display:flex;gap:6px;padding:16px 26px 0}
+.adm-tab{padding:8px 14px;border-radius:var(--r-sm);font-size:.8rem;font-weight:600;color:var(--text-mute);border:1px solid var(--line)}
+.adm-tab.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.adm-body{padding:20px 26px;overflow-y:auto;flex:1}
+.adm-pane{display:none}
+.adm-pane.on{display:block}
+.adm-pane .f-grid{margin-bottom:14px}
+.adm-list{display:flex;flex-direction:column;gap:10px}
+.adm-card{border:1px solid var(--line);border-radius:var(--r-md);padding:14px 16px;background:var(--surface);font-size:.88rem}
+.adm-card .row1{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.adm-card b{font-family:var(--serif);font-size:1.05rem}
+.adm-card .meta{color:var(--text-mute);font-size:.8rem;margin-top:4px}
+.adm-card .acts{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.chip-btn{font-size:.74rem;font-weight:600;padding:7px 12px;border-radius:var(--r-sm);border:1px solid var(--line-strong);color:var(--ink)}
+.chip-btn:hover{border-color:var(--ink)}
+.chip-btn.on{background:var(--ok);color:#fff;border-color:var(--ok)}
+.chip-btn.danger{color:var(--live);border-color:rgba(138,43,31,.4)}
+.chip-btn.danger:hover{background:var(--live);color:#fff}
+.badge{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:var(--r-full)}
+.badge.paid{background:rgba(63,109,74,.15);color:var(--ok)}
+.badge.unpaid{background:var(--live-soft);color:var(--live)}
+.badge.banned{background:var(--live);color:#fff}
+.adm-note{font-size:.78rem;color:var(--text-mute);margin:6px 0 16px;line-height:1.5}
+.fab{position:fixed;bottom:24px;inset-inline-end:24px;z-index:150;background:var(--brass);color:#fff;border-radius:var(--r-full);padding:14px 20px;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 12px 30px -10px rgba(154,123,60,.7);display:none;align-items:center;gap:9px}
+.fab.show{display:inline-flex}
+.fab svg{width:18px;height:18px}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;gap:48px}
+  .feature-card{max-width:540px}
+  .lot-grid{grid-template-columns:repeat(2,1fr)}
+  .dept-grid{grid-template-columns:repeat(2,1fr)}
+  .dept.large{grid-column:span 2;grid-row:auto;aspect-ratio:16/10}
+  .schedule-grid{grid-template-columns:1fr}
+  .house-grid{grid-template-columns:1fr;gap:40px}
+  .house-seal{order:-1}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:32px}
+  .foot-brand{grid-column:1/-1}
+}
+@media(max-width:820px){
+  .nav-links,.nav-actions .desktop-only{display:none}
+  .burger{display:flex}
+  .steps{grid-template-columns:1fr}
+  .step{border-inline-end:none;border-bottom:1px solid var(--line)}
+  .step:last-child{border-bottom:none}
+  .stats-band{grid-template-columns:repeat(2,1fr)}
+  .stats-band .item:nth-child(2){border:none}
+  .stats-band .item{border-bottom:1px solid var(--line);padding-bottom:22px}
+  .modal{grid-template-columns:1fr;max-height:92vh}
+  .modal-img img{min-height:220px;max-height:260px}
+}
+@media(max-width:560px){
+  .lot-grid,.dept-grid{grid-template-columns:1fr}
+  .dept.large{aspect-ratio:3/4}
+  .hero-stats{gap:24px}
+  .toolbar{align-items:stretch}
+  .tabs{width:100%;justify-content:center}
+  .foot-grid{grid-template-columns:1fr}
+  .foot-bottom{flex-direction:column;text-align:center}
+  .f-grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip" data-i18n="skip">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="zc-crest" viewBox="0 0 120 120">
+    <circle cx="60" cy="60" r="57" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    <circle cx="60" cy="60" r="50" fill="none" stroke="currentColor" stroke-width="0.7"/>
+    <path id="zc-top" d="M60,60 m-40,0 a40,40 0 1,1 80,0" fill="none"/>
+    <path id="zc-bot" d="M60,60 m40,0 a40,40 0 1,1 -80,0" fill="none"/>
+    <text font-family="Libre Baskerville, serif" font-size="8.4" letter-spacing="2.6" fill="currentColor"><textPath href="#zc-top" startOffset="50%" text-anchor="middle">THE ZILBERSHLAG COLLECTION</textPath></text>
+    <text font-family="Libre Baskerville, serif" font-size="8" letter-spacing="3" fill="currentColor"><textPath href="#zc-bot" startOffset="50%" text-anchor="middle">· EST · 1962 ·</textPath></text>
+    <text x="60" y="74" text-anchor="middle" font-family="Libre Baskerville, serif" font-weight="700" font-size="42" fill="currentColor">Z</text>
+    <path d="M60 30 l2.2 4.6 5 .7 -3.6 3.6 .9 5 -4.5-2.4 -4.5 2.4 .9-5 -3.6-3.6 5-.7z" fill="currentColor"/>
+  </symbol>
+</svg>
+
+<div class="hallmark">
+  <span data-i18n="hallmark1">Established 1962</span><span class="sep">·</span>
+  <b data-i18n="hallmark2">Daily &amp; Weekly Auctions</b><span class="sep">·</span>
+  <span data-i18n="hallmark3">Private Sale by Appointment</span>
+</div>
+
+<header id="header">
+  <div class="wrap nav">
+    <a href="#" class="brand" aria-label="Zilbershlag — home">
+      <svg class="crest" style="color:var(--ink)"><use href="#zc-crest"/></svg>
+      <span class="word"><b>ZILBERSHLAG</b><span data-i18n="brandSub">The Private Collection · Est. 1962</span></span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="#collection" data-i18n="navCollection">The Collection</a></li>
+        <li><a href="#departments" data-i18n="navDepartments">Departments</a></li>
+        <li><a href="#how" data-i18n="navHow">How it works</a></li>
+        <li><a href="#house" data-i18n="navHouse">The House</a></li>
+        <li><a href="#enquire" data-i18n="navEnquire">Enquire</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button data-lang="en" class="on" aria-pressed="true">EN</button>
+        <button data-lang="he" aria-pressed="false">עב</button>
+      </div>
+      <span class="nav-divider desktop-only"></span>
+      <button class="admin-link desktop-only" id="adminBtn" hidden data-i18n="admin">Admin</button>
+      <button class="signin desktop-only" id="authBtn" data-i18n="signin">Sign in</button>
+      <button class="acct desktop-only" id="acctBtn" hidden><span class="av" id="acctAv">Z</span><span class="nm" id="acctNm"></span></button>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#collection" data-i18n="navCollection">The Collection</a>
+  <a href="#departments" data-i18n="navDepartments">Departments</a>
+  <a href="#how" data-i18n="navHow">How it works</a>
+  <a href="#house" data-i18n="navHouse">The House</a>
+  <a href="#enquire" data-i18n="navEnquire">Enquire</a>
+  <div class="m-actions">
+    <button class="btn btn-ghost" id="authBtnM" data-i18n="signin">Sign in</button>
+    <button class="btn btn-wine" id="adminBtnM" hidden data-i18n="admin">Admin</button>
+  </div>
+</div>
+
+<main id="main">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow" data-i18n="heroEyebrow">Purveyors of fine things since 1962</span>
+      <h1 class="h-display serif-auto" data-i18n="heroTitle">A house built on<br/><em>six decades</em><br/>of collecting.</h1>
+      <p class="lede" data-i18n="heroLede">For over sixty years the House of Zilbershlag has gathered the exceptional — fine art, timepieces, jewellery, Judaica and rare objects from across the world. The collection is now offered, piece by piece, through daily and weekly auction and by private sale.</p>
+      <div class="hero-cta">
+        <a href="#collection" class="btn btn-wine" data-i18n="heroCta1">Enter the saleroom
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg></a>
+        <a href="#how" class="btn btn-ghost" data-i18n="heroCta2">How it works</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="num">4,200+</div><div class="lbl" data-i18n="statPieces">Pieces</div></div>
+        <div class="stat"><div class="num">1962</div><div class="lbl" data-i18n="statEst">Established</div></div>
+        <div class="stat"><div class="num">9</div><div class="lbl" data-i18n="statDepts">Departments</div></div>
+      </div>
+    </div>
+    <div class="feature-card reveal" id="featureCard">
+      <div class="fc-img">
+        <span class="live-badge"><span class="live-dot"></span><span data-i18n="liveNow">Live now</span></span>
+        <img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?auto=format&fit=crop&w=900&q=80" alt="Rare perpetual calendar wristwatch" />
+      </div>
+      <div class="fc-body">
+        <div class="fc-house">The Horology Cabinet · Lot 15</div>
+        <div class="fc-title">Patek Philippe Perpetual Calendar, Ref. 3940</div>
+        <div class="fc-meta">
+          <div class="fc-bid"><div class="k" data-i18n="currentBid">Current bid</div><div class="v" id="featureBid">$186,000</div></div>
+          <div class="countdown" id="featureCountdown" aria-label="Time remaining">
+            <div class="seg"><b data-h>00</b><span data-i18n="hrs">hrs</span></div>
+            <div class="seg"><b data-m>00</b><span data-i18n="min">min</span></div>
+            <div class="seg"><b data-s>00</b><span data-i18n="sec">sec</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="schedule">
+  <div class="wrap schedule-grid">
+    <div class="sch">
+      <div class="sch-ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 2m5-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+      <div><h4 data-i18n="schDailyT">Daily auctions</h4><p data-i18n="schDailyP">Timed lots open and close every day at 20:00. New pieces released each morning.</p></div>
+    </div>
+    <div class="sch">
+      <div class="sch-ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3M4 11h16M5 5h14a1 1 0 011 1v13a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1z"/></svg></div>
+      <div><h4 data-i18n="schWeeklyT">Weekly signature sale</h4><p data-i18n="schWeeklyP">The finest lots of the week gathered every Thursday evening — the marquee event of the House.</p></div>
+    </div>
+    <div class="sch">
+      <div class="sch-ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21v-2a4 4 0 014-4h10a4 4 0 014 4v2M12 3l2.5 5 5.5.8-4 3.9.9 5.4L12 15.5 7.1 18l.9-5.4-4-3.9 5.5-.8z"/></svg></div>
+      <div><h4 data-i18n="schPrivateT">Private sale</h4><p data-i18n="schPrivateP">Many pieces are offered directly at a fixed price — acquire immediately, no auction required.</p></div>
+    </div>
+  </div>
+</div>
+
+<section class="block" id="collection">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow" data-i18n="colEyebrow">The saleroom</span>
+        <h2 class="h-section serif-auto" data-i18n="colTitle">Pieces on offer</h2>
+        <p class="sub" data-i18n="colSub">Bid in the daily and weekly auctions, or acquire immediately by private sale — every lot direct from the collection.</p>
+      </div>
+      <a href="#" class="link-arrow" data-i18n="colCatalogue">View full catalogue
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg></a>
+    </div>
+    <div class="toolbar reveal">
+      <div class="tabs" id="statusTabs" role="tablist">
+        <button class="tab active" data-status="all" role="tab" data-i18n="tabAll">All lots</button>
+        <button class="tab" data-status="live" role="tab"><span class="dot"></span><span data-i18n="tabLive">Live auction</span></button>
+        <button class="tab" data-status="upcoming" role="tab" data-i18n="tabSoon">Upcoming</button>
+        <button class="tab" data-status="buynow" role="tab"><span class="dot buy"></span><span data-i18n="tabBuy">Private sale</span></button>
+      </div>
+      <div class="chips" id="catChips"></div>
+    </div>
+    <div class="lot-grid" id="lotGrid"></div>
+    <div style="text-align:center;margin-top:52px" class="reveal">
+      <button class="btn btn-ghost" id="loadMore" data-i18n="loadMore">Load more lots</button>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="departments" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><span class="eyebrow" data-i18n="deptEyebrow">Collecting categories</span>
+        <h2 class="h-section serif-auto" data-i18n="deptTitle">Explore by department</h2></div>
+    </div>
+    <div class="dept-grid reveal">
+      <div class="dept large">
+        <img src="https://images.unsplash.com/photo-1578321272176-b7bbc0679853?auto=format&fit=crop&w=1000&q=80" alt="Fine art painting" />
+        <div class="dept-cap"><h3 data-i18n="deptFineArt">Fine Art</h3><span>1,240 <span data-i18n="pieces">pieces</span></span>
+          <div class="go"><span data-i18n="browseDept">Browse department</span> <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg></div></div>
+      </div>
+      <div class="dept"><img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=700&q=80" alt="Wristwatch" />
+        <div class="dept-cap"><h3 data-i18n="deptWatches">Watches</h3><span>410 <span data-i18n="pieces">pieces</span></span></div></div>
+      <div class="dept"><img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=700&q=80" alt="Jewellery" />
+        <div class="dept-cap"><h3 data-i18n="deptJewellery">Jewellery</h3><span>530 <span data-i18n="pieces">pieces</span></span></div></div>
+      <div class="dept"><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=700&q=80" alt="Judaica and rare books" />
+        <div class="dept-cap"><h3 data-i18n="deptJudaica">Judaica &amp; Rare Books</h3><span>620 <span data-i18n="pieces">pieces</span></span></div></div>
+      <div class="dept"><img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?auto=format&fit=crop&w=700&q=80" alt="Design and antiquities" />
+        <div class="dept-cap"><h3 data-i18n="deptDesign">Design &amp; Antiquities</h3><span>800 <span data-i18n="pieces">pieces</span></span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block house" id="house">
+  <div class="wrap house-grid">
+    <div class="reveal">
+      <span class="eyebrow" data-i18n="houseEyebrow">The House of Zilbershlag</span>
+      <h2 class="h-section serif-auto" data-i18n="houseTitle">A name entrusted with fine things for three generations.</h2>
+      <p data-i18n="houseP1">What began in 1962 as one collector's pursuit of the rare and the beautiful has become a private institution — a house known for discretion, scholarship and an unerring eye. Each object is researched, documented and catalogued with the care of an archive.</p>
+      <p data-i18n="houseP2">Today the collection opens its doors. Whether by daily auction, the weekly signature sale, or quiet private acquisition, every piece carries the provenance and assurance of the House.</p>
+      <a href="#enquire" class="link-arrow" style="color:var(--brass-bright);border-color:var(--brass)" data-i18n="houseCta">Request a private viewing
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg></a>
+    </div>
+    <div class="house-seal reveal"><svg style="color:var(--brass-bright)"><use href="#zc-crest"/></svg></div>
+  </div>
+</section>
+
+<section class="block how" id="how">
+  <div class="wrap">
+    <div class="section-head reveal" style="justify-content:center;text-align:center">
+      <div style="max-width:640px">
+        <span class="eyebrow" style="justify-content:center" data-i18n="howEyebrow">Simple by design</span>
+        <h2 class="h-section serif-auto" data-i18n="howTitle">Register, bid or buy, acquire</h2>
+        <p class="sub" style="margin-inline:auto" data-i18n="howSub">Participation requires a verified account. Registration is by Google sign-in, with your full details held securely for delivery and settlement.</p>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="step-num">01</div>
+        <div class="step-ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg></div>
+        <h3 data-i18n="how1T">Register with Google</h3><p data-i18n="how1P">Sign in with Google and complete your buyer profile — full name, contact and identification. One verified account for every sale.</p></div>
+      <div class="step reveal"><div class="step-num">02</div>
+        <div class="step-ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div>
+        <h3 data-i18n="how2T">Bid or buy now</h3><p data-i18n="how2P">Place binding bids in the daily and weekly auctions, or acquire a private-sale piece immediately at its fixed price.</p></div>
+      <div class="step reveal"><div class="step-num">03</div>
+        <div class="step-ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+        <h3 data-i18n="how3T">Settle &amp; receive</h3><p data-i18n="how3P">Winning is binding. Settlement and insured worldwide delivery are arranged by the collection office. Non-payment forfeits the account permanently.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="stats-band reveal">
+      <div class="item"><div class="num">4,200+</div><div class="lbl" data-i18n="stat1">Pieces catalogued</div></div>
+      <div class="item"><div class="num">62</div><div class="lbl" data-i18n="stat2">Years established</div></div>
+      <div class="item"><div class="num">100%</div><div class="lbl" data-i18n="stat3">Provenance documented</div></div>
+      <div class="item"><div class="num">24/7</div><div class="lbl" data-i18n="stat4">Global bidding</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="enquire" style="padding-top:0">
+  <div class="wrap">
+    <div class="sell reveal">
+      <div class="sell-inner">
+        <span class="eyebrow" data-i18n="enqEyebrow">At your service</span>
+        <h2 class="h-section serif-auto" data-i18n="enqTitle">Speak with the collection office.</h2>
+        <p data-i18n="enqP">Register to bid, book a private viewing, or enquire about any piece in the collection. Our specialists attend to every request personally.</p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <button class="btn btn-wine" id="enqRegister" data-i18n="enqCta1">Register to bid
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg></button>
+          <a href="mailto:office@zilbershlag.com" class="btn btn-ghost" data-i18n="enqCta2">Book a private viewing</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" style="padding-top:0">
+  <div class="wrap">
+    <div class="news reveal">
+      <span class="eyebrow" style="justify-content:center" data-i18n="newsEyebrow">The House dispatch</span>
+      <h2 class="h-section serif-auto" data-i18n="newsTitle">Be first to the next release.</h2>
+      <p data-i18n="newsP">Advance notice of the daily lots and the weekly signature sale, delivered to your inbox.</p>
+      <form id="newsForm">
+        <input type="email" placeholder="your@email.com" aria-label="Email address" required />
+        <button type="submit" class="btn btn-wine" data-i18n="subscribe">Subscribe</button>
+      </form>
+      <p class="note" id="newsNote" data-i18n="newsNote">We respect your inbox. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="brand"><svg class="crest" style="color:var(--brass-bright)"><use href="#zc-crest"/></svg>
+          <span class="word"><b>ZILBERSHLAG</b><span data-i18n="brandSub">The Private Collection · Est. 1962</span></span></div>
+        <p data-i18n="footBlurb">A private collection of fine art and rare objects, six decades in the making — offered by daily and weekly auction and by private sale.</p>
+        <div class="socials">
+          <a href="#" aria-label="Instagram"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" aria-label="X"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M18.9 2H22l-7.5 8.6L23 22h-6.8l-5.3-6.9L4.8 22H1.7l8-9.2L1 2h7l4.8 6.3L18.9 2z"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C20.4 8.65 22 10.6 22 14v7h-4v-6.2c0-1.48-.03-3.4-2.07-3.4-2.07 0-2.38 1.62-2.38 3.3V21H9z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col"><h4 data-i18n="footDiscover">Discover</h4><ul>
+        <li><a href="#collection" data-i18n="tabLive">Live auction</a></li>
+        <li><a href="#collection" data-i18n="tabBuy">Private sale</a></li>
+        <li><a href="#departments" data-i18n="navDepartments">Departments</a></li>
+        <li><a href="#" data-i18n="footCalendar">Sale calendar</a></li></ul></div>
+      <div class="foot-col"><h4 data-i18n="footCollectors">Collectors</h4><ul>
+        <li><a href="#how" data-i18n="footHowBid">How to bid</a></li>
+        <li><a href="#enquire" data-i18n="register">Register to bid</a></li>
+        <li><a href="terms.html" data-i18n="footPremium">Buyer's premium</a></li>
+        <li><a href="terms.html" data-i18n="footShipping">Shipping &amp; delivery</a></li></ul></div>
+      <div class="foot-col"><h4 data-i18n="footHouse">The House</h4><ul>
+        <li><a href="#house" data-i18n="footAbout">About the House</a></li>
+        <li><a href="terms.html" data-i18n="footTerms">Terms &amp; conditions</a></li>
+        <li><a href="privacy.html" data-i18n="footPrivacy">Privacy policy</a></li>
+        <li><a href="accessibility.html" data-i18n="footA11y">Accessibility</a></li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <p>© <span id="year"></span> <span data-i18n="footRights">The Zilbershlag Collection. All rights reserved.</span></p>
+      <div class="legal">
+        <a href="privacy.html" data-i18n="footPrivacy">Privacy</a>
+        <a href="terms.html" data-i18n="footTerms">Terms</a>
+        <a href="accessibility.html" data-i18n="footA11y">Accessibility</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Bid / buy modal -->
+<div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-img">
+      <button class="modal-close" id="modalClose" aria-label="Close"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <img id="modalImg" src="" alt="" />
+    </div>
+    <div class="modal-body">
+      <div class="m-house" id="modalHouse"></div>
+      <h3 class="m-title serif-auto" id="modalTitle"></h3>
+      <div class="m-lot" id="modalLot"></div>
+      <div class="m-rows">
+        <div class="m-row"><span class="k" id="modalEstK">Estimate</span><span class="v" id="modalEst"></span></div>
+        <div class="m-row"><span class="k" id="modalBidK">Current bid</span><span class="v big" id="modalBid"></span></div>
+        <div class="m-row"><span class="k" id="modalTimeK">Time remaining</span><span class="v" id="modalTime"></span></div>
+      </div>
+      <div class="m-bidbox">
+        <label for="bidInput" id="bidLabel">Your maximum bid</label>
+        <div class="m-inputrow"><span class="pfx">$</span><input type="text" id="bidInput" inputmode="numeric" placeholder="0" /></div>
+        <button class="btn btn-wine m-place" id="placeBid">Place bid</button>
+        <div class="m-success" id="bidSuccess"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span id="bidSuccessText"></span></div>
+        <p class="m-note" id="modalNote">Winning bids are binding. This is a preview — no real transaction occurs.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Registration dialog -->
+<div class="dlg-overlay" id="regOverlay" aria-hidden="true">
+  <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="regTitle">
+    <button class="dlg-close" id="regClose" aria-label="Close"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <svg class="dlg-crest"><use href="#zc-crest"/></svg>
+    <h2 class="serif-auto" id="regTitle" data-i18n="regTitle">Complete your registration</h2>
+    <p class="dlg-sub" data-i18n="regIntro">To bid or buy you must be a verified account holder. Your details are held securely and used only for settlement and delivery.</p>
+    <form id="regForm">
+      <div class="f-grid">
+        <div class="f-field full"><label data-i18n="regName">Full legal name</label><input id="rgName" type="text" autocomplete="name" required /></div>
+        <div class="f-field"><label data-i18n="regPhone">Phone</label><input id="rgPhone" type="tel" autocomplete="tel" required /></div>
+        <div class="f-field"><label data-i18n="regCountry">Country</label><input id="rgCountry" type="text" autocomplete="country-name" required /></div>
+        <div class="f-field"><label data-i18n="regCity">City</label><input id="rgCity" type="text" autocomplete="address-level2" required /></div>
+        <div class="f-field"><label data-i18n="regPostal">Postal code</label><input id="rgPostal" type="text" autocomplete="postal-code" /></div>
+        <div class="f-field full"><label data-i18n="regStreet">Street address</label><input id="rgStreet" type="text" autocomplete="street-address" required /></div>
+        <div class="f-field"><label data-i18n="regIdType">ID type</label><select id="rgIdType"><option value="id" data-i18n="regIdTZ">National ID</option><option value="passport" data-i18n="regIdPassport">Passport</option></select></div>
+        <div class="f-field"><label data-i18n="regIdNum">ID / passport number</label><input id="rgIdNum" type="text" required /></div>
+      </div>
+      <label class="f-agree"><input type="checkbox" id="rgAgree" required /><span data-i18n="regAgree">I have read and accept the Terms &amp; Conditions and Privacy Policy, and I understand that winning bids are binding and that non-payment results in permanent removal from the House.</span></label>
+      <div class="dlg-err" id="regErr"></div>
+      <div class="dlg-actions">
+        <button type="submit" class="btn btn-wine" id="regSubmit" data-i18n="regSubmit">Save &amp; continue</button>
+        <button type="button" class="btn btn-ghost" id="regSignout" data-i18n="signOut">Sign out</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Banned dialog -->
+<div class="dlg-overlay" id="banOverlay" aria-hidden="true">
+  <div class="dlg banned-dlg" role="alertdialog" aria-modal="true">
+    <svg class="dlg-crest"><use href="#zc-crest"/></svg>
+    <h2 class="serif-auto" data-i18n="bannedTitle">Account suspended</h2>
+    <p class="dlg-sub" data-i18n="bannedBody">This account has been permanently removed from the House following an unsettled winning bid. If you believe this is in error, contact the collection office.</p>
+    <a href="mailto:office@zilbershlag.com" class="btn btn-ghost" data-i18n="bannedContact">Contact the office</a>
+  </div>
+</div>
+
+<!-- Admin FAB + drawer -->
+<button class="fab" id="adminFab"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 16v-2m6-6h2M4 12h2m9.5-5.5l1.5-1.5M6.5 17.5L5 19m12.5-1.5L19 19M6.5 6.5L5 5"/><circle cx="12" cy="12" r="3.2"/></svg><span data-i18n="admin">Admin</span></button>
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-head"><h3 class="serif-auto" data-i18n="admTitle">Collection office</h3>
+    <button class="dlg-close" id="drawerClose" aria-label="Close"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="adm-tabs">
+    <button class="adm-tab on" data-pane="add" data-i18n="admAdd">Add lot</button>
+    <button class="adm-tab" data-pane="orders" data-i18n="admOrders">Orders</button>
+    <button class="adm-tab" data-pane="members" data-i18n="admMembers">Members</button>
+  </div>
+  <div class="adm-body">
+    <div class="adm-pane on" id="paneAdd">
+      <p class="adm-note" data-i18n="admAddNote">Add a lot to the live catalogue. Auctions take a starting bid, increment and duration; private-sale pieces take a fixed price.</p>
+      <form id="lotForm">
+        <div class="f-grid">
+          <div class="f-field full"><label data-i18n="admTitleF">Title</label><input id="ltTitle" type="text" required /></div>
+          <div class="f-field"><label data-i18n="admDept">Department / section</label><input id="ltHouse" type="text" placeholder="The Horology Cabinet" /></div>
+          <div class="f-field"><label data-i18n="admCat">Category</label><select id="ltCat"></select></div>
+          <div class="f-field"><label data-i18n="admMode">Type</label><select id="ltMode"><option value="live" data-i18n="admModeAuction">Auction</option><option value="buynow" data-i18n="admModeBuy">Private sale</option></select></div>
+          <div class="f-field"><label data-i18n="admImg">Image URL</label><input id="ltImg" type="url" placeholder="https://…" /></div>
+          <div class="f-field auction-only"><label data-i18n="admEst">Estimate</label><input id="ltEst" type="text" placeholder="$10,000 – $15,000" /></div>
+          <div class="f-field auction-only"><label data-i18n="admStart">Starting bid ($)</label><input id="ltStart" type="number" min="0" value="0" /></div>
+          <div class="f-field auction-only"><label data-i18n="admIncr">Min increment ($)</label><input id="ltIncr" type="number" min="1" value="100" /></div>
+          <div class="f-field auction-only"><label data-i18n="admDur">Duration (hours)</label><input id="ltDur" type="number" min="1" value="24" /></div>
+          <div class="f-field buy-only" hidden><label data-i18n="admPrice">Price ($)</label><input id="ltPrice" type="number" min="0" value="0" /></div>
+        </div>
+        <div class="dlg-err" id="lotErr"></div>
+        <div class="dlg-actions"><button type="submit" class="btn btn-wine" data-i18n="admAddBtn">Add lot</button></div>
+      </form>
+    </div>
+    <div class="adm-pane" id="paneOrders">
+      <p class="adm-note" data-i18n="admOrdersNote">Auction wins and private-sale reservations. Mark as paid once settled; mark unpaid &amp; ban to permanently remove a non-paying account.</p>
+      <div class="adm-list" id="ordersList"></div>
+    </div>
+    <div class="adm-pane" id="paneMembers">
+      <p class="adm-note" data-i18n="admMembersNote">Registered accounts. Ban to block bidding and buying permanently; a banned account cannot re-enter.</p>
+      <div class="adm-list" id="membersList"></div>
+    </div>
+  </div>
+</aside>
+
+<script type="module">
+/* ===== Firebase config — project ASFANUT (asfanut-9ac78) ===== */
+const firebaseConfig = {
+  apiKey: "AIzaSyBgCPyDPzPHF7WzY5zE5IHqZtSU0EIvTH0",
+  authDomain: "asfanut-9ac78.firebaseapp.com",
+  projectId: "asfanut-9ac78",
+  storageBucket: "asfanut-9ac78.firebasestorage.app",
+  messagingSenderId: "25280022255",
+  appId: "1:25280022255:web:c32e1f34437621c3d57d1a"
+};
+const ADMIN_EMAIL = "aaci.yoni@gmail.com";  // site owner
+/* Firebase SDK symbols — populated by the dynamic import in initFirebase().
+   Loaded resiliently: if the CDN is unreachable the whole catalogue still
+   renders (preview mode) instead of the page breaking. */
+let initializeApp,getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged,
+    getFirestore,collection,doc,getDoc,setDoc,updateDoc,onSnapshot,runTransaction,addDoc,serverTimestamp,Timestamp,query,orderBy;
+let auth=null, db=null, online=false, provider=null;
+
+/* ============================================================
+   i18n
+   ============================================================ */
+const I18N = {
+  en:{ skip:"Skip to content", hallmark1:"Established 1962", hallmark2:"Daily & Weekly Auctions", hallmark3:"Private Sale by Appointment",
+    brandSub:"The Private Collection · Est. 1962", navCollection:"The Collection", navDepartments:"Departments", navHow:"How it works", navHouse:"The House", navEnquire:"Enquire",
+    signin:"Sign in", signOut:"Sign out", register:"Register to bid", admin:"Admin",
+    heroEyebrow:"Purveyors of fine things since 1962", heroTitle:"A house built on<br/><em>six decades</em><br/>of collecting.",
+    heroLede:"For over sixty years the House of Zilbershlag has gathered the exceptional — fine art, timepieces, jewellery, Judaica and rare objects from across the world. The collection is now offered, piece by piece, through daily and weekly auction and by private sale.",
+    heroCta1:"Enter the saleroom", heroCta2:"How it works", statPieces:"Pieces", statEst:"Established", statDepts:"Departments",
+    liveNow:"Live now", currentBid:"Current bid", hrs:"hrs", min:"min", sec:"sec",
+    schDailyT:"Daily auctions", schDailyP:"Timed lots open and close every day at 20:00. New pieces released each morning.",
+    schWeeklyT:"Weekly signature sale", schWeeklyP:"The finest lots of the week gathered every Thursday evening — the marquee event of the House.",
+    schPrivateT:"Private sale", schPrivateP:"Many pieces are offered directly at a fixed price — acquire immediately, no auction required.",
+    colEyebrow:"The saleroom", colTitle:"Pieces on offer", colSub:"Bid in the daily and weekly auctions, or acquire immediately by private sale — every lot direct from the collection.", colCatalogue:"View full catalogue",
+    tabAll:"All lots", tabLive:"Live auction", tabSoon:"Upcoming", tabBuy:"Private sale", loadMore:"Load more lots",
+    deptEyebrow:"Collecting categories", deptTitle:"Explore by department", browseDept:"Browse department", pieces:"pieces",
+    deptFineArt:"Fine Art", deptWatches:"Watches", deptJewellery:"Jewellery", deptJudaica:"Judaica & Rare Books", deptDesign:"Design & Antiquities",
+    houseEyebrow:"The House of Zilbershlag", houseTitle:"A name entrusted with fine things for three generations.",
+    houseP1:"What began in 1962 as one collector's pursuit of the rare and the beautiful has become a private institution — a house known for discretion, scholarship and an unerring eye. Each object is researched, documented and catalogued with the care of an archive.",
+    houseP2:"Today the collection opens its doors. Whether by daily auction, the weekly signature sale, or quiet private acquisition, every piece carries the provenance and assurance of the House.", houseCta:"Request a private viewing",
+    howEyebrow:"Simple by design", howTitle:"Register, bid or buy, acquire", howSub:"Participation requires a verified account. Registration is by Google sign-in, with your full details held securely for delivery and settlement.",
+    how1T:"Register with Google", how1P:"Sign in with Google and complete your buyer profile — full name, contact and identification. One verified account for every sale.",
+    how2T:"Bid or buy now", how2P:"Place binding bids in the daily and weekly auctions, or acquire a private-sale piece immediately at its fixed price.",
+    how3T:"Settle & receive", how3P:"Winning is binding. Settlement and insured worldwide delivery are arranged by the collection office. Non-payment forfeits the account permanently.",
+    stat1:"Pieces catalogued", stat2:"Years established", stat3:"Provenance documented", stat4:"Global bidding",
+    enqEyebrow:"At your service", enqTitle:"Speak with the collection office.", enqP:"Register to bid, book a private viewing, or enquire about any piece in the collection. Our specialists attend to every request personally.", enqCta1:"Register to bid", enqCta2:"Book a private viewing",
+    newsEyebrow:"The House dispatch", newsTitle:"Be first to the next release.", newsP:"Advance notice of the daily lots and the weekly signature sale, delivered to your inbox.", subscribe:"Subscribe", newsNote:"We respect your inbox. Unsubscribe anytime.",
+    footBlurb:"A private collection of fine art and rare objects, six decades in the making — offered by daily and weekly auction and by private sale.",
+    footDiscover:"Discover", footCollectors:"Collectors", footHouse:"The House", footCalendar:"Sale calendar", footHowBid:"How to bid", footPremium:"Buyer's premium", footShipping:"Shipping & delivery", footAbout:"About the House", footTerms:"Terms & conditions", footPrivacy:"Privacy policy", footA11y:"Accessibility", footRights:"The Zilbershlag Collection. All rights reserved.",
+    mBid:"Your maximum bid", mPlace:"Place bid", mRegister:"Register interest", mReserve:"Reserve this piece", mOffer:"Make an offer (optional)",
+    mEstimate:"Estimate", mCurrentBid:"Current bid", mNoBids:"No bids yet", mTimeRemaining:"Time remaining", mClosesIn:"Closes in ", mOpensIn:"Opens in ",
+    mDepartment:"Department", mPrice:"Price", mAvailability:"Availability", mAvailNow:"Available now — private sale",
+    mNoteAuction:"Winning bids are binding. A 22% buyer's premium applies.", mNotePrivate:"Fixed-price private sale, direct from the collection.",
+    mReserved:"This piece is reserved in your name — the collection office will be in touch to settle.", mOffered:"Your offer has been received — the collection office will be in touch.",
+    mRegistered:"You are registered — we will alert you the moment this lot opens.", mBidPlaced:"Your bid has been placed — you are the leading bidder.", mBidLow:"A bid must exceed the current bid. Please try a higher amount.",
+    mSignInFirst:"Please sign in with Google to bid or buy.", mClosed:"This lot has closed.", mPreview:"Preview lot — sign-in required only on live lots.",
+    curr:"$", closesIn:"Closes in", opensIn:"Opens in", availLine:"Direct from the collection", tagLive:"Live now", tagSoon:"Upcoming", tagBuy:"Private sale", btnBid:"Place bid", btnBuy:"Buy now", btnSoon:"Register interest",
+    regTitle:"Complete your registration", regIntro:"To bid or buy you must be a verified account holder. Your details are held securely and used only for settlement and delivery.",
+    regName:"Full legal name", regPhone:"Phone", regCountry:"Country", regCity:"City", regPostal:"Postal code", regStreet:"Street address", regIdType:"ID type", regIdTZ:"National ID", regIdPassport:"Passport", regIdNum:"ID / passport number",
+    regAgree:"I have read and accept the Terms & Conditions and Privacy Policy, and I understand that winning bids are binding and that non-payment results in permanent removal from the House.",
+    regSubmit:"Save & continue", regFill:"Please complete all required fields and accept the terms.", regSaved:"Registration complete — you may now bid and buy.",
+    bannedTitle:"Account suspended", bannedBody:"This account has been permanently removed from the House following an unsettled winning bid. If you believe this is in error, contact the collection office.", bannedContact:"Contact the office",
+    admTitle:"Collection office", admAdd:"Add lot", admOrders:"Orders", admMembers:"Members",
+    admAddNote:"Add a lot to the live catalogue. Auctions take a starting bid, increment and duration; private-sale pieces take a fixed price.",
+    admTitleF:"Title", admDept:"Department / section", admCat:"Category", admMode:"Type", admModeAuction:"Auction", admModeBuy:"Private sale", admImg:"Image URL", admEst:"Estimate", admStart:"Starting bid ($)", admIncr:"Min increment ($)", admDur:"Duration (hours)", admPrice:"Price ($)", admAddBtn:"Add lot", admAdded:"Lot added to the catalogue.",
+    admOrdersNote:"Auction wins and private-sale reservations. Mark as paid once settled; mark unpaid & ban to permanently remove a non-paying account.",
+    admMembersNote:"Registered accounts. Ban to block bidding and buying permanently; a banned account cannot re-enter.",
+    admPaid:"Paid", admUnpaid:"Unpaid", admMarkPaid:"Mark paid", admMarkUnpaid:"Mark unpaid", admBan:"Ban account", admUnban:"Unban", admBanned:"Banned", admNoOrders:"No orders yet.", admNoMembers:"No registered accounts yet.", admConfirmBan:"Ban this account permanently?" },
+
+  he:{ skip:"דלג לתוכן", hallmark1:"נוסד ב-1962", hallmark2:"מכירות פומביות יומיות ושבועיות", hallmark3:"מכירה פרטית בתיאום מראש",
+    brandSub:"האוסף הפרטי · נוסד 1962", navCollection:"האוסף", navDepartments:"מחלקות", navHow:"איך זה עובד", navHouse:"הבית", navEnquire:"יצירת קשר",
+    signin:"התחברות", signOut:"התנתקות", register:"הרשמה למכירה", admin:"ניהול",
+    heroEyebrow:"אספני מובחר מאז 1962", heroTitle:"בית שנבנה על<br/><em>שישה עשורים</em><br/>של אספנות.",
+    heroLede:"במשך למעלה משישים שנה אסף בית זילברשלג את יוצא הדופן — אמנות, שעונים, תכשיטים, יודאיקה ופריטים נדירים מרחבי העולם. כעת האוסף מוצע, פריט אחר פריט, במכירות פומביות יומיות ושבועיות ובמכירה פרטית.",
+    heroCta1:"כניסה לאולם המכירות", heroCta2:"איך זה עובד", statPieces:"פריטים", statEst:"נוסד", statDepts:"מחלקות",
+    liveNow:"מתקיים כעת", currentBid:"הצעה נוכחית", hrs:"שע׳", min:"דק׳", sec:"שנ׳",
+    schDailyT:"מכירות יומיות", schDailyP:"פריטים בזמן קצוב נפתחים ונסגרים מדי יום ב-20:00. פריטים חדשים נחשפים בכל בוקר.",
+    schWeeklyT:"מכירת הדגל השבועית", schWeeklyP:"מיטב הפריטים של השבוע, בכל יום חמישי בערב — אירוע הדגל של הבית.",
+    schPrivateT:"מכירה פרטית", schPrivateP:"פריטים רבים מוצעים ישירות במחיר קבוע — רכישה מיידית, ללא מכרז.",
+    colEyebrow:"אולם המכירות", colTitle:"פריטים המוצעים למכירה", colSub:"הציעו במכירות היומיות והשבועיות, או רכשו מיד במכירה פרטית — כל פריט ישירות מהאוסף.", colCatalogue:"לצפייה בקטלוג המלא",
+    tabAll:"כל הפריטים", tabLive:"מכירה פומבית", tabSoon:"בקרוב", tabBuy:"מכירה פרטית", loadMore:"טען עוד פריטים",
+    deptEyebrow:"קטגוריות אספנות", deptTitle:"עיון לפי מחלקה", browseDept:"עיון במחלקה", pieces:"פריטים",
+    deptFineArt:"אמנות", deptWatches:"שעונים", deptJewellery:"תכשיטים", deptJudaica:"יודאיקה וספרים נדירים", deptDesign:"עיצוב ועתיקות",
+    houseEyebrow:"בית זילברשלג", houseTitle:"שם שהופקדו בידיו דברים יקרי ערך במשך שלושה דורות.",
+    houseP1:"מה שהחל ב-1962 כחיפושו של אספן אחד אחר הנדיר והיפה הפך למוסד פרטי — בית הידוע בדיסקרטיות, בבקיאות ובעין בוחנת. כל פריט נחקר, מתועד ונרשם בקפידה של ארכיון.",
+    houseP2:"כיום פותח האוסף את שעריו. בין אם במכירה יומית, במכירת הדגל השבועית או ברכישה פרטית ושקטה — כל פריט נושא עמו את מקורו ואת ערבות הבית.", houseCta:"בקשת צפייה פרטית",
+    howEyebrow:"פשוט בתכלית", howTitle:"הרשמה, הצעה או קנייה, וקבלה", howSub:"ההשתתפות מחייבת חשבון מאומת. ההרשמה באמצעות חשבון Google, ופרטיכם המלאים נשמרים באופן מאובטח לצורך משלוח והסדרת תשלום.",
+    how1T:"הרשמה עם Google", how1P:"התחברו עם Google והשלימו את פרופיל הקונה — שם מלא, פרטי קשר וזיהוי. חשבון מאומת אחד לכל מכירה.",
+    how2T:"הצעה או קנייה מיידית", how2P:"הגישו הצעות מחייבות במכירות היומיות והשבועיות, או רכשו פריט במכירה פרטית מיד במחירו הקבוע.",
+    how3T:"הסדרה וקבלה", how3P:"זכייה היא מחייבת. הסדרת התשלום והמשלוח המבוטח ברחבי העולם מתואמים על ידי משרד האוסף. אי-תשלום גורר חסימת החשבון לצמיתות.",
+    stat1:"פריטים בקטלוג", stat2:"שנות ותק", stat3:"מקור מתועד", stat4:"מכירה מסביב לשעון",
+    enqEyebrow:"לשירותכם", enqTitle:"שוחחו עם משרד האוסף.", enqP:"הירשמו למכירה, קבעו צפייה פרטית, או פנו בנוגע לכל פריט באוסף. המומחים שלנו מטפלים בכל פנייה באופן אישי.", enqCta1:"הרשמה למכירה", enqCta2:"קביעת צפייה פרטית",
+    newsEyebrow:"עלון הבית", newsTitle:"היו הראשונים לפריט הבא.", newsP:"עדכון מוקדם על הפריטים היומיים ועל מכירת הדגל השבועית, ישירות לתיבת הדואר שלכם.", subscribe:"הרשמה", newsNote:"אנו מכבדים את תיבת הדואר שלכם. ניתן להסיר בכל עת.",
+    footBlurb:"אוסף פרטי של אמנות ופריטים נדירים, שישה עשורים בהתהוותו — מוצע במכירות פומביות יומיות ושבועיות ובמכירה פרטית.",
+    footDiscover:"גילוי", footCollectors:"אספנים", footHouse:"הבית", footCalendar:"לוח מכירות", footHowBid:"איך מציעים", footPremium:"עמלת קונה", footShipping:"משלוח ומסירה", footAbout:"אודות הבית", footTerms:"תקנון ותנאים", footPrivacy:"מדיניות פרטיות", footA11y:"נגישות", footRights:"אוסף זילברשלג. כל הזכויות שמורות.",
+    mBid:"הצעת המקסימום שלך", mPlace:"הגש הצעה", mRegister:"רישום התעניינות", mReserve:"שריון הפריט", mOffer:"הצעת מחיר (רשות)",
+    mEstimate:"הערכה", mCurrentBid:"הצעה נוכחית", mNoBids:"אין הצעות עדיין", mTimeRemaining:"זמן שנותר", mClosesIn:"נסגר בעוד ", mOpensIn:"נפתח בעוד ",
+    mDepartment:"מחלקה", mPrice:"מחיר", mAvailability:"זמינות", mAvailNow:"זמין כעת — מכירה פרטית",
+    mNoteAuction:"הצעות זוכות הן מחייבות. חלה עמלת קונה של 22%.", mNotePrivate:"מכירה פרטית במחיר קבוע, ישירות מהאוסף.",
+    mReserved:"הפריט משוריין על שמך — משרד האוסף ייצור קשר להסדרה.", mOffered:"הצעתך התקבלה — משרד האוסף ייצור קשר.",
+    mRegistered:"נרשמת — נעדכן אותך ברגע שהפריט ייפתח.", mBidPlaced:"הצעתך נקלטה — אתה המציע המוביל.", mBidLow:"ההצעה חייבת לעלות על ההצעה הנוכחית. נסה סכום גבוה יותר.",
+    mSignInFirst:"יש להתחבר עם Google כדי להציע או לקנות.", mClosed:"הפריט נסגר.", mPreview:"פריט לדוגמה.",
+    curr:"$", closesIn:"נסגר בעוד", opensIn:"נפתח בעוד", availLine:"ישירות מהאוסף", tagLive:"מתקיים כעת", tagSoon:"בקרוב", tagBuy:"מכירה פרטית", btnBid:"הגש הצעה", btnBuy:"קנה עכשיו", btnSoon:"רישום התעניינות",
+    regTitle:"השלמת הרשמה", regIntro:"כדי להציע או לקנות יש להיות בעל חשבון מאומת. פרטיך נשמרים באופן מאובטח ומשמשים אך ורק להסדרת תשלום ומשלוח.",
+    regName:"שם מלא (כפי שבתעודה)", regPhone:"טלפון", regCountry:"מדינה", regCity:"עיר", regPostal:"מיקוד", regStreet:"כתובת (רחוב ומספר)", regIdType:"סוג זיהוי", regIdTZ:"תעודת זהות", regIdPassport:"דרכון", regIdNum:"מספר ת.ז. / דרכון",
+    regAgree:"קראתי ואני מסכים לתקנון ולמדיניות הפרטיות, ואני מבין שהצעות זוכות מחייבות ושאי-תשלום גורר הרחקה לצמיתות מהבית.",
+    regSubmit:"שמירה והמשך", regFill:"נא למלא את כל שדות החובה ולאשר את התקנון.", regSaved:"ההרשמה הושלמה — ניתן כעת להציע ולקנות.",
+    bannedTitle:"החשבון הושעה", bannedBody:"חשבון זה הוסר לצמיתות מהבית בעקבות הצעה זוכה שלא הוסדרה. אם לדעתך מדובר בטעות, פנה למשרד האוסף.", bannedContact:"פנייה למשרד",
+    admTitle:"משרד האוסף", admAdd:"הוספת פריט", admOrders:"הזמנות", admMembers:"חברים",
+    admAddNote:"הוסף פריט לקטלוג. מכירה פומבית דורשת מחיר פתיחה, מדרגה ומשך; מכירה פרטית דורשת מחיר קבוע.",
+    admTitleF:"כותרת", admDept:"מחלקה / חטיבה", admCat:"קטגוריה", admMode:"סוג", admModeAuction:"מכירה פומבית", admModeBuy:"מכירה פרטית", admImg:"כתובת תמונה", admEst:"הערכה", admStart:"מחיר פתיחה ($)", admIncr:"מדרגת מינימום ($)", admDur:"משך (שעות)", admPrice:"מחיר ($)", admAddBtn:"הוסף פריט", admAdded:"הפריט נוסף לקטלוג.",
+    admOrdersNote:"זכיות במכירה פומבית ושריונים במכירה פרטית. סמן ׳שולם׳ לאחר הסדרה; ׳לא שולם וחסום׳ להסרת חשבון שלא שילם.",
+    admMembersNote:"חשבונות רשומים. חסימה מונעת הצעה וקנייה לצמיתות; חשבון חסום אינו יכול לשוב.",
+    admPaid:"שולם", admUnpaid:"לא שולם", admMarkPaid:"סמן כשולם", admMarkUnpaid:"סמן כלא שולם", admBan:"חסום חשבון", admUnban:"בטל חסימה", admBanned:"חסום", admNoOrders:"אין הזמנות עדיין.", admNoMembers:"אין חשבונות רשומים עדיין.", admConfirmBan:"לחסום את החשבון לצמיתות?" }
+};
+let LANG = (localStorage.getItem("zc-lang") || (navigator.language||"en").slice(0,2));
+if(LANG!=="he") LANG="en";
+function t(k){ return (I18N[LANG] && I18N[LANG][k]) || (I18N.en[k]) || k; }
+
+/* ============================================================
+   Demo data (shown until real lots exist in Firestore)
+   ============================================================ */
+const CATEGORIES = ["All","Fine Art","Modern & Contemporary","Watches","Jewellery","Judaica","Antiquities","Rare Books","Design"];
+const CAT_HE = {All:"הכל","Fine Art":"אמנות","Modern & Contemporary":"מודרני ועכשווי",Watches:"שעונים",Jewellery:"תכשיטים",Judaica:"יודאיקה",Antiquities:"עתיקות","Rare Books":"ספרים נדירים",Design:"עיצוב"};
+const catLabel = c => LANG==="he" ? (CAT_HE[c]||c) : c;
+const DEMO = [
+  {id:"d1", house:"Modern Masters", cat:"Fine Art", title:"Reuven Rubin — Olive Trees in Galilee (Oil on canvas)", est:"$80,000 – $120,000", bid:96000, status:"live", hours:2.4, img:"https://images.unsplash.com/photo-1578321272176-b7bbc0679853?auto=format&fit=crop&w=800&q=80"},
+  {id:"d2", house:"The Horology Cabinet", cat:"Watches", title:"Rolex 'Paul Newman' Daytona, Ref. 6239", est:"$200,000 – $300,000", bid:246000, status:"live", hours:0.7, img:"https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=800&q=80"},
+  {id:"d3", house:"The Jewel Room", cat:"Jewellery", title:"Art Deco Emerald & Diamond Platinum Necklace", est:"$45,000 – $60,000", bid:38000, status:"live", hours:5.2, img:"https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80"},
+  {id:"d4", house:"Judaica Vault", cat:"Judaica", title:"Silver Hanukkah Menorah, Warsaw, 19th Century", est:"$15,000 – $20,000", bid:12500, status:"live", hours:8.5, img:"https://images.unsplash.com/photo-1601058268499-e52658b8ebf8?auto=format&fit=crop&w=800&q=80"},
+  {id:"d5", house:"Works on Paper", cat:"Modern & Contemporary", title:"Marc Chagall — Les Amoureux (Lithograph, signed)", price:"$6,800", status:"buynow", img:"https://images.unsplash.com/photo-1549887534-1541e9326642?auto=format&fit=crop&w=800&q=80"},
+  {id:"d6", house:"The Antiquities Room", cat:"Antiquities", title:"Roman Marble Portrait Bust of a Senator, 1st C. AD", est:"$110,000 – $150,000", bid:104000, status:"live", hours:3.8, img:"https://images.unsplash.com/photo-1608755728617-aef2521c8cc0?auto=format&fit=crop&w=800&q=80"},
+  {id:"d7", house:"The Library", cat:"Rare Books", title:"First Edition Book of Zohar, Mantua, 1558", est:"$40,000 – $60,000", bid:null, status:"upcoming", days:6, img:"https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80"},
+  {id:"d8", house:"Design Gallery", cat:"Design", title:"Jean Prouvé 'Standard' Chair, Original Edition (Set of 4)", price:"$32,000", status:"buynow", img:"https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=800&q=80"},
+  {id:"d9", house:"The Horology Cabinet", cat:"Watches", title:"Audemars Piguet Royal Oak 'Jumbo', Ref. 5402", est:"$90,000 – $130,000", bid:null, status:"upcoming", days:4, img:"https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?auto=format&fit=crop&w=800&q=80"},
+  {id:"d10", house:"The Jewel Room", cat:"Jewellery", title:"Cartier Panthère Brooch, Onyx & Emerald", price:"$74,000", status:"buynow", img:"https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=800&q=80"},
+  {id:"d11", house:"Modern Masters", cat:"Modern & Contemporary", title:"Yayoi Kusama — Pumpkin (Screenprint in colours)", est:"$120,000 – $180,000", bid:132000, status:"live", hours:1.1, img:"https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=800&q=80"},
+  {id:"d12", house:"Design Gallery", cat:"Design", title:"Tiffany Studios 'Dragonfly' Leaded Glass Table Lamp", est:"$70,000 – $95,000", bid:null, status:"upcoming", days:7, img:"https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=800&q=80"},
+  {id:"d13", house:"Judaica Vault", cat:"Judaica", title:"Illuminated Esther Scroll, Italy, 18th Century", price:"$18,500", status:"buynow", img:"https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80"},
+  {id:"d14", house:"Works on Paper", cat:"Fine Art", title:"Reuven Rubin — Study of a Jerusalem Courtyard (Gouache)", price:"$24,000", status:"buynow", img:"https://images.unsplash.com/photo-1578321272176-b7bbc0679853?auto=format&fit=crop&w=800&q=80"},
+  {id:"d15", house:"The Horology Cabinet", cat:"Watches", title:"Patek Philippe Perpetual Calendar, Ref. 3940", est:"$150,000 – $220,000", bid:186000, status:"live", hours:0.72, img:"https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?auto=format&fit=crop&w=800&q=80"},
+  {id:"d16", house:"The Antiquities Room", cat:"Antiquities", title:"Egyptian Faience Ushabti, Late Period", price:"$9,200", status:"buynow", img:"https://images.unsplash.com/photo-1608755728617-aef2521c8cc0?auto=format&fit=crop&w=800&q=80"},
+  {id:"d17", house:"The Jewel Room", cat:"Jewellery", title:"Belle Époque Diamond Rivière Necklace", est:"$55,000 – $75,000", bid:null, status:"upcoming", days:3, img:"https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80"},
+  {id:"d18", house:"The Library", cat:"Rare Books", title:"Babylonian Talmud, Slavita Edition (Complete)", price:"$46,000", status:"buynow", img:"https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80"},
+];
+function primeDemo(){ const n=Date.now(); DEMO.forEach(l=>{ l.demo=true; if(l.status==="live") l.endsAt=n+l.hours*3600*1000; else if(l.status==="upcoming") l.endsAt=n+l.days*24*3600*1000; }); }
+primeDemo();
+
+let LOTS = DEMO.slice();
+
+/* ============================================================
+   Helpers
+   ============================================================ */
+const $  = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const money = n => "$"+Number(n||0).toLocaleString("en-US");
+const digits = s => parseInt(String(s).replace(/[^0-9]/g,''))||0;
+const initial = s => (String(s||"?").trim()[0]||"?").toUpperCase();
+function fmtRemaining(ms){
+  if(ms<=0) return {text:LANG==="he"?"הסתיים":"Ended", urgent:false, ended:true};
+  const s=Math.floor(ms/1000), d=Math.floor(s/86400), h=Math.floor(s%86400/3600), m=Math.floor(s%3600/60), sec=s%60;
+  if(d>0) return {text:`${d}d ${h}h`, urgent:false};
+  if(h>0) return {text:`${h}h ${String(m).padStart(2,'0')}m ${String(sec).padStart(2,'0')}s`, urgent:h<1};
+  return {text:`${m}m ${String(sec).padStart(2,'0')}s`, urgent:true};
+}
+const lotById = id => LOTS.find(x=>String(x.id)===String(id));
+
+/* ============================================================
+   Language
+   ============================================================ */
+function applyLang(){
+  const html=document.documentElement;
+  html.lang=LANG; html.dir=LANG==="he"?"rtl":"ltr";
+  document.querySelectorAll("[data-i18n]").forEach(el=>{ const v=t(el.getAttribute("data-i18n")); if(v.includes("<")) el.innerHTML=v; else el.textContent=v; });
+  document.querySelectorAll(".lang-toggle button").forEach(b=>{ const on=b.dataset.lang===LANG; b.classList.toggle("on",on); b.setAttribute("aria-pressed",on); });
+  updateAuthUI(); render();
+}
+document.querySelectorAll(".lang-toggle button").forEach(b=>b.addEventListener("click",()=>{ LANG=b.dataset.lang; localStorage.setItem("zc-lang",LANG); applyLang(); }));
+
+/* ============================================================
+   Catalogue render
+   ============================================================ */
+let activeCat="All", activeStatus="all", shown=6;
+const chipWrap=$("#catChips"), grid=$("#lotGrid");
+const watched=new Set();
+function renderChips(){ chipWrap.innerHTML=CATEGORIES.map(c=>`<button class="chip${c===activeCat?' active':''}" data-cat="${c}">${catLabel(c)}</button>`).join(""); }
+function filtered(){ return LOTS.filter(l=>(activeStatus==="all"||l.status===activeStatus)&&(activeCat==="All"||l.cat===activeCat)); }
+function lotHTML(l){
+  const isLive=l.status==="live", isBuy=l.status==="buynow";
+  const wOn=watched.has(String(l.id));
+  const tag=isLive?`<span class="lot-tag live"><span class="live-dot"></span>${t("tagLive")}</span>`:isBuy?`<span class="lot-tag buy">${t("tagBuy")}</span>`:`<span class="lot-tag soon">${t("tagSoon")}</span>`;
+  let info;
+  if(isBuy){ info=`<div class="lot-info"><div><div class="k">${t("mAvailability")}</div><div class="est">${t("mAvailNow").split("—")[0].trim()}</div></div><div style="text-align:end"><div class="k">${t("mPrice")}</div><div class="bid">${l.price||money(l.bid)}</div></div></div>`; }
+  else { info=`<div class="lot-info"><div><div class="k">${t("mEstimate")}</div><div class="est">${l.est||"—"}</div></div><div style="text-align:end"><div class="k">${isLive?t("mCurrentBid"):t("tabSoon")}</div><div class="bid">${l.bid?money(l.bid):'—'}</div></div></div>`; }
+  let line;
+  if(isBuy){ line=`<div class="lot-timer avail"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span class="t">${t("availLine")}</span></div>`; }
+  else { const rem=fmtRemaining((l.endsAt||0)-Date.now()); line=`<div class="lot-timer${rem.urgent?' urgent':''}" data-timer="${l.id}"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 2m5-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>${isLive?t("closesIn"):t("opensIn")}</span> <span class="t">${rem.text}</span></div>`; }
+  const btnLabel=isLive?t("btnBid"):isBuy?t("btnBuy"):t("btnSoon");
+  const btnClass=(isLive||isBuy)?'primary':'secondary';
+  return `<article class="lot" data-id="${l.id}"><div class="lot-img">${tag}
+    <button class="watch${wOn?' on':''}" data-watch="${l.id}" aria-label="Add to watchlist"><svg fill="${wOn?'currentColor':'none'}" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg></button>
+    <img src="${l.img}" alt="${l.title}" loading="lazy" /></div>
+    <div class="lot-body"><div class="lot-house">${l.house||""}</div><h3 class="lot-title serif-auto">${l.title}</h3>${info}${line}
+    <button class="lot-btn ${btnClass}" data-bid="${l.id}">${btnLabel}</button></div></article>`;
+}
+function render(){
+  if(!grid) return;
+  const list=filtered(), vis=list.slice(0,shown);
+  grid.innerHTML=vis.length?vis.map(lotHTML).join(""):`<div class="empty">${LANG==="he"?"אין פריטים בקטגוריה זו כרגע.":"No lots match this selection yet."}</div>`;
+  const lm=$("#loadMore"); if(lm) lm.style.display=list.length>shown?"":"none";
+  renderChips(); observeReveal();
+}
+$$("#statusTabs .tab").forEach(tb=>tb.addEventListener("click",()=>{ $$("#statusTabs .tab").forEach(x=>x.classList.remove("active")); tb.classList.add("active"); activeStatus=tb.dataset.status; shown=6; render(); }));
+chipWrap.addEventListener("click",e=>{ const b=e.target.closest(".chip"); if(!b) return; activeCat=b.dataset.cat; shown=6; render(); });
+$("#loadMore").addEventListener("click",()=>{ shown+=6; render(); });
+grid.addEventListener("click",e=>{ const w=e.target.closest("[data-watch]"); if(w){ const id=String(w.dataset.watch); watched.has(id)?watched.delete(id):watched.add(id); render(); return; } const b=e.target.closest("[data-bid]"); if(b){ openModal(b.dataset.bid); return; } const c=e.target.closest(".lot"); if(c) openModal(c.dataset.id); });
+
+/* ============================================================
+   Bid / buy modal
+   ============================================================ */
+const overlay=$("#modalOverlay"); let currentLot=null, lastFocus=null;
+function openModal(id){
+  const l=lotById(id); if(!l) return;
+  currentLot=l; lastFocus=document.activeElement;
+  const isLive=l.status==="live", isBuy=l.status==="buynow";
+  $("#modalImg").src=l.img; $("#modalImg").alt=l.title;
+  $("#modalHouse").textContent=l.house||""; $("#modalTitle").textContent=l.title;
+  $("#modalLot").textContent=`${isBuy?'Ref.':'Lot'} ${String(l.ref||l.id).slice(0,8)} · ${catLabel(l.cat)}`;
+  if(isBuy){
+    $("#modalEstK").textContent=t("mDepartment"); $("#modalEst").textContent=l.house||"—";
+    $("#modalBidK").textContent=t("mPrice"); $("#modalBid").textContent=l.price||money(l.bid);
+    $("#modalTimeK").textContent=t("mAvailability"); $("#modalTime").textContent=t("mAvailNow");
+    $("#bidLabel").textContent=t("mOffer"); $("#bidInput").value=""; $("#bidInput").placeholder=String(digits(l.price||l.bid).toLocaleString("en-US"));
+    $("#placeBid").textContent=t("mReserve"); $("#modalNote").textContent=t("mNotePrivate");
+  } else {
+    $("#modalEstK").textContent=t("mEstimate"); $("#modalEst").textContent=l.est||"—";
+    $("#modalBidK").textContent=t("mCurrentBid"); $("#modalBid").textContent=l.bid?money(l.bid):t("mNoBids");
+    const rem=fmtRemaining((l.endsAt||0)-Date.now()); $("#modalTimeK").textContent=t("mTimeRemaining");
+    $("#modalTime").textContent=(isLive?t("mClosesIn"):t("mOpensIn"))+rem.text;
+    const inc=l.minIncrement|| (l.bid?Math.max(100,Math.round(l.bid*0.05/100)*100):100);
+    const next=(l.bid||digits(l.est)||1000)+(l.bid?inc:0);
+    $("#bidLabel").textContent=t("mBid"); $("#bidInput").value=next; $("#bidInput").placeholder=String(next);
+    $("#placeBid").textContent=isLive?t("mPlace"):t("mRegister"); $("#modalNote").textContent=t("mNoteAuction");
+  }
+  $("#bidSuccess").classList.remove("show");
+  overlay.classList.add("open"); overlay.setAttribute("aria-hidden","false"); document.body.style.overflow="hidden";
+  setTimeout(()=>$("#modalClose").focus(),50);
+}
+function closeModal(){ overlay.classList.remove("open"); overlay.setAttribute("aria-hidden","true"); document.body.style.overflow=""; currentLot=null; if(lastFocus) lastFocus.focus(); }
+function modalMsg(msg,isErr){ const s=$("#bidSuccess"); $("#bidSuccessText").textContent=msg;
+  s.style.color=isErr?"var(--live)":""; s.style.borderColor=isErr?"rgba(138,43,31,.3)":""; s.style.background=isErr?"rgba(138,43,31,.08)":""; s.classList.add("show"); }
+$("#modalClose").addEventListener("click",closeModal);
+overlay.addEventListener("click",e=>{ if(e.target===overlay) closeModal(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&overlay.classList.contains("open")) closeModal(); });
+$("#bidInput").addEventListener("input",e=>{ const v=e.target.value.replace(/[^0-9]/g,''); e.target.value=v?parseInt(v).toLocaleString("en-US"):""; });
+
+$("#placeBid").addEventListener("click",async ()=>{
+  if(!currentLot) return;
+  const l=currentLot, val=digits($("#bidInput").value);
+  // Real (Firestore) lot → require auth + profile
+  if(l.demo || !online){
+    if(l.status==="buynow"){ modalMsg(val?t("mOffered"):t("mReserved")); return; }
+    if(l.status!=="live"){ modalMsg(t("mRegistered")); return; }
+    if(val<=(l.bid||0)){ modalMsg(t("mBidLow"),true); return; }
+    l.bid=val; $("#modalBid").textContent=money(val); modalMsg(t("mBidPlaced")); render(); return;
+  }
+  if(!me){ modalMsg(t("mSignInFirst"),true); setTimeout(()=>{ closeModal(); signIn(); },600); return; }
+  if(profile && profile.banned){ showBanned(); return; }
+  if(!profile || !profile.profileComplete){ closeModal(); openReg(); return; }
+  try{
+    if(l.status==="buynow"){ await reserve(l,val); modalMsg(val?t("mOffered"):t("mReserved")); return; }
+    if(l.status!=="live"){ modalMsg(t("mRegistered")); return; }
+    await placeBidTx(l,val);
+    $("#modalBid").textContent=money(val); modalMsg(t("mBidPlaced"));
+  }catch(err){
+    const m=String(err&&err.message||err);
+    if(m.startsWith("low:")) modalMsg(t("mBidLow"),true);
+    else if(m==="closed") modalMsg(t("mClosed"),true);
+    else modalMsg(t("mBidLow"),true);
+  }
+});
+
+/* ============================================================
+   Countdowns + featured
+   ============================================================ */
+const fEnd=Date.now()+43*60*1000;
+function tick(){
+  const tt=Date.now();
+  $$("[data-timer]").forEach(el=>{ const l=lotById(el.dataset.timer); if(!l||!l.endsAt) return; const rem=fmtRemaining(l.endsAt-tt); const ts=el.querySelector(".t"); if(ts) ts.textContent=rem.text; el.classList.toggle("urgent",!!rem.urgent); });
+  const fs=Math.max(0,Math.floor((fEnd-tt)/1000)); const fc=$("#featureCountdown");
+  if(fc){ fc.querySelector("[data-h]").textContent=String(Math.floor(fs/3600)).padStart(2,'0'); fc.querySelector("[data-m]").textContent=String(Math.floor(fs%3600/60)).padStart(2,'0'); fc.querySelector("[data-s]").textContent=String(fs%60).padStart(2,'0'); }
+  if(currentLot&&currentLot.status!=="buynow"&&currentLot.endsAt){ const rem=fmtRemaining(currentLot.endsAt-tt); $("#modalTime").textContent=(currentLot.status==="live"?t("mClosesIn"):t("mOpensIn"))+rem.text; }
+}
+setInterval(tick,1000); tick();
+setInterval(()=>{ const live=LOTS.filter(l=>l.demo&&l.status==="live"&&l.bid); if(!live.length) return; const l=live[Math.floor((Date.now()/7000)%live.length)]; l.bid=Math.round(l.bid*(1+(0.01+(Date.now()%40)/1000))/100)*100; const fb=$("#featureBid"); if(fb) fb.textContent=money(186000+(Math.floor(Date.now()/8000)%14)*1000); if(currentLot&&currentLot.id===l.id) $("#modalBid").textContent=money(l.bid); render(); },8000);
+
+/* ============================================================
+   Firebase — auth, profile, registration
+   ============================================================ */
+let me=null, profile=null, isAdmin=false;
+function signIn(){ if(!online){ alert("Sign-in unavailable in preview."); return; } signInWithPopup(auth,provider).catch(err=>{ console.warn(err); alert(t("mSignInFirst")); }); }
+function doSignOut(){ if(online) signOut(auth); }
+
+const regOverlay=$("#regOverlay"), banOverlay=$("#banOverlay");
+function openReg(){ if(me){ if(!$("#rgName").value) $("#rgName").value=me.displayName||""; } $("#regErr").textContent=""; regOverlay.classList.add("open"); regOverlay.setAttribute("aria-hidden","false"); document.body.style.overflow="hidden"; setTimeout(()=>$("#rgName").focus(),50); }
+function closeReg(){ regOverlay.classList.remove("open"); regOverlay.setAttribute("aria-hidden","true"); document.body.style.overflow=""; }
+function showBanned(){ banOverlay.classList.add("open"); banOverlay.setAttribute("aria-hidden","false"); }
+$("#regClose").addEventListener("click",closeReg);
+$("#regSignout").addEventListener("click",()=>{ closeReg(); doSignOut(); });
+
+$("#regForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  if(!me||!online) return;
+  const data={
+    email:me.email||"", fullName:$("#rgName").value.trim(), phone:$("#rgPhone").value.trim(),
+    address:{ country:$("#rgCountry").value.trim(), city:$("#rgCity").value.trim(), street:$("#rgStreet").value.trim(), postal:$("#rgPostal").value.trim() },
+    idType:$("#rgIdType").value, idNumber:$("#rgIdNum").value.trim(),
+    role:"bidder", banned:false, profileComplete:true, updatedAt:serverTimestamp()
+  };
+  if(!data.fullName||!data.phone||!data.address.country||!data.address.city||!data.address.street||!data.idNumber||!$("#rgAgree").checked){ $("#regErr").textContent=t("regFill"); return; }
+  try{
+    const ref=doc(db,"zc_users",me.uid);
+    const exists=(await getDoc(ref)).exists();
+    if(exists){ await updateDoc(ref,data); }
+    else { await setDoc(ref,{...data,createdAt:serverTimestamp()}); }
+    profile={...(profile||{}),...data,banned:false,profileComplete:true};
+    isAdmin=(me.email===ADMIN_EMAIL)||profile.role==="admin";
+    closeReg(); updateAuthUI();
+  }catch(err){ console.warn(err); $("#regErr").textContent=String(err&&err.message||err); }
+});
+
+function updateAuthUI(){
+  const authBtn=$("#authBtn"), acctBtn=$("#acctBtn"), adminBtn=$("#adminBtn"), authBtnM=$("#authBtnM"), adminBtnM=$("#adminBtnM"), fab=$("#adminFab");
+  if(me){
+    authBtn.hidden=true; acctBtn.hidden=false;
+    const nm=(profile&&profile.fullName)||me.displayName||me.email||"";
+    $("#acctNm").textContent=nm; $("#acctAv").textContent=initial(nm);
+    authBtnM.textContent=t("signOut");
+    adminBtn.hidden=!isAdmin; if(adminBtnM) adminBtnM.hidden=!isAdmin;
+    if(fab) fab.classList.toggle("show",isAdmin);
+  } else {
+    authBtn.hidden=false; acctBtn.hidden=true; adminBtn.hidden=true;
+    authBtn.textContent=t("signin"); authBtnM.textContent=t("signin");
+    if(adminBtnM) adminBtnM.hidden=true; if(fab) fab.classList.remove("show");
+  }
+}
+$("#authBtn").addEventListener("click",()=>{ me?doSignOut():signIn(); });
+$("#authBtnM").addEventListener("click",()=>{ me?doSignOut():signIn(); });
+$("#acctBtn").addEventListener("click",()=>{ if(confirm(t("signOut")+"?")) doSignOut(); });
+$("#enqRegister").addEventListener("click",()=>{ me?(profile&&profile.profileComplete?null:openReg()):signIn(); });
+
+function attachAuth(){
+  onAuthStateChanged(auth, async user=>{
+    me=user; profile=null; isAdmin=false;
+    if(user){
+      try{
+        const snap=await getDoc(doc(db,"zc_users",user.uid));
+        if(snap.exists()){
+          profile=snap.data();
+          if(profile.banned){ updateAuthUI(); showBanned(); doSignOut(); return; }
+          isAdmin=(user.email===ADMIN_EMAIL)||profile.role==="admin";
+          if(!profile.profileComplete) openReg();
+        } else { isAdmin=(user.email===ADMIN_EMAIL); openReg(); }
+      }catch(err){ console.warn("profile load failed",err); }
+    }
+    updateAuthUI(); if(isAdmin) mountAdmin();
+  });
+}
+
+/* ============================================================
+   Firebase — lots, bidding, reservations
+   ============================================================ */
+function fromDoc(id,d){
+  const mode=d.mode||(d.status==="buynow"?"buynow":"auction");
+  const status = mode==="buynow" ? "buynow" : (d.status==="upcoming"?"upcoming":(d.status==="closed"?"closed":"live"));
+  return { id, ref:id, demo:false, house:d.house||"", cat:d.cat||"Fine Art", title:d.title||"Untitled",
+    est:d.est||"", price:d.price||(d.priceNum?money(d.priceNum):""), bid:(typeof d.currentBid==="number"?d.currentBid:null),
+    minIncrement:d.minIncrement||100, status,
+    endsAt: d.endAt&&d.endAt.toMillis?d.endAt.toMillis():(d.endAtMs||null), img:d.img||"https://images.unsplash.com/photo-1578321272176-b7bbc0679853?auto=format&fit=crop&w=800&q=80" };
+}
+function attachLots(){
+  try{
+    onSnapshot(query(collection(db,"zc_lots"),orderBy("createdAt","desc")), snap=>{
+      const arr=[]; snap.forEach(d=>{ const x=fromDoc(d.id,d.data()); if(x.status!=="closed") arr.push(x); });
+      LOTS = arr.length ? arr : DEMO.slice();
+      render();
+    }, err=>{ console.warn("lots listen failed",err); LOTS=DEMO.slice(); render(); });
+  }catch(err){ console.warn(err); }
+}
+
+async function placeBidTx(l,val){
+  const ref=doc(db,"zc_lots",l.ref);
+  await runTransaction(db, async tx=>{
+    const s=await tx.get(ref); if(!s.exists()) throw new Error("gone");
+    const d=s.data();
+    if((d.status||"live")!=="live") throw new Error("closed");
+    if(d.endAt&&d.endAt.toMillis&&Date.now()>d.endAt.toMillis()) throw new Error("closed");
+    const cur=typeof d.currentBid==="number"?d.currentBid:0;
+    const inc=d.minIncrement||100;
+    if(val < cur+inc) throw new Error("low:"+(cur+inc));
+    tx.update(ref,{ currentBid:val, currentBidder:me.uid, currentBidderName:(profile&&profile.fullName)||me.displayName||"", bidCount:(d.bidCount||0)+1, updatedAt:serverTimestamp() });
+  });
+  try{ await addDoc(collection(db,"zc_lots",l.ref,"bids"),{ uid:me.uid, name:(profile&&profile.fullName)||"", amount:val, at:serverTimestamp() }); }catch(e){ /* history best-effort */ }
+}
+async function reserve(l,offer){
+  await addDoc(collection(db,"zc_orders"),{ type:"buynow_reservation", lotId:l.ref, lotTitle:l.title, uid:me.uid, buyerName:(profile&&profile.fullName)||"", amount: offer||digits(l.price||l.bid), paid:false, createdAt:serverTimestamp() });
+}
+
+/* ============================================================
+   Admin
+   ============================================================ */
+let adminMounted=false;
+function mountAdmin(){
+  if(adminMounted||!online) return; adminMounted=true;
+  const catSel=$("#ltCat"); if(catSel) catSel.innerHTML=CATEGORIES.filter(c=>c!=="All").map(c=>`<option value="${c}">${c}</option>`).join("");
+  const drawer=$("#drawer"), dov=$("#drawerOverlay");
+  const openDrawer=()=>{ drawer.classList.add("open"); drawer.setAttribute("aria-hidden","false"); dov.classList.add("open"); document.body.style.overflow="hidden"; subscribeAdmin(); };
+  const closeDrawer=()=>{ drawer.classList.remove("open"); drawer.setAttribute("aria-hidden","true"); dov.classList.remove("open"); document.body.style.overflow=""; };
+  $("#adminFab").addEventListener("click",openDrawer);
+  $("#adminBtn").addEventListener("click",openDrawer);
+  if($("#adminBtnM")) $("#adminBtnM").addEventListener("click",openDrawer);
+  $("#drawerClose").addEventListener("click",closeDrawer);
+  dov.addEventListener("click",closeDrawer);
+  $$(".adm-tab").forEach(tb=>tb.addEventListener("click",()=>{ $$(".adm-tab").forEach(x=>x.classList.remove("on")); tb.classList.add("on"); $$(".adm-pane").forEach(p=>p.classList.remove("on")); $("#pane"+tb.dataset.pane.charAt(0).toUpperCase()+tb.dataset.pane.slice(1)).classList.add("on"); }));
+  // mode toggle
+  const modeSel=$("#ltMode"); const applyMode=()=>{ const buy=modeSel.value==="buynow"; $$(".auction-only").forEach(x=>x.hidden=buy); $$(".buy-only").forEach(x=>x.hidden=!buy); }; modeSel.addEventListener("change",applyMode); applyMode();
+  // add lot
+  $("#lotForm").addEventListener("submit",async e=>{
+    e.preventDefault(); $("#lotErr").textContent="";
+    const mode=modeSel.value;
+    const base={ title:$("#ltTitle").value.trim(), house:$("#ltHouse").value.trim(), cat:$("#ltCat").value, img:$("#ltImg").value.trim()||"", createdAt:serverTimestamp() };
+    if(!base.title){ $("#lotErr").textContent=t("regFill"); return; }
+    let data;
+    if(mode==="buynow"){ data={...base, mode:"buynow", status:"buynow", price:$("#ltPrice").value?("$"+Number($("#ltPrice").value).toLocaleString("en-US")):"", priceNum:Number($("#ltPrice").value)||0}; }
+    else{ const dur=Number($("#ltDur").value)||24; data={...base, mode:"auction", status:"live", est:$("#ltEst").value.trim(), currentBid:Number($("#ltStart").value)||0, minIncrement:Number($("#ltIncr").value)||100, bidCount:0, currentBidder:"", currentBidderName:"", endAt:Timestamp.fromMillis(Date.now()+dur*3600*1000)}; }
+    try{ await addDoc(collection(db,"zc_lots"),data); $("#lotForm").reset(); applyMode(); $("#lotErr").style.color="var(--ok)"; $("#lotErr").textContent=t("admAdded"); setTimeout(()=>{$("#lotErr").textContent="";$("#lotErr").style.color="";},2500); }
+    catch(err){ $("#lotErr").style.color=""; $("#lotErr").textContent=String(err&&err.message||err); }
+  });
+}
+let adminSubbed=false;
+function subscribeAdmin(){
+  if(adminSubbed||!online) return; adminSubbed=true;
+  onSnapshot(collection(db,"zc_orders"), snap=>{
+    const list=$("#ordersList"); const rows=[]; snap.forEach(d=>rows.push({id:d.id,...d.data()}));
+    rows.sort((a,b)=>(b.createdAt?.toMillis?.()||0)-(a.createdAt?.toMillis?.()||0));
+    list.innerHTML = rows.length ? rows.map(o=>`<div class="adm-card"><div class="row1"><b>${o.lotTitle||o.lotId||""}</b><span class="badge ${o.paid?'paid':'unpaid'}">${o.paid?t("admPaid"):t("admUnpaid")}</span></div><div class="meta">${o.buyerName||""} · ${money(o.amount)} · ${o.type==='buynow_reservation'?t("tabBuy"):t("tabLive")}</div><div class="acts"><button class="chip-btn ${o.paid?'on':''}" data-paid="${o.id}" data-v="${o.paid?0:1}">${o.paid?t("admMarkUnpaid"):t("admMarkPaid")}</button><button class="chip-btn danger" data-banuid="${o.uid}">${t("admBan")}</button></div></div>`).join("") : `<div class="adm-note">${t("admNoOrders")}</div>`;
+    list.querySelectorAll("[data-paid]").forEach(b=>b.addEventListener("click",async ()=>{ try{ await updateDoc(doc(db,"zc_orders",b.dataset.paid),{paid:b.dataset.v==="1"}); }catch(e){ alert(e.message);} }));
+    list.querySelectorAll("[data-banuid]").forEach(b=>b.addEventListener("click",()=>banUser(b.dataset.banuid)));
+  }, err=>console.warn(err));
+  onSnapshot(collection(db,"zc_users"), snap=>{
+    const list=$("#membersList"); const rows=[]; snap.forEach(d=>rows.push({id:d.id,...d.data()}));
+    list.innerHTML = rows.length ? rows.map(u=>`<div class="adm-card"><div class="row1"><b>${u.fullName||u.email||u.id}</b>${u.banned?`<span class="badge banned">${t("admBanned")}</span>`:''}</div><div class="meta">${u.email||""} · ${u.phone||""} · ${(u.idType==='passport'?t("regIdPassport"):t("regIdTZ"))}: ${u.idNumber||""}</div><div class="acts"><button class="chip-btn ${u.banned?'':'danger'}" data-ban="${u.id}" data-v="${u.banned?0:1}">${u.banned?t("admUnban"):t("admBan")}</button></div></div>`).join("") : `<div class="adm-note">${t("admNoMembers")}</div>`;
+    list.querySelectorAll("[data-ban]").forEach(b=>b.addEventListener("click",()=>{ if(b.dataset.v==="1"){ banUser(b.dataset.ban); } else { unbanUser(b.dataset.ban); } }));
+  }, err=>console.warn(err));
+}
+async function banUser(uid){ if(!uid) return; if(!confirm(t("admConfirmBan"))) return; try{ await updateDoc(doc(db,"zc_users",uid),{banned:true, banReason:"non-payment", bannedAt:serverTimestamp()}); }catch(e){ alert(e.message);} }
+async function unbanUser(uid){ try{ await updateDoc(doc(db,"zc_users",uid),{banned:false}); }catch(e){ alert(e.message);} }
+
+/* ============================================================
+   Misc UI
+   ============================================================ */
+$("#newsForm").addEventListener("submit",e=>{ e.preventDefault(); const n=$("#newsNote"); n.textContent=LANG==="he"?"נרשמת בהצלחה — בדוק את תיבת הדואר לאישור.":"Welcome aboard — check your inbox to confirm."; n.classList.add("done"); e.target.reset(); });
+const header=$("#header");
+addEventListener("scroll",()=>header.classList.toggle("scrolled",scrollY>10));
+const burger=$("#burger"), mm=$("#mobileMenu");
+burger.addEventListener("click",()=>{ const open=mm.classList.toggle("open"); burger.classList.toggle("open",open); burger.setAttribute("aria-expanded",open); document.body.style.overflow=open?"hidden":""; });
+$$("#mobileMenu a").forEach(a=>a.addEventListener("click",()=>{ mm.classList.remove("open"); burger.classList.remove("open"); document.body.style.overflow=""; }));
+
+let io;
+function observeReveal(){ if(!io){ io=new IntersectionObserver(ents=>{ ents.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target);} }); },{threshold:.12,rootMargin:"0px 0px -40px 0px"}); } $$(".reveal:not(.in)").forEach(el=>io.observe(el)); }
+
+async function initFirebase(){
+  try{
+    const [appMod,authMod,fsMod]=await Promise.all([
+      import("https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js")
+    ]);
+    ({initializeApp}=appMod);
+    ({getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged}=authMod);
+    ({getFirestore,collection,doc,getDoc,setDoc,updateDoc,onSnapshot,runTransaction,addDoc,serverTimestamp,Timestamp,query,orderBy}=fsMod);
+    const app=initializeApp(firebaseConfig); auth=getAuth(app); db=getFirestore(app); provider=new GoogleAuthProvider(); online=true;
+    attachAuth(); attachLots(); updateAuthUI();
+  }catch(e){ console.warn("Firebase unavailable — preview mode.",e); online=false; }
+}
+
+$("#year").textContent=new Date().getFullYear();
+applyLang();
+observeReveal();
+initFirebase();
+</script>
+</body>
+</html>

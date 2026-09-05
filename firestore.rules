@@ -1,0 +1,93 @@
+rules_version = '2';
+
+// ============================================================================
+// ZILBERSHLAG — Firestore security rules  (zilbershlag.com)
+// ----------------------------------------------------------------------------
+// Deploy these to the Firebase project you chose for Zilbershlag.
+// All data lives under zc_* collections. Admin = the site owner: either the
+// email in ADMIN_EMAIL below, or any zc_users doc whose role == 'admin'.
+//
+// ⚠️ If this project also runs OTHER apps, tell Claude — these rules only grant
+// access to zc_* paths and DENY everything else, which would block a sibling
+// app's collections. Best used on a project dedicated to Zilbershlag.
+// ============================================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+
+    // 👑 Site owner. Change this to your Google account email if different.
+    function ADMIN_EMAIL() { return 'aaci.yoni@gmail.com'; }
+    function owner() { return signedIn() && request.auth.token.email == ADMIN_EMAIL(); }
+
+    function zcUserPath() { return /databases/$(database)/documents/zc_users/$(request.auth.uid); }
+    function zcHasProfile() { return signedIn() && exists(zcUserPath()); }
+    function zcProfile() { return get(zcUserPath()).data; }
+    function zcAdmin() { return owner() || (zcHasProfile() && zcProfile().role == 'admin'); }
+    function zcNotBanned() { return !zcHasProfile() || zcProfile().banned != true; }
+    function zcReady() {
+      return signedIn() && zcNotBanned() && zcHasProfile() && zcProfile().profileComplete == true;
+    }
+
+    // Public site config (auction schedule etc.), admin-managed.
+    match /zc_config/{doc} { allow read: if true; allow write: if zcAdmin(); }
+
+    // Buyer accounts. A user creates and edits ONLY their own profile, and can
+    // never set their own role or lift their own ban. The admin can do anything.
+    match /zc_users/{uid} {
+      allow read: if zcAdmin() || (signedIn() && request.auth.uid == uid);
+      allow create: if signedIn() && request.auth.uid == uid
+        && request.resource.data.role == 'bidder'
+        && request.resource.data.banned == false;
+      allow update: if zcAdmin()
+        || (signedIn() && request.auth.uid == uid
+            && request.resource.data.role == resource.data.role
+            && request.resource.data.banned == resource.data.banned);
+      allow delete: if zcAdmin();
+    }
+
+    // Lots — public to read. Only the admin creates/removes them. A bidder may
+    // update a lot ONLY to raise its live-auction bid: as themselves, before it
+    // closes, changing only the bid fields, by at least the minimum increment.
+    match /zc_lots/{lotId} {
+      allow read: if true;
+      allow create, delete: if zcAdmin();
+      allow update: if zcAdmin()
+        || ( zcReady()
+             && resource.data.mode == 'auction'
+             && resource.data.status == 'live'
+             && request.time < resource.data.endAt
+             && request.resource.data.diff(resource.data).affectedKeys()
+                  .hasOnly(['currentBid','currentBidder','currentBidderName','bidCount','updatedAt'])
+             && request.resource.data.currentBidder == request.auth.uid
+             && request.resource.data.currentBid >= resource.data.currentBid + resource.data.minIncrement
+             && request.resource.data.bidCount == resource.data.bidCount + 1 );
+
+      // Bid history — append only; a bidder sees only their own, admin sees all.
+      match /bids/{bidId} {
+        allow read: if zcAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
+        allow create: if zcReady()
+          && request.resource.data.uid == request.auth.uid
+          && request.resource.data.amount is number;
+        allow update, delete: if false;
+      }
+    }
+
+    // Orders — auction wins (admin-created) and private-sale reservations
+    // (bidder-created). Only the admin marks paid / unpaid or deletes. This is
+    // where non-payment is recorded before an account is banned for good.
+    match /zc_orders/{orderId} {
+      allow read: if zcAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
+      allow create: if zcAdmin()
+        || ( zcReady()
+             && request.resource.data.uid == request.auth.uid
+             && request.resource.data.type == 'buynow_reservation'
+             && request.resource.data.paid == false );
+      allow update, delete: if zcAdmin();
+    }
+
+    // Everything else — denied.
+    match /{document=**} { allow read, write: if false; }
+  }
+}
