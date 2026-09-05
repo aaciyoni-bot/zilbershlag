@@ -347,6 +347,21 @@ footer{background:var(--ink);color:var(--paper);padding:80px 0 34px}
 .m-note{margin-top:15px;font-size:.77rem;color:var(--text-faint);text-align:center;line-height:1.5}
 .m-success{background:rgba(63,109,74,.1);border:1px solid rgba(63,109,74,.3);color:var(--ok);padding:14px 16px;border-radius:var(--r-sm);font-size:.9rem;font-weight:500;margin-top:14px;display:none;align-items:center;gap:10px}
 .m-success.show{display:flex}
+/* Modal gallery thumbnails — overlaid on the image */
+.m-thumbs{position:absolute;left:0;right:0;bottom:0;display:flex;gap:8px;padding:14px;background:linear-gradient(to top,rgba(20,15,10,.55),transparent);overflow-x:auto;scrollbar-width:none}
+.m-thumbs::-webkit-scrollbar{display:none}
+.m-thumb{flex:0 0 auto;width:54px;height:54px;padding:0;border-radius:var(--r-sm);overflow:hidden;border:2px solid rgba(244,239,230,.6);background:var(--surface-2);cursor:pointer;transition:border-color .2s,transform .2s;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.m-thumb img{width:100%;height:100%;object-fit:cover;min-height:0}
+.m-thumb:hover{transform:translateY(-2px)}
+.m-thumb.on{border-color:var(--gold,#b08d3c)}
+/* Detail blocks (description / provenance / condition) */
+.m-details{display:flex;flex-direction:column;gap:16px;margin-bottom:22px}
+.m-det .dk{display:block;color:var(--wine);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;margin-bottom:6px}
+.m-det p{font-size:.9rem;line-height:1.62;color:var(--text-mute);white-space:pre-line}
+.m-row .v.reserve-met{color:var(--ok)}
+.m-row .v.reserve-not{color:var(--text-mute);font-weight:500}
+/* Admin upload progress */
+.f-upload-status{margin:6px 0 2px;font-size:.82rem;color:var(--wine);font-weight:500}
 .m-success svg{width:20px;height:20px;flex-shrink:0}
 
 /* Single-column dialog (registration / banned) */
@@ -866,6 +881,7 @@ body.zc-links a{text-decoration:underline!important;outline:1px dashed var(--gol
     <div class="modal-img">
       <button class="modal-close" id="modalClose" aria-label="Close"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6L6 18"/></svg></button>
       <img id="modalImg" src="" alt="" />
+      <div class="m-thumbs" id="modalThumbs" hidden></div>
     </div>
     <div class="modal-body">
       <div class="m-house" id="modalHouse"></div>
@@ -874,8 +890,10 @@ body.zc-links a{text-decoration:underline!important;outline:1px dashed var(--gol
       <div class="m-rows">
         <div class="m-row"><span class="k" id="modalEstK">Estimate</span><span class="v" id="modalEst"></span></div>
         <div class="m-row"><span class="k" id="modalBidK">Current bid</span><span class="v big" id="modalBid"></span></div>
+        <div class="m-row" id="modalReserveRow" hidden><span class="k" id="modalReserveK">Reserve</span><span class="v" id="modalReserve"></span></div>
         <div class="m-row"><span class="k" id="modalTimeK">Time remaining</span><span class="v" id="modalTime"></span></div>
       </div>
+      <div class="m-details" id="modalDetails" hidden></div>
       <div class="m-bidbox">
         <label for="bidInput" id="bidLabel">Your maximum bid</label>
         <div class="m-inputrow"><span class="pfx">$</span><input type="text" id="bidInput" inputmode="numeric" placeholder="0" /></div>
@@ -960,16 +978,22 @@ body.zc-links a{text-decoration:underline!important;outline:1px dashed var(--gol
       <form id="lotForm">
         <div class="f-grid">
           <div class="f-field full"><label data-i18n="admTitleF">Title</label><input id="ltTitle" type="text" required /></div>
-          <div class="f-field"><label data-i18n="admDept">Department / section</label><input id="ltHouse" type="text" placeholder="The Horology Cabinet" /></div>
+          <div class="f-field"><label data-i18n="admDept">Department / section</label><input id="ltHouse" type="text" placeholder="The Silver &amp; Judaica Cabinet" /></div>
           <div class="f-field"><label data-i18n="admCat">Category</label><select id="ltCat"></select></div>
           <div class="f-field"><label data-i18n="admMode">Type</label><select id="ltMode"><option value="live" data-i18n="admModeAuction">Auction</option><option value="buynow" data-i18n="admModeBuy">Private sale</option></select></div>
-          <div class="f-field"><label data-i18n="admImg">Image URL</label><input id="ltImg" type="url" placeholder="https://…" /></div>
           <div class="f-field auction-only"><label data-i18n="admEst">Estimate</label><input id="ltEst" type="text" placeholder="$10,000 – $15,000" /></div>
-          <div class="f-field auction-only"><label data-i18n="admStart">Starting bid ($)</label><input id="ltStart" type="number" min="0" value="0" /></div>
-          <div class="f-field auction-only"><label data-i18n="admIncr">Min increment ($)</label><input id="ltIncr" type="number" min="1" value="100" /></div>
-          <div class="f-field auction-only"><label data-i18n="admDur">Duration (hours)</label><input id="ltDur" type="number" min="1" value="24" /></div>
+          <div class="f-field auction-only"><label data-i18n="admStart">Opening bid ($)</label><input id="ltStart" type="number" min="0" value="0" /></div>
+          <div class="f-field auction-only"><label data-i18n="admReserve">Reserve — minimum ($)</label><input id="ltReserve" type="number" min="0" value="0" /></div>
+          <div class="f-field auction-only"><label data-i18n="admIncr">Bid increment ($)</label><input id="ltIncr" type="number" min="1" value="100" /></div>
+          <div class="f-field auction-only"><label data-i18n="admStartAt">Opens at</label><input id="ltStartAt" type="datetime-local" /></div>
+          <div class="f-field auction-only"><label data-i18n="admEndAt">Closes at</label><input id="ltEndAt" type="datetime-local" /></div>
           <div class="f-field buy-only" hidden><label data-i18n="admPrice">Price ($)</label><input id="ltPrice" type="number" min="0" value="0" /></div>
+          <div class="f-field full"><label data-i18n="admImages">Photographs (first is the cover — you may choose several)</label><input id="ltFiles" type="file" accept="image/*" multiple /><input id="ltImg" type="url" placeholder="…or paste an image URL" style="margin-top:.5rem" /></div>
+          <div class="f-field full"><label data-i18n="admDesc">Description</label><textarea id="ltDesc" rows="3" placeholder="What the piece is, its date, maker, materials and size."></textarea></div>
+          <div class="f-field full"><label data-i18n="admProv">Provenance</label><textarea id="ltProv" rows="2" placeholder="Ownership history, collection, publication or exhibition."></textarea></div>
+          <div class="f-field full"><label data-i18n="admCond">Condition</label><textarea id="ltCond" rows="2" placeholder="Condition notes, restoration, completeness."></textarea></div>
         </div>
+        <div class="f-upload-status" id="ltUpStatus" hidden></div>
         <div class="dlg-err" id="lotErr"></div>
         <div class="dlg-actions"><button type="submit" class="btn btn-wine" data-i18n="admAddBtn">Add lot</button></div>
       </form>
@@ -1037,9 +1061,12 @@ const I18N = {
     mBid:"Your maximum bid", mPlace:"Place bid", mRegister:"Register interest", mReserve:"Reserve this piece", mOffer:"Make an offer (optional)",
     mEstimate:"Estimate", mCurrentBid:"Current bid", mNoBids:"No bids yet", mTimeRemaining:"Time remaining", mClosesIn:"Closes in ", mOpensIn:"Opens in ",
     mDepartment:"Department", mPrice:"Price", mAvailability:"Availability", mAvailNow:"Available now — private sale",
-    mNoteAuction:"Winning bids are binding. A 22% buyer's premium applies.", mNotePrivate:"Fixed-price private sale, direct from the collection.",
+    mReserve2:"Reserve", mReserveMet:"Reserve met", mReserveNot:"Reserve not yet met", mDescTitle:"Description", mProvTitle:"Provenance", mCondTitle:"Condition",
+    mNoteAuction:"Enter the most you are willing to pay. We bid for you automatically, one increment at a time, and reveal your maximum only if needed to keep you in the lead. Winning bids are binding; a 22% buyer's premium applies.", mNotePrivate:"Fixed-price private sale, direct from the collection.",
     mReserved:"This piece is reserved in your name — the collection office will be in touch to settle.", mOffered:"Your offer has been received — the collection office will be in touch.",
     mRegistered:"You are registered — we will alert you the moment this lot opens.", mBidPlaced:"Your bid has been placed — you are the leading bidder.", mBidLow:"A bid must exceed the current bid. Please try a higher amount.",
+    mMaxRegistered:"Your maximum is registered. We will bid on your behalf, one increment at a time, up to your limit — and no higher unless someone outbids you.", mBidYouLead:"You are the leading bidder.", mBidOutbid:"You have been outbid — raise your maximum to lead again.",
+    mWatching:"You're on the list — we'll email you shortly before this lot opens.",
     mSignInFirst:"Please sign in with Google to bid or buy.", mClosed:"This lot has closed.", mPreview:"Preview lot — sign-in required only on live lots.",
     curr:"$", closesIn:"Closes in", opensIn:"Opens in", availLine:"Direct from the collection", tagLive:"Live now", tagSoon:"Upcoming", tagBuy:"Private sale", btnBid:"Place bid", btnBuy:"Buy now", btnSoon:"Register interest",
     regTitle:"Complete your registration", regIntro:"To bid or buy you must be a verified account holder. Your details are held securely and used only for settlement and delivery.",
@@ -1048,8 +1075,8 @@ const I18N = {
     regSubmit:"Save & continue", regFill:"Please complete all required fields and accept the terms.", regSaved:"Registration complete — you may now bid and buy.",
     bannedTitle:"Account suspended", bannedBody:"This account has been permanently removed from the House following an unsettled winning bid. If you believe this is in error, contact the collection office.", bannedContact:"Contact the office",
     admTitle:"Collection office", admAdd:"Add lot", admOrders:"Orders", admMembers:"Members",
-    admAddNote:"Add a lot to the live catalogue. Auctions take a starting bid, increment and duration; private-sale pieces take a fixed price.",
-    admTitleF:"Title", admDept:"Department / section", admCat:"Category", admMode:"Type", admModeAuction:"Auction", admModeBuy:"Private sale", admImg:"Image URL", admEst:"Estimate", admStart:"Starting bid ($)", admIncr:"Min increment ($)", admDur:"Duration (hours)", admPrice:"Price ($)", admAddBtn:"Add lot", admAdded:"Lot added to the catalogue.",
+    admAddNote:"Add a lot to the catalogue. Auctions take an opening bid, a reserve (your private minimum), an increment and opening/closing times; private-sale pieces take a fixed price. Photographs upload straight to the collection.",
+    admTitleF:"Title", admDept:"Department / section", admCat:"Category", admMode:"Type", admModeAuction:"Auction", admModeBuy:"Private sale", admImg:"Image URL", admEst:"Estimate", admStart:"Opening bid ($)", admReserve:"Reserve — minimum ($)", admIncr:"Bid increment ($)", admStartAt:"Opens at", admEndAt:"Closes at", admImages:"Photographs (first is the cover — you may choose several)", admDesc:"Description", admProv:"Provenance", admCond:"Condition", admPrice:"Price ($)", admAddBtn:"Add lot", admAdded:"Lot added to the catalogue.", admBadTimes:"The closing time must be after the opening time.", admUploading:"Uploading photograph",
     admOrdersNote:"Auction wins and private-sale reservations. Mark as paid once settled; mark unpaid & ban to permanently remove a non-paying account.",
     admMembersNote:"Registered accounts. Ban to block bidding and buying permanently; a banned account cannot re-enter.",
     admPaid:"Paid", admUnpaid:"Unpaid", admMarkPaid:"Mark paid", admMarkUnpaid:"Mark unpaid", admBan:"Ban account", admUnban:"Unban", admBanned:"Banned", admNoOrders:"No orders yet.", admNoMembers:"No registered accounts yet.", admConfirmBan:"Ban this account permanently?",
@@ -1084,9 +1111,12 @@ const I18N = {
     mBid:"הצעת המקסימום שלך", mPlace:"הגש הצעה", mRegister:"רישום התעניינות", mReserve:"שריון הפריט", mOffer:"הצעת מחיר (רשות)",
     mEstimate:"הערכה", mCurrentBid:"הצעה נוכחית", mNoBids:"אין הצעות עדיין", mTimeRemaining:"זמן שנותר", mClosesIn:"נסגר בעוד ", mOpensIn:"נפתח בעוד ",
     mDepartment:"מחלקה", mPrice:"מחיר", mAvailability:"זמינות", mAvailNow:"זמין כעת — מכירה פרטית",
-    mNoteAuction:"הצעות זוכות הן מחייבות. חלה עמלת קונה של 22%.", mNotePrivate:"מכירה פרטית במחיר קבוע, ישירות מהאוסף.",
+    mReserve2:"מחיר מינימום", mReserveMet:"מחיר המינימום הושג", mReserveNot:"מחיר המינימום טרם הושג", mDescTitle:"תיאור", mProvTitle:"מקור", mCondTitle:"מצב",
+    mNoteAuction:"הזינו את הסכום המרבי שתהיו מוכנים לשלם. נציע עבורכם אוטומטית, מדרגה אחר מדרגה, ונחשוף את המקסימום שלכם רק במידת הצורך כדי לשמור על ההובלה. הצעות זוכות הן מחייבות; חלה עמלת קונה של 22%.", mNotePrivate:"מכירה פרטית במחיר קבוע, ישירות מהאוסף.",
     mReserved:"הפריט משוריין על שמך — משרד האוסף ייצור קשר להסדרה.", mOffered:"הצעתך התקבלה — משרד האוסף ייצור קשר.",
     mRegistered:"נרשמת — נעדכן אותך ברגע שהפריט ייפתח.", mBidPlaced:"הצעתך נקלטה — אתה המציע המוביל.", mBidLow:"ההצעה חייבת לעלות על ההצעה הנוכחית. נסה סכום גבוה יותר.",
+    mMaxRegistered:"הצעת המקסימום שלך נרשמה. נציע בשמך אוטומטית, מדרגה אחר מדרגה, עד לסכום שהגדרת — ולא מעבר לכך, אלא אם מישהו יעקוף אותך.", mBidYouLead:"אתה המציע המוביל.", mBidOutbid:"עקפו אותך — העלה את סכום המקסימום כדי לחזור להוביל.",
+    mWatching:"נרשמת לרשימה — נשלח לך מייל מעט לפני שהפריט נפתח.",
     mSignInFirst:"יש להתחבר עם Google כדי להציע או לקנות.", mClosed:"הפריט נסגר.", mPreview:"פריט לדוגמה.",
     curr:"$", closesIn:"נסגר בעוד", opensIn:"נפתח בעוד", availLine:"ישירות מהאוסף", tagLive:"מתקיים כעת", tagSoon:"בקרוב", tagBuy:"מכירה פרטית", btnBid:"הגש הצעה", btnBuy:"קנה עכשיו", btnSoon:"רישום התעניינות",
     regTitle:"השלמת הרשמה", regIntro:"כדי להציע או לקנות יש להיות בעל חשבון מאומת. פרטיך נשמרים באופן מאובטח ומשמשים אך ורק להסדרת תשלום ומשלוח.",
@@ -1095,8 +1125,8 @@ const I18N = {
     regSubmit:"שמירה והמשך", regFill:"נא למלא את כל שדות החובה ולאשר את התקנון.", regSaved:"ההרשמה הושלמה — ניתן כעת להציע ולקנות.",
     bannedTitle:"החשבון הושעה", bannedBody:"חשבון זה הוסר לצמיתות מהבית בעקבות הצעה זוכה שלא הוסדרה. אם לדעתך מדובר בטעות, פנה למשרד האוסף.", bannedContact:"פנייה למשרד",
     admTitle:"משרד האוסף", admAdd:"הוספת פריט", admOrders:"הזמנות", admMembers:"חברים",
-    admAddNote:"הוסף פריט לקטלוג. מכירה פומבית דורשת מחיר פתיחה, מדרגה ומשך; מכירה פרטית דורשת מחיר קבוע.",
-    admTitleF:"כותרת", admDept:"מחלקה / חטיבה", admCat:"קטגוריה", admMode:"סוג", admModeAuction:"מכירה פומבית", admModeBuy:"מכירה פרטית", admImg:"כתובת תמונה", admEst:"הערכה", admStart:"מחיר פתיחה ($)", admIncr:"מדרגת מינימום ($)", admDur:"משך (שעות)", admPrice:"מחיר ($)", admAddBtn:"הוסף פריט", admAdded:"הפריט נוסף לקטלוג.",
+    admAddNote:"הוסף פריט לקטלוג. מכירה פומבית דורשת מחיר פתיחה, מחיר מינימום (רזרבה — פרטי), מדרגת הצעה ומועדי פתיחה וסגירה; מכירה פרטית דורשת מחיר קבוע. התצלומים נטענים ישירות אל האוסף.",
+    admTitleF:"כותרת", admDept:"מחלקה / חטיבה", admCat:"קטגוריה", admMode:"סוג", admModeAuction:"מכירה פומבית", admModeBuy:"מכירה פרטית", admImg:"כתובת תמונה", admEst:"הערכה", admStart:"מחיר פתיחה ($)", admReserve:"מחיר מינימום — רזרבה ($)", admIncr:"מדרגת הצעה ($)", admStartAt:"נפתח בתאריך", admEndAt:"נסגר בתאריך", admImages:"תצלומים (הראשון הוא תמונת השער — ניתן לבחור כמה)", admDesc:"תיאור", admProv:"מקור (Provenance)", admCond:"מצב", admPrice:"מחיר ($)", admAddBtn:"הוסף פריט", admAdded:"הפריט נוסף לקטלוג.", admBadTimes:"מועד הסגירה חייב להיות אחרי מועד הפתיחה.", admUploading:"מעלה תצלום",
     admOrdersNote:"זכיות במכירה פומבית ושריונים במכירה פרטית. סמן ׳שולם׳ לאחר הסדרה; ׳לא שולם וחסום׳ להסרת חשבון שלא שילם.",
     admMembersNote:"חשבונות רשומים. חסימה מונעת הצעה וקנייה לצמיתות; חשבון חסום אינו יכול לשוב.",
     admPaid:"שולם", admUnpaid:"לא שולם", admMarkPaid:"סמן כשולם", admMarkUnpaid:"סמן כלא שולם", admBan:"חסום חשבון", admUnban:"בטל חסימה", admBanned:"חסום", admNoOrders:"אין הזמנות עדיין.", admNoMembers:"אין חשבונות רשומים עדיין.", admConfirmBan:"לחסום את החשבון לצמיתות?",
@@ -1105,6 +1135,7 @@ const I18N = {
 let LANG = (localStorage.getItem("zc-lang") || (navigator.language||"en").slice(0,2));
 if(LANG!=="he") LANG="en";
 function t(k){ return (I18N[LANG] && I18N[LANG][k]) || (I18N.en[k]) || k; }
+function escapeHtml(s){ return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
 
 /* ============================================================
    Demo data (shown until real lots exist in Firestore)
@@ -1218,9 +1249,33 @@ function openModal(id){
   const l=lotById(id); if(!l) return;
   currentLot=l; lastFocus=document.activeElement;
   const isLive=l.status==="live", isBuy=l.status==="buynow";
-  $("#modalImg").src=l.img; $("#modalImg").alt=l.title;
+  // Image + gallery
+  const imgs=(Array.isArray(l.images)&&l.images.length)?l.images:(l.img?[l.img]:[]);
+  $("#modalImg").src=imgs[0]||l.img; $("#modalImg").alt=l.title;
+  const thumbs=$("#modalThumbs");
+  if(imgs.length>1){
+    thumbs.hidden=false;
+    thumbs.innerHTML=imgs.map((src,i)=>`<button class="m-thumb${i===0?' on':''}" data-src="${src}" aria-label="Photograph ${i+1}"><img src="${src}" alt="" loading="lazy"/></button>`).join("");
+    thumbs.querySelectorAll(".m-thumb").forEach(b=>b.addEventListener("click",()=>{
+      $("#modalImg").src=b.dataset.src; thumbs.querySelectorAll(".m-thumb").forEach(x=>x.classList.remove("on")); b.classList.add("on");
+    }));
+  } else { thumbs.hidden=true; thumbs.innerHTML=""; }
   $("#modalHouse").textContent=l.house||""; $("#modalTitle").textContent=l.title;
   $("#modalLot").textContent=`${isBuy?'Ref.':'Lot'} ${String(l.ref||l.id).slice(0,8)} · ${catLabel(l.cat)}`;
+  // Details (description / provenance / condition)
+  const det=$("#modalDetails"); const blocks=[];
+  if(l.description) blocks.push(`<div class="m-det"><span class="dk">${t("mDescTitle")}</span><p>${escapeHtml(l.description)}</p></div>`);
+  if(l.provenance) blocks.push(`<div class="m-det"><span class="dk">${t("mProvTitle")}</span><p>${escapeHtml(l.provenance)}</p></div>`);
+  if(l.condition) blocks.push(`<div class="m-det"><span class="dk">${t("mCondTitle")}</span><p>${escapeHtml(l.condition)}</p></div>`);
+  if(blocks.length){ det.hidden=false; det.innerHTML=blocks.join(""); } else { det.hidden=true; det.innerHTML=""; }
+  // Reserve status (auctions only, when a reserve is set)
+  const resRow=$("#modalReserveRow");
+  if(!isBuy && l.reserve>0){
+    resRow.hidden=false; $("#modalReserveK").textContent=t("mReserve2");
+    const met=l.reserveMet!==false && (l.bid||0)>=l.reserve;
+    $("#modalReserve").textContent=met?t("mReserveMet"):t("mReserveNot");
+    $("#modalReserve").className="v "+(met?"reserve-met":"reserve-not");
+  } else resRow.hidden=true;
   if(isBuy){
     $("#modalEstK").textContent=t("mDepartment"); $("#modalEst").textContent=l.house||"—";
     $("#modalBidK").textContent=t("mPrice"); $("#modalBid").textContent=l.price||money(l.bid);
@@ -1264,15 +1319,12 @@ $("#placeBid").addEventListener("click",async ()=>{
   if(!profile || !profile.profileComplete){ closeModal(); openReg(); return; }
   try{
     if(l.status==="buynow"){ await reserve(l,val); modalMsg(val?t("mOffered"):t("mReserved")); return; }
-    if(l.status!=="live"){ modalMsg(t("mRegistered")); return; }
-    await placeBidTx(l,val);
-    $("#modalBid").textContent=money(val); modalMsg(t("mBidPlaced"));
-  }catch(err){
-    const m=String(err&&err.message||err);
-    if(m.startsWith("low:")) modalMsg(t("mBidLow"),true);
-    else if(m==="closed") modalMsg(t("mClosed"),true);
-    else modalMsg(t("mBidLow"),true);
-  }
+    if(l.status!=="live"){ await watchLot(l); modalMsg(t("mWatching")); return; }
+    const minNext = l.bid ? l.bid+(l.minIncrement||100) : (l.openingBid||l.minIncrement||100);
+    if(val < minNext){ modalMsg(t("mBidLow")+" ("+money(minNext)+"+)",true); return; }
+    await submitMaxBid(l,val);
+    modalMsg(t("mMaxRegistered"));
+  }catch(err){ console.warn(err); modalMsg(t("mBidLow"),true); }
 });
 
 /* ============================================================
@@ -1367,11 +1419,20 @@ function attachAuth(){
    ============================================================ */
 function fromDoc(id,d){
   const mode=d.mode||(d.status==="buynow"?"buynow":"auction");
-  const status = mode==="buynow" ? "buynow" : (d.status==="upcoming"?"upcoming":(d.status==="closed"?"closed":"live"));
-  return { id, ref:id, demo:false, house:d.house||"", cat:d.cat||"Fine Art", title:d.title||"Untitled",
+  const startMs=d.startAt&&d.startAt.toMillis?d.startAt.toMillis():null;
+  const endMs=d.endAt&&d.endAt.toMillis?d.endAt.toMillis():(d.endAtMs||null);
+  let status;
+  if(mode==="buynow") status="buynow";
+  else if(d.status==="closed"||(endMs&&Date.now()>endMs)) status="closed";
+  else if(startMs&&Date.now()<startMs) status="upcoming";
+  else status="live";
+  const images=Array.isArray(d.images)&&d.images.length?d.images.slice():(d.img?[d.img]:[]);
+  return { id, ref:id, demo:false, mode, house:d.house||"", cat:d.cat||"Jewish Art", title:d.title||"Untitled",
     est:d.est||"", price:d.price||(d.priceNum?money(d.priceNum):""), bid:(typeof d.currentBid==="number"?d.currentBid:null),
-    minIncrement:d.minIncrement||100, status,
-    endsAt: d.endAt&&d.endAt.toMillis?d.endAt.toMillis():(d.endAtMs||null), img:d.img||"https://images.unsplash.com/photo-1578321272176-b7bbc0679853?auto=format&fit=crop&w=800&q=80" };
+    openingBid:Number(d.openingBid)||0, reserve:Number(d.reserve)||0, reserveMet:d.reserveMet!==false,
+    minIncrement:d.minIncrement||100, status, startsAt:startMs, endsAt:endMs,
+    img:images[0]||"https://images.unsplash.com/photo-1578321272176-b7bbc0679853?auto=format&fit=crop&w=800&q=80", images,
+    description:d.description||"", provenance:d.provenance||"", condition:d.condition||"" };
 }
 function attachLots(){
   try{
@@ -1383,22 +1444,28 @@ function attachLots(){
   }catch(err){ console.warn(err); }
 }
 
-async function placeBidTx(l,val){
-  const ref=doc(db,"zc_lots",l.ref);
-  await runTransaction(db, async tx=>{
-    const s=await tx.get(ref); if(!s.exists()) throw new Error("gone");
-    const d=s.data();
-    if((d.status||"live")!=="live") throw new Error("closed");
-    if(d.endAt&&d.endAt.toMillis&&Date.now()>d.endAt.toMillis()) throw new Error("closed");
-    const cur=typeof d.currentBid==="number"?d.currentBid:0;
-    const inc=d.minIncrement||100;
-    if(val < cur+inc) throw new Error("low:"+(cur+inc));
-    tx.update(ref,{ currentBid:val, currentBidder:me.uid, currentBidderName:(profile&&profile.fullName)||me.displayName||"", bidCount:(d.bidCount||0)+1, updatedAt:serverTimestamp() });
+// Proxy (automatic) bidding: the bidder records only their MAXIMUM into the
+// lot's bids subcollection. A Cloud Function (zcResolveBid, admin SDK) reads
+// every maximum, sets the public price one increment above the second-highest,
+// and keeps each maximum private. Clients never touch the lot document itself,
+// so the maximum stays hidden and the security rules stay strict.
+async function submitMaxBid(l,maxBid){
+  await addDoc(collection(db,"zc_lots",l.ref,"bids"),{
+    uid:me.uid,
+    name:(profile&&profile.fullName)||me.displayName||"",
+    maxBid:Number(maxBid),
+    at:serverTimestamp()
   });
-  try{ await addDoc(collection(db,"zc_lots",l.ref,"bids"),{ uid:me.uid, name:(profile&&profile.fullName)||"", amount:val, at:serverTimestamp() }); }catch(e){ /* history best-effort */ }
 }
 async function reserve(l,offer){
   await addDoc(collection(db,"zc_orders"),{ type:"buynow_reservation", lotId:l.ref, lotTitle:l.title, uid:me.uid, buyerName:(profile&&profile.fullName)||"", amount: offer||digits(l.price||l.bid), paid:false, createdAt:serverTimestamp() });
+}
+// Register interest in an upcoming lot; the server emails watchers ~30 min
+// before it opens. Doc id is the uid, so re-registering is idempotent.
+async function watchLot(l){
+  await setDoc(doc(db,"zc_lots",l.ref,"watchers",me.uid),{
+    uid:me.uid, name:(profile&&profile.fullName)||me.displayName||"", email:me.email||"", at:serverTimestamp()
+  });
 }
 
 /* ============================================================
@@ -1423,13 +1490,49 @@ function mountAdmin(){
   $("#lotForm").addEventListener("submit",async e=>{
     e.preventDefault(); $("#lotErr").textContent="";
     const mode=modeSel.value;
-    const base={ title:$("#ltTitle").value.trim(), house:$("#ltHouse").value.trim(), cat:$("#ltCat").value, img:$("#ltImg").value.trim()||"", createdAt:serverTimestamp() };
+    const urlImg=$("#ltImg").value.trim();
+    const base={
+      title:$("#ltTitle").value.trim(), house:$("#ltHouse").value.trim(), cat:$("#ltCat").value,
+      description:$("#ltDesc").value.trim(), provenance:$("#ltProv").value.trim(), condition:$("#ltCond").value.trim(),
+      img:urlImg||"", images:urlImg?[urlImg]:[], createdAt:serverTimestamp()
+    };
     if(!base.title){ $("#lotErr").textContent=t("regFill"); return; }
     let data;
-    if(mode==="buynow"){ data={...base, mode:"buynow", status:"buynow", price:$("#ltPrice").value?("$"+Number($("#ltPrice").value).toLocaleString("en-US")):"", priceNum:Number($("#ltPrice").value)||0}; }
-    else{ const dur=Number($("#ltDur").value)||24; data={...base, mode:"auction", status:"live", est:$("#ltEst").value.trim(), currentBid:Number($("#ltStart").value)||0, minIncrement:Number($("#ltIncr").value)||100, bidCount:0, currentBidder:"", currentBidderName:"", endAt:Timestamp.fromMillis(Date.now()+dur*3600*1000)}; }
-    try{ await addDoc(collection(db,"zc_lots"),data); $("#lotForm").reset(); applyMode(); $("#lotErr").style.color="var(--ok)"; $("#lotErr").textContent=t("admAdded"); setTimeout(()=>{$("#lotErr").textContent="";$("#lotErr").style.color="";},2500); }
-    catch(err){ $("#lotErr").style.color=""; $("#lotErr").textContent=String(err&&err.message||err); }
+    if(mode==="buynow"){
+      data={...base, mode:"buynow", status:"buynow",
+        price:$("#ltPrice").value?("$"+Number($("#ltPrice").value).toLocaleString("en-US")):"", priceNum:Number($("#ltPrice").value)||0};
+    } else {
+      const startVal=$("#ltStartAt").value, endVal=$("#ltEndAt").value;
+      const startMs=startVal?new Date(startVal).getTime():Date.now();
+      const endMs=endVal?new Date(endVal).getTime():(startMs+24*3600*1000);
+      if(endMs<=startMs){ $("#lotErr").textContent=t("admBadTimes"); return; }
+      data={...base, mode:"auction", est:$("#ltEst").value.trim(),
+        openingBid:Number($("#ltStart").value)||0, reserve:Number($("#ltReserve").value)||0, reserveMet:(Number($("#ltReserve").value)||0)<=0,
+        currentBid:null, minIncrement:Number($("#ltIncr").value)||100, bidCount:0, currentBidder:"", currentBidderName:"",
+        startAt:Timestamp.fromMillis(startMs), endAt:Timestamp.fromMillis(endMs),
+        status:(Date.now()<startMs?"upcoming":"live")};
+    }
+    const files=($("#ltFiles").files)?Array.from($("#ltFiles").files):[];
+    const st=$("#ltUpStatus");
+    try{
+      const refDoc=await addDoc(collection(db,"zc_lots"),data);
+      if(files.length && storage){
+        st.hidden=false; const urls=[];
+        for(let i=0;i<files.length;i++){
+          st.textContent=t("admUploading")+" "+(i+1)+"/"+files.length;
+          const safe=files[i].name.replace(/[^\w.\-]/g,"_");
+          const r=stRef(storage,"zc_lots/"+refDoc.id+"/"+Date.now()+"_"+i+"_"+safe);
+          await stUpload(r,files[i]); urls.push(await stURL(r));
+        }
+        const allImages=base.images.concat(urls);
+        await updateDoc(doc(db,"zc_lots",refDoc.id),{ images:allImages, img:allImages[0]||base.img });
+        st.hidden=true;
+      }
+      $("#lotForm").reset(); applyMode(); st.hidden=true;
+      $("#lotErr").style.color="var(--ok)"; $("#lotErr").textContent=t("admAdded");
+      setTimeout(()=>{$("#lotErr").textContent="";$("#lotErr").style.color="";},2500);
+    }
+    catch(err){ st.hidden=true; $("#lotErr").style.color=""; $("#lotErr").textContent=String(err&&err.message||err); }
   });
 }
 let adminSubbed=false;
@@ -1488,15 +1591,17 @@ function observeReveal(){ if(!io){ io=new IntersectionObserver(ents=>{ ents.forE
 
 async function initFirebase(){
   try{
-    const [appMod,authMod,fsMod]=await Promise.all([
+    const [appMod,authMod,fsMod,stMod]=await Promise.all([
       import("https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js"),
       import("https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js"),
-      import("https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js")
+      import("https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.5/firebase-storage.js")
     ]);
     ({initializeApp}=appMod);
     ({getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged}=authMod);
     ({getFirestore,collection,doc,getDoc,setDoc,updateDoc,onSnapshot,runTransaction,addDoc,serverTimestamp,Timestamp,query,orderBy}=fsMod);
-    const app=initializeApp(firebaseConfig); auth=getAuth(app); db=getFirestore(app); provider=new GoogleAuthProvider(); online=true;
+    ({getStorage,ref:stRef,uploadBytes:stUpload,getDownloadURL:stURL}=stMod);
+    const app=initializeApp(firebaseConfig); auth=getAuth(app); db=getFirestore(app); storage=getStorage(app); provider=new GoogleAuthProvider(); online=true;
     attachAuth(); attachLots(); updateAuthUI();
   }catch(e){ console.warn("Firebase unavailable — preview mode.",e); online=false; }
 }

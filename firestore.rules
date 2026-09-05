@@ -70,6 +70,16 @@ service cloud.firestore {
           && request.resource.data.maxBid >= lotData(lotId).openingBid;
         allow update, delete: if false;
       }
+
+      // Watchers — a signed-in, registered bidder may register interest in an
+      // upcoming lot so the server can email them ~30 min before it opens. The
+      // doc id is the user's uid, so each user has at most one watch per lot.
+      match /watchers/{watchUid} {
+        allow read: if zcAdmin() || (signedIn() && request.auth.uid == watchUid);
+        allow create, update: if zcReady() && request.auth.uid == watchUid
+          && request.resource.data.uid == request.auth.uid;
+        allow delete: if zcAdmin() || (signedIn() && request.auth.uid == watchUid);
+      }
     }
 
     // Orders — auction wins (created by the close function via admin SDK) and
