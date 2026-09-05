@@ -414,6 +414,19 @@ footer{background:var(--ink);color:var(--paper);padding:80px 0 34px}
 .dlg-crest{width:56px;height:56px;color:var(--wine);margin-bottom:18px}
 .dlg h2{font-size:1.9rem;margin-bottom:8px}
 .dlg .dlg-sub{color:var(--text-mute);font-size:.95rem;margin-bottom:24px;line-height:1.6}
+.dlg-narrow{max-width:430px;text-align:center}
+.dlg-narrow .f-field{text-align:start}
+.dlg-narrow .dlg-sub{margin-bottom:22px}
+.dlg-portrait{height:70px;width:auto;object-fit:contain;object-position:bottom;margin:0 auto 14px;display:block}
+.btn-google{width:100%;justify-content:center;gap:11px;background:var(--surface);color:var(--ink);border:1px solid var(--line-strong);font-weight:600}
+.btn-google:hover{background:var(--surface-2);border-color:var(--ink);transform:none}
+.auth-or{display:flex;align-items:center;gap:14px;color:var(--text-faint);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;margin:20px 0}
+.auth-or::before,.auth-or::after{content:"";height:1px;flex:1;background:var(--line)}
+#authForm .f-field{margin-bottom:14px}
+#authForm .btn-wine{width:100%;justify-content:center;margin-top:4px}
+.auth-links{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:18px}
+.linkish{font-size:.84rem;color:var(--wine);font-weight:500;padding:2px 0}
+.linkish:hover{text-decoration:underline}
 .f-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .f-field{display:flex;flex-direction:column;gap:6px}
 .f-field.full{grid-column:1/-1}
@@ -1011,6 +1024,31 @@ body.zc-links a{text-decoration:underline!important;outline:1px dashed var(--gol
   </div>
 </div>
 
+<!-- Sign-in / sign-up dialog (Google + email & password) -->
+<div class="dlg-overlay" id="authOverlay" aria-hidden="true">
+  <div class="dlg dlg-narrow" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <button class="dlg-close" id="authClose" aria-label="Close"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <img class="dlg-portrait" src="assets/portrait-engraved-ink.png" alt="" aria-hidden="true" />
+    <h2 class="serif-auto" id="authTitle" data-i18n="authSignin">Sign in</h2>
+    <p class="dlg-sub" id="authSub" data-i18n="authSub">Sign in to bid, buy and follow the collection.</p>
+    <button type="button" class="btn btn-google" id="googleBtn">
+      <svg viewBox="0 0 48 48" width="18" height="18" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      <span data-i18n="authGoogle">Continue with Google</span>
+    </button>
+    <div class="auth-or"><span data-i18n="authOr">or</span></div>
+    <form id="authForm" novalidate>
+      <div class="f-field full"><label data-i18n="authEmail">Email address</label><input id="authEmail" type="email" autocomplete="email" required /></div>
+      <div class="f-field full"><label data-i18n="authPass">Password</label><input id="authPass" type="password" autocomplete="current-password" minlength="6" required /></div>
+      <div class="dlg-err" id="authErr"></div>
+      <button type="submit" class="btn btn-wine" id="authSubmit" data-i18n="authSigninBtn">Sign in</button>
+    </form>
+    <div class="auth-links">
+      <button type="button" class="linkish" id="authToggle" data-i18n="authToSignup">New here? Create an account</button>
+      <button type="button" class="linkish" id="authForgot" data-i18n="authForgot">Forgot password?</button>
+    </div>
+  </div>
+</div>
+
 <!-- Banned dialog -->
 <div class="dlg-overlay" id="banOverlay" aria-hidden="true">
   <div class="dlg banned-dlg" role="alertdialog" aria-modal="true">
@@ -1097,11 +1135,16 @@ const firebaseConfig = {
   messagingSenderId: "25280022255",
   appId: "1:25280022255:web:c32e1f34437621c3d57d1a"
 };
-const ADMIN_EMAIL = "aaci.yoni@gmail.com";  // site owner
+// Admins — anyone signing in (Google OR email+password) with one of these
+// addresses sees the back office. Add/remove emails here to define managers.
+// NOTE: the Firestore security rules carry the SAME list — keep them in sync.
+const ADMIN_EMAILS = ["aaci.yoni@gmail.com", "zilbershlagdudi@gmail.com"];
+const isAdminEmail = e => !!e && ADMIN_EMAILS.map(x=>x.toLowerCase()).includes(String(e).toLowerCase());
 /* Firebase SDK symbols — populated by the dynamic import in initFirebase().
    Loaded resiliently: if the CDN is unreachable the whole catalogue still
    renders (preview mode) instead of the page breaking. */
 let initializeApp,getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged,
+    createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,updateProfile,
     getFirestore,collection,doc,getDoc,setDoc,updateDoc,onSnapshot,runTransaction,addDoc,serverTimestamp,Timestamp,query,orderBy,
     getStorage,stRef,stUpload,stURL;
 let auth=null, db=null, storage=null, online=false, provider=null;
@@ -1151,6 +1194,10 @@ const I18N = {
     regName:"Full legal name", regPhone:"Phone", regCountry:"Country", regCity:"City", regPostal:"Postal code", regStreet:"Street address", regIdType:"ID type", regIdTZ:"National ID", regIdPassport:"Passport", regIdNum:"ID / passport number",
     regAgree:"I have read and accept the Terms & Conditions and Privacy Policy, and I understand that winning bids are binding and that non-payment results in permanent removal from the House.",
     regSubmit:"Save & continue", regFill:"Please complete all required fields and accept the terms.", regSaved:"Registration complete — you may now bid and buy.",
+    authSignin:"Sign in", authSignup:"Create your account", authSub:"Sign in to bid, buy and follow the collection.", authSubSignup:"Create an account to bid, buy and follow the collection.",
+    authGoogle:"Continue with Google", authOr:"or", authEmail:"Email address", authPass:"Password", authSigninBtn:"Sign in", authSignupBtn:"Create account",
+    authToSignup:"New here? Create an account", authToSignin:"Already have an account? Sign in", authForgot:"Forgot password?",
+    aeInUse:"That email already has an account — try signing in instead.", aeEmail:"Please enter a valid email address.", aeWeak:"Password must be at least 6 characters.", aeBad:"Incorrect email or password.", aeMany:"Too many attempts — please try again in a moment.", aeNeedEmail:"Enter your email above, then tap “Forgot password?”.", aeReset:"A password-reset link has been sent — check your inbox.", aeFill:"Enter an email and a password of at least 6 characters.", aeDisabled:"Email sign-in isn’t enabled yet. Enable Email/Password in the Firebase console.",
     bannedTitle:"Account suspended", bannedBody:"This account has been permanently removed from the House following an unsettled winning bid. If you believe this is in error, contact the collection office.", bannedContact:"Contact the office",
     admTitle:"Collection office", admAdd:"Add lot", admOrders:"Orders", admMembers:"Members",
     admAddNote:"Add a lot to the catalogue. Auctions take an opening bid, a reserve (your private minimum), an increment and opening/closing times; private-sale pieces take a fixed price. Photographs upload straight to the collection.",
@@ -1201,6 +1248,10 @@ const I18N = {
     regName:"שם מלא (כפי שבתעודה)", regPhone:"טלפון", regCountry:"מדינה", regCity:"עיר", regPostal:"מיקוד", regStreet:"כתובת (רחוב ומספר)", regIdType:"סוג זיהוי", regIdTZ:"תעודת זהות", regIdPassport:"דרכון", regIdNum:"מספר ת.ז. / דרכון",
     regAgree:"קראתי ואני מסכים לתקנון ולמדיניות הפרטיות, ואני מבין שהצעות זוכות מחייבות ושאי-תשלום גורר הרחקה לצמיתות מהבית.",
     regSubmit:"שמירה והמשך", regFill:"נא למלא את כל שדות החובה ולאשר את התקנון.", regSaved:"ההרשמה הושלמה — ניתן כעת להציע ולקנות.",
+    authSignin:"התחברות", authSignup:"פתיחת חשבון", authSub:"התחברו כדי להציע, לקנות ולעקוב אחר האוסף.", authSubSignup:"פתחו חשבון כדי להציע, לקנות ולעקוב אחר האוסף.",
+    authGoogle:"המשך עם Google", authOr:"או", authEmail:"כתובת אימייל", authPass:"סיסמה", authSigninBtn:"התחברות", authSignupBtn:"פתיחת חשבון",
+    authToSignup:"חדשים כאן? פתחו חשבון", authToSignin:"כבר יש לכם חשבון? התחברו", authForgot:"שכחתם סיסמה?",
+    aeInUse:"לאימייל הזה כבר קיים חשבון — נסו להתחבר במקום.", aeEmail:"נא להזין כתובת אימייל תקינה.", aeWeak:"הסיסמה חייבת להכיל לפחות 6 תווים.", aeBad:"אימייל או סיסמה שגויים.", aeMany:"יותר מדי ניסיונות — נסו שוב בעוד רגע.", aeNeedEmail:"הזינו אימייל למעלה, ואז לחצו על ״שכחתם סיסמה?״.", aeReset:"נשלח קישור לאיפוס הסיסמה — בדקו את תיבת המייל.", aeFill:"הזינו אימייל וסיסמה באורך 6 תווים לפחות.", aeDisabled:"התחברות עם אימייל עדיין לא מופעלת. הפעילו Email/Password בקונסולת Firebase.",
     bannedTitle:"החשבון הושעה", bannedBody:"חשבון זה הוסר לצמיתות מהבית בעקבות הצעה זוכה שלא הוסדרה. אם לדעתך מדובר בטעות, פנה למשרד האוסף.", bannedContact:"פנייה למשרד",
     admTitle:"משרד האוסף", admAdd:"הוספת פריט", admOrders:"הזמנות", admMembers:"חברים",
     admAddNote:"הוסף פריט לקטלוג. מכירה פומבית דורשת מחיר פתיחה, מחיר מינימום (רזרבה — פרטי), מדרגת הצעה ומועדי פתיחה וסגירה; מכירה פרטית דורשת מחיר קבוע. התצלומים נטענים ישירות אל האוסף.",
@@ -1412,6 +1463,7 @@ function modalMsg(msg,isErr){ const s=$("#bidSuccess"); $("#bidSuccessText").tex
 $("#modalClose").addEventListener("click",closeModal);
 overlay.addEventListener("click",e=>{ if(e.target===overlay) closeModal(); });
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&overlay.classList.contains("open")) closeModal(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&$("#authOverlay").classList.contains("open")) closeAuth(); });
 $("#bidInput").addEventListener("input",e=>{ const v=e.target.value.replace(/[^0-9]/g,''); e.target.value=v?parseInt(v).toLocaleString("en-US"):""; });
 
 $("#placeBid").addEventListener("click",async ()=>{
@@ -1424,7 +1476,7 @@ $("#placeBid").addEventListener("click",async ()=>{
     if(val<=(l.bid||0)){ modalMsg(t("mBidLow"),true); return; }
     l.bid=val; animateMoney($("#modalBid"), val); modalMsg(t("mBidPlaced")); render(); return;
   }
-  if(!me){ modalMsg(t("mSignInFirst"),true); setTimeout(()=>{ closeModal(); signIn(); },600); return; }
+  if(!me){ modalMsg(t("mSignInFirst"),true); setTimeout(()=>{ closeModal(); openAuth(); },600); return; }
   if(profile && profile.banned){ showBanned(); return; }
   if(!profile || !profile.profileComplete){ closeModal(); openReg(); return; }
   try{
@@ -1491,6 +1543,58 @@ let me=null, profile=null, isAdmin=false;
 function signIn(){ if(!online){ alert("Sign-in unavailable in preview."); return; } signInWithPopup(auth,provider).catch(err=>{ console.warn(err); alert(t("mSignInFirst")); }); }
 function doSignOut(){ if(online) signOut(auth); }
 
+/* ---- Sign-in / sign-up dialog (Google + email & password) ---- */
+const authOverlay=$("#authOverlay"); let authMode="signin";
+function openAuth(){
+  if(!online){ alert("Sign-in unavailable in preview."); return; }
+  setAuthMode("signin"); $("#authErr").textContent=""; $("#authPass").value="";
+  authOverlay.classList.add("open"); authOverlay.setAttribute("aria-hidden","false"); document.body.style.overflow="hidden";
+  setTimeout(()=>$("#authEmail").focus(),50);
+}
+function closeAuth(){ authOverlay.classList.remove("open"); authOverlay.setAttribute("aria-hidden","true"); document.body.style.overflow=""; }
+function setAuthMode(m){
+  authMode=m; const signup=m==="signup";
+  $("#authTitle").textContent=t(signup?"authSignup":"authSignin");
+  $("#authSub").textContent=t(signup?"authSubSignup":"authSub");
+  $("#authSubmit").textContent=t(signup?"authSignupBtn":"authSigninBtn");
+  $("#authToggle").textContent=t(signup?"authToSignin":"authToSignup");
+  $("#authPass").setAttribute("autocomplete",signup?"new-password":"current-password");
+  $("#authErr").textContent="";
+}
+function authErr(msg){ $("#authErr").textContent=msg; }
+function mapAuthError(err){
+  const c=(err&&err.code)||"";
+  if(c.includes("email-already-in-use")) return t("aeInUse");
+  if(c.includes("invalid-email")) return t("aeEmail");
+  if(c.includes("weak-password")) return t("aeWeak");
+  if(c.includes("wrong-password")||c.includes("invalid-credential")||c.includes("user-not-found")) return t("aeBad");
+  if(c.includes("too-many-requests")) return t("aeMany");
+  if(c.includes("operation-not-allowed")) return t("aeDisabled");
+  return (err&&err.message)||"Error";
+}
+$("#authClose").addEventListener("click",closeAuth);
+authOverlay.addEventListener("click",e=>{ if(e.target===authOverlay) closeAuth(); });
+$("#googleBtn").addEventListener("click",()=>{ closeAuth(); signIn(); });
+$("#authToggle").addEventListener("click",()=>setAuthMode(authMode==="signin"?"signup":"signin"));
+$("#authForgot").addEventListener("click",async ()=>{
+  const email=$("#authEmail").value.trim();
+  if(!email){ authErr(t("aeNeedEmail")); return; }
+  try{ await sendPasswordResetEmail(auth,email); $("#authErr").style.color="var(--ok)"; authErr(t("aeReset")); }
+  catch(err){ $("#authErr").style.color=""; authErr(mapAuthError(err)); }
+});
+$("#authForm").addEventListener("submit",async e=>{
+  e.preventDefault(); $("#authErr").style.color="";
+  const email=$("#authEmail").value.trim(), pass=$("#authPass").value;
+  if(!email||pass.length<6){ authErr(t("aeFill")); return; }
+  const btn=$("#authSubmit"); btn.disabled=true;
+  try{
+    if(authMode==="signup") await createUserWithEmailAndPassword(auth,email,pass);
+    else await signInWithEmailAndPassword(auth,email,pass);
+    closeAuth();  // onAuthStateChanged takes over (profile / admin)
+  }catch(err){ console.warn(err); authErr(mapAuthError(err)); }
+  finally{ btn.disabled=false; }
+});
+
 const regOverlay=$("#regOverlay"), banOverlay=$("#banOverlay");
 function openReg(){ if(me){ if(!$("#rgName").value) $("#rgName").value=me.displayName||""; } $("#regErr").textContent=""; regOverlay.classList.add("open"); regOverlay.setAttribute("aria-hidden","false"); document.body.style.overflow="hidden"; setTimeout(()=>$("#rgName").focus(),50); }
 function closeReg(){ regOverlay.classList.remove("open"); regOverlay.setAttribute("aria-hidden","true"); document.body.style.overflow=""; }
@@ -1514,7 +1618,7 @@ $("#regForm").addEventListener("submit",async e=>{
     if(exists){ await updateDoc(ref,data); }
     else { await setDoc(ref,{...data,createdAt:serverTimestamp()}); }
     profile={...(profile||{}),...data,banned:false,profileComplete:true};
-    isAdmin=(me.email===ADMIN_EMAIL)||profile.role==="admin";
+    isAdmin=(isAdminEmail(me.email))||profile.role==="admin";
     closeReg(); updateAuthUI();
   }catch(err){ console.warn(err); $("#regErr").textContent=String(err&&err.message||err); }
 });
@@ -1534,10 +1638,10 @@ function updateAuthUI(){
     if(adminBtnM) adminBtnM.hidden=true; if(fab) fab.classList.remove("show");
   }
 }
-$("#authBtn").addEventListener("click",()=>{ me?doSignOut():signIn(); });
-$("#authBtnM").addEventListener("click",()=>{ me?doSignOut():signIn(); });
+$("#authBtn").addEventListener("click",()=>{ me?doSignOut():openAuth(); });
+$("#authBtnM").addEventListener("click",()=>{ me?doSignOut():openAuth(); });
 $("#acctBtn").addEventListener("click",()=>{ if(confirm(t("signOut")+"?")) doSignOut(); });
-$("#enqRegister").addEventListener("click",()=>{ me?(profile&&profile.profileComplete?null:openReg()):signIn(); });
+$("#enqRegister").addEventListener("click",()=>{ me?(profile&&profile.profileComplete?null:openReg()):openAuth(); });
 
 function attachAuth(){
   onAuthStateChanged(auth, async user=>{
@@ -1548,9 +1652,9 @@ function attachAuth(){
         if(snap.exists()){
           profile=snap.data();
           if(profile.banned){ updateAuthUI(); showBanned(); doSignOut(); return; }
-          isAdmin=(user.email===ADMIN_EMAIL)||profile.role==="admin";
+          isAdmin=(isAdminEmail(user.email))||profile.role==="admin";
           if(!profile.profileComplete) openReg();
-        } else { isAdmin=(user.email===ADMIN_EMAIL); openReg(); }
+        } else { isAdmin=(isAdminEmail(user.email)); openReg(); }
       }catch(err){ console.warn("profile load failed",err); }
     }
     updateAuthUI(); if(isAdmin) mountAdmin();
@@ -1741,7 +1845,7 @@ async function initFirebase(){
       import("https://www.gstatic.com/firebasejs/10.12.5/firebase-storage.js")
     ]);
     ({initializeApp}=appMod);
-    ({getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged}=authMod);
+    ({getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,updateProfile}=authMod);
     ({getFirestore,collection,doc,getDoc,setDoc,updateDoc,onSnapshot,runTransaction,addDoc,serverTimestamp,Timestamp,query,orderBy}=fsMod);
     ({getStorage,ref:stRef,uploadBytes:stUpload,getDownloadURL:stURL}=stMod);
     const app=initializeApp(firebaseConfig); auth=getAuth(app); db=getFirestore(app); storage=getStorage(app); provider=new GoogleAuthProvider(); online=true;

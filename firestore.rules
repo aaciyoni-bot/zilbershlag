@@ -14,8 +14,9 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     function signedIn() { return request.auth != null; }
-    function ADMIN_EMAIL() { return 'aaci.yoni@gmail.com'; }
-    function owner() { return signedIn() && request.auth.token.email == ADMIN_EMAIL(); }
+    // Admin addresses — keep this list in sync with ADMIN_EMAILS in index.html.
+    function ADMIN_EMAILS() { return ['aaci.yoni@gmail.com', 'zilbershlagdudi@gmail.com']; }
+    function owner() { return signedIn() && request.auth.token.email in ADMIN_EMAILS(); }
 
     function zcUserPath() { return /databases/$(database)/documents/zc_users/$(request.auth.uid); }
     function zcHasProfile() { return signedIn() && exists(zcUserPath()); }

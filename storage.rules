@@ -8,8 +8,10 @@ rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
 
+    // Admin addresses — keep in sync with ADMIN_EMAILS in index.html.
     function owner() {
-      return request.auth != null && request.auth.token.email == 'aaci.yoni@gmail.com';
+      return request.auth != null &&
+        request.auth.token.email in ['aaci.yoni@gmail.com', 'zilbershlagdudi@gmail.com'];
     }
     function isAdmin() {
       return owner() ||
