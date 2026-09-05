@@ -305,6 +305,7 @@ section.block{padding:clamp(64px,9vw,128px) 0}
 .house p{color:rgba(244,239,230,.72);font-size:1.06rem;line-height:1.8;margin-bottom:18px}
 .house-seal{display:grid;place-items:center}
 .house-seal svg{width:min(340px,72vw);height:auto;opacity:.9}
+.house-seal img{height:min(440px,66vw);width:auto;object-fit:contain;filter:drop-shadow(0 16px 44px rgba(0,0,0,.45))}
 
 .how{background:var(--surface);border-block:1px solid var(--line)}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;margin-top:10px}
@@ -514,7 +515,8 @@ footer{background:var(--ink);color:var(--paper);padding:80px 0 34px}
   .dept.large{aspect-ratio:3/4}
   .hero-stats{gap:24px}
   .toolbar{align-items:stretch}
-  .tabs{width:100%;justify-content:center}
+  .tabs{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:4px}
+  .tabs .tab{justify-content:center;width:100%}
   .foot-grid{grid-template-columns:1fr}
   .foot-bottom{flex-direction:column;text-align:center}
   .f-grid{grid-template-columns:1fr}
@@ -676,6 +678,7 @@ body.zc-links a{text-decoration:underline!important;outline:1px dashed var(--gol
         <li><a href="#departments" data-i18n="navDepartments">Departments</a></li>
         <li><a href="#how" data-i18n="navHow">How it works</a></li>
         <li><a href="#house" data-i18n="navHouse">The House</a></li>
+        <li><a href="about.html" data-i18n="navAbout">About Dudi Zilbershlag</a></li>
         <li><a href="#enquire" data-i18n="navEnquire">Enquire</a></li>
       </ul>
     </nav>
@@ -698,6 +701,7 @@ body.zc-links a{text-decoration:underline!important;outline:1px dashed var(--gol
   <a href="#departments" data-i18n="navDepartments">Departments</a>
   <a href="#how" data-i18n="navHow">How it works</a>
   <a href="#house" data-i18n="navHouse">The House</a>
+  <a href="about.html" data-i18n="navAbout">About Dudi Zilbershlag</a>
   <a href="#enquire" data-i18n="navEnquire">Enquire</a>
   <div class="m-actions">
     <button class="btn btn-ghost" id="authBtnM" data-i18n="signin">Sign in</button>
@@ -838,7 +842,7 @@ body.zc-links a{text-decoration:underline!important;outline:1px dashed var(--gol
       <a href="#enquire" class="link-arrow" style="color:var(--brass-bright);border-color:var(--brass)" data-i18n="houseCta">Request a private viewing
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg></a>
     </div>
-    <div class="house-seal reveal"><svg style="color:var(--brass-bright)"><use href="#zc-crest"/></svg></div>
+    <div class="house-seal reveal"><img src="assets/portrait-engraved.png" alt="Dudi Zilbershlag" /></div>
   </div>
 </section>
 
@@ -933,7 +937,7 @@ body.zc-links a{text-decoration:underline!important;outline:1px dashed var(--gol
         <li><a href="terms.html" data-i18n="footPremium">Buyer's premium</a></li>
         <li><a href="terms.html" data-i18n="footShipping">Shipping &amp; delivery</a></li></ul></div>
       <div class="foot-col"><h4 data-i18n="footHouse">The House</h4><ul>
-        <li><a href="#house" data-i18n="footAbout">About the House</a></li>
+        <li><a href="about.html" data-i18n="footAbout">About the House</a></li>
         <li><a href="terms.html" data-i18n="footTerms">Terms &amp; conditions</a></li>
         <li><a href="privacy.html" data-i18n="footPrivacy">Privacy policy</a></li>
         <li><a href="accessibility.html" data-i18n="footA11y">Accessibility</a></li></ul></div>
@@ -1111,7 +1115,7 @@ const I18N = {
     signin:"Sign in", signOut:"Sign out", register:"Register to bid", admin:"Admin",
     heroEyebrow:"Purveyors of fine things since 1962", heroTitle:"A house built on<br/><em>six decades</em><br/>of collecting.",
     heroLede:"For over sixty years the House of Zilbershlag has gathered the exceptional — fine Jewish and Israeli art, rare Hebrew books, manuscripts, ceremonial silver and Judaica from across the world. The collection is now offered, piece by piece, through daily and weekly auction and by private sale.",
-    heroCta1:"Enter the saleroom", heroCta2:"How it works", statPieces:"Pieces", statEst:"Established", statDepts:"Departments",
+    navAbout:"About Dudi Zilbershlag", heroCta1:"Enter the saleroom", heroCta2:"How it works", statPieces:"Pieces", statEst:"Established", statDepts:"Departments",
     liveNow:"Live now", currentBid:"Current bid", hrs:"hrs", min:"min", sec:"sec",
     schDailyT:"Daily auctions", schDailyP:"Timed lots open and close every day at 20:00. New pieces released each morning.",
     schWeeklyT:"Weekly signature sale", schWeeklyP:"The finest lots of the week gathered every Thursday evening — the marquee event of the House.",
@@ -1161,7 +1165,7 @@ const I18N = {
     signin:"התחברות", signOut:"התנתקות", register:"הרשמה למכירה", admin:"ניהול",
     heroEyebrow:"אספני מובחר מאז 1962", heroTitle:"בית שנבנה על<br/><em>שישה עשורים</em><br/>של אספנות.",
     heroLede:"במשך למעלה משישים שנה אסף בית זילברשלג את יוצא הדופן — אמנות יהודית וישראלית, ספרים עבריים נדירים, כתבי יד, כלי כסף ותשמישי קדושה מרחבי העולם. כעת האוסף מוצע, פריט אחר פריט, במכירות פומביות יומיות ושבועיות ובמכירה פרטית.",
-    heroCta1:"כניסה לאולם המכירות", heroCta2:"איך זה עובד", statPieces:"פריטים", statEst:"נוסד", statDepts:"מחלקות",
+    navAbout:"אודות דודי זילברשלג", heroCta1:"כניסה לאולם המכירות", heroCta2:"איך זה עובד", statPieces:"פריטים", statEst:"נוסד", statDepts:"מחלקות",
     liveNow:"מתקיים כעת", currentBid:"הצעה נוכחית", hrs:"שע׳", min:"דק׳", sec:"שנ׳",
     schDailyT:"מכירות יומיות", schDailyP:"פריטים בזמן קצוב נפתחים ונסגרים מדי יום ב-20:00. פריטים חדשים נחשפים בכל בוקר.",
     schWeeklyT:"מכירת הדגל השבועית", schWeeklyP:"מיטב הפריטים של השבוע, בכל יום חמישי בערב — אירוע הדגל של הבית.",
@@ -1235,7 +1239,39 @@ const DEMO = [
   {id:"d15", house:"Ephemera Archive", cat:"Ephemera", title:"Community Ledger (Pinkas), Galician Chevra Kadisha, 19th C.", price:"$5,800", status:"buynow", img:"https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80"},
   {id:"d16", house:"Modern Masters", cat:"Jewish Art", title:"Bezalel Brass Menorah, Jerusalem, early 20th Century", est:"$7,000 – $10,000", bid:null, status:"upcoming", days:3, img:"https://images.unsplash.com/photo-1601058268499-e52658b8ebf8?auto=format&fit=crop&w=800&q=80"},
 ];
-function primeDemo(){ const n=Date.now(); DEMO.forEach(l=>{ l.demo=true; if(l.status==="live") l.endsAt=n+l.hours*3600*1000; else if(l.status==="upcoming") l.endsAt=n+l.days*24*3600*1000; }); }
+/* Placeholder lot artwork — elegant navy+gold Judaica line-plates, generated
+   as inline SVG so the demo catalogue never shows a stray, off-theme stock
+   photo. Real (admin-uploaded) lots always use their own photographs. */
+function buildMenorah(){
+  let p='<path d="M-46,84 L46,84 M0,84 L0,-6"/>';
+  p+='<path d="M0,26 Q-64,26 -64,-40 M0,4 Q-42,4 -42,-40 M0,-18 Q-20,-18 -20,-40"/>';
+  p+='<path d="M0,26 Q64,26 64,-40 M0,4 Q42,4 42,-40 M0,-18 Q20,-18 20,-40"/>';
+  const xs=[-64,-42,-20,0,20,42,64];
+  xs.forEach(x=>{ p+='<path d="M'+(x-10)+',-40 L'+(x+10)+',-40"/>'; });
+  xs.forEach(x=>{ p+='<circle cx="'+x+'" cy="-49" r="4"/>'; });
+  return p;
+}
+const PLATE_MOTIF = {
+  book:'<path d="M-95,-45 Q-48,-60 0,-48 Q48,-60 95,-45 L95,58 Q48,44 0,54 Q-48,44 -95,58 Z"/><path d="M0,-48 L0,54"/>',
+  scroll:'<path d="M-55,-72 L-55,72 M55,-72 L55,72"/><path d="M-55,-58 Q0,-46 55,-58 M-55,58 Q0,46 55,58"/><circle cx="-55" cy="-72" r="9"/><circle cx="-55" cy="72" r="9"/><circle cx="55" cy="-72" r="9"/><circle cx="55" cy="72" r="9"/>',
+  crown:'<path d="M-85,34 L-85,-22 L-42,20 L0,-44 L42,20 L85,-22 L85,34 Z"/><path d="M-92,52 L92,52"/><circle cx="-85" cy="-30" r="6"/><circle cx="0" cy="-54" r="6"/><circle cx="85" cy="-30" r="6"/>',
+  star:'<path d="M0,-86 L74,42 L-74,42 Z"/><path d="M0,86 L74,-42 L-74,-42 Z"/>',
+  doc:'<rect x="-60" y="-80" width="120" height="160" rx="4"/><path d="M-36,-46 L36,-46 M-36,-16 L36,-16 M-36,14 L36,14 M-36,44 L14,44"/>',
+  menorah: buildMenorah()
+};
+const CAT_MOTIF = {"Hebrew Books":"book","Manuscripts":"scroll","Judaica Silver":"crown","Jewish Art":"menorah","Hasidic & Rabbinic":"book","Ephemera":"doc","Textiles":"star"};
+function platePlaceholder(cat){
+  const motif = PLATE_MOTIF[CAT_MOTIF[cat]] || PLATE_MOTIF.star;
+  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">'
+    +'<defs><linearGradient id="pg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#16223c"/><stop offset="1" stop-color="#0a1120"/></linearGradient></defs>'
+    +'<rect width="800" height="600" fill="url(#pg)"/>'
+    +'<rect x="26" y="26" width="748" height="548" fill="none" stroke="#c9a44c" stroke-opacity="0.28" stroke-width="1.5"/>'
+    +'<g transform="translate(400,272)" fill="none" stroke="#c9a44c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.92">'+motif+'</g>'
+    +'<text x="400" y="536" fill="#c9a44c" fill-opacity="0.7" font-family="Georgia,serif" font-size="19" letter-spacing="5" text-anchor="middle">ZILBERSHLAG</text>'
+    +'</svg>';
+  return 'data:image/svg+xml,'+encodeURIComponent(svg);
+}
+function primeDemo(){ const n=Date.now(); DEMO.forEach(l=>{ l.demo=true; const p=platePlaceholder(l.cat); l.img=p; l.images=[p]; if(l.status==="live") l.endsAt=n+l.hours*3600*1000; else if(l.status==="upcoming") l.endsAt=n+l.days*24*3600*1000; }); }
 primeDemo();
 
 let LOTS = DEMO.slice();
