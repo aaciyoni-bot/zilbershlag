@@ -1,0 +1,33 @@
+rules_version = '2';
+
+// ============================================================================
+// ZILBERSHLAG — Firebase Storage rules (project: asfanut)
+// Lot images live under zc_lots/<lotId>/<file>. Anyone may view them; only the
+// site owner or an admin (role 'admin' in zc_users) may upload or delete.
+// ============================================================================
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function owner() {
+      return request.auth != null && request.auth.token.email == 'aaci.yoni@gmail.com';
+    }
+    function isAdmin() {
+      return owner() ||
+        (request.auth != null &&
+         firestore.get(/databases/(default)/documents/zc_users/$(request.auth.uid)).data.role == 'admin');
+    }
+
+    match /zc_lots/{lotId}/{fileName} {
+      allow read: if true;
+      // images only, max 8 MB
+      allow write: if isAdmin()
+        && request.resource.size < 8 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+      allow delete: if isAdmin();
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

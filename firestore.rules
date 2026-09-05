@@ -1,23 +1,19 @@
 rules_version = '2';
 
 // ============================================================================
-// ZILBERSHLAG — Firestore security rules  (zilbershlag.com)
-// ----------------------------------------------------------------------------
-// Deploy these to the Firebase project you chose for Zilbershlag.
-// All data lives under zc_* collections. Admin = the site owner: either the
-// email in ADMIN_EMAIL below, or any zc_users doc whose role == 'admin'.
+// ZILBERSHLAG — Firestore security rules  (project: asfanut)
+// All data lives under zc_* collections. Admin = the site owner (ADMIN_EMAIL)
+// or any zc_users doc whose role == 'admin'.
 //
-// ⚠️ If this project also runs OTHER apps, tell Claude — these rules only grant
-// access to zc_* paths and DENY everything else, which would block a sibling
-// app's collections. Best used on a project dedicated to Zilbershlag.
+// Bidding model: a bidder writes their MAXIMUM bid into
+//   zc_lots/<id>/bids/<auto>  { uid, name, maxBid, at }
+// A Cloud Function (admin SDK) resolves the public price on the lot document,
+// keeping every bidder's maximum private. Clients never write the lot itself.
 // ============================================================================
-
 service cloud.firestore {
   match /databases/{database}/documents {
 
     function signedIn() { return request.auth != null; }
-
-    // 👑 Site owner. Change this to your Google account email if different.
     function ADMIN_EMAIL() { return 'aaci.yoni@gmail.com'; }
     function owner() { return signedIn() && request.auth.token.email == ADMIN_EMAIL(); }
 
@@ -30,11 +26,19 @@ service cloud.firestore {
       return signedIn() && zcNotBanned() && zcHasProfile() && zcProfile().profileComplete == true;
     }
 
+    function lotData(id) { return get(/databases/$(database)/documents/zc_lots/$(id)).data; }
+    function auctionLive(id) {
+      let d = lotData(id);
+      return d.mode == 'auction'
+        && request.time > d.startAt
+        && request.time < d.endAt;
+    }
+
     // Public site config (auction schedule etc.), admin-managed.
     match /zc_config/{doc} { allow read: if true; allow write: if zcAdmin(); }
 
-    // Buyer accounts. A user creates and edits ONLY their own profile, and can
-    // never set their own role or lift their own ban. The admin can do anything.
+    // Buyer accounts. A user creates and edits ONLY their own profile and can
+    // never set their own role or lift their own ban; the admin can do anything.
     match /zc_users/{uid} {
       allow read: if zcAdmin() || (signedIn() && request.auth.uid == uid);
       allow create: if signedIn() && request.auth.uid == uid
@@ -47,36 +51,30 @@ service cloud.firestore {
       allow delete: if zcAdmin();
     }
 
-    // Lots — public to read. Only the admin creates/removes them. A bidder may
-    // update a lot ONLY to raise its live-auction bid: as themselves, before it
-    // closes, changing only the bid fields, by at least the minimum increment.
+    // Lots — public to read; only the admin (and the server) writes them.
+    // Bidders affect a lot only indirectly, by writing a bid below.
     match /zc_lots/{lotId} {
       allow read: if true;
-      allow create, delete: if zcAdmin();
-      allow update: if zcAdmin()
-        || ( zcReady()
-             && resource.data.mode == 'auction'
-             && resource.data.status == 'live'
-             && request.time < resource.data.endAt
-             && request.resource.data.diff(resource.data).affectedKeys()
-                  .hasOnly(['currentBid','currentBidder','currentBidderName','bidCount','updatedAt'])
-             && request.resource.data.currentBidder == request.auth.uid
-             && request.resource.data.currentBid >= resource.data.currentBid + resource.data.minIncrement
-             && request.resource.data.bidCount == resource.data.bidCount + 1 );
+      allow create, update, delete: if zcAdmin();
 
-      // Bid history — append only; a bidder sees only their own, admin sees all.
+      // Maximum-bid intents. A bidder may add their own bid on a LIVE auction,
+      // at or above the opening price. Bids are read-only afterwards, and a
+      // bidder can see only their own (maxima stay private); the admin sees all.
       match /bids/{bidId} {
         allow read: if zcAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
         allow create: if zcReady()
           && request.resource.data.uid == request.auth.uid
-          && request.resource.data.amount is number;
+          && request.resource.data.maxBid is number
+          && request.resource.data.maxBid > 0
+          && auctionLive(lotId)
+          && request.resource.data.maxBid >= lotData(lotId).openingBid;
         allow update, delete: if false;
       }
     }
 
-    // Orders — auction wins (admin-created) and private-sale reservations
-    // (bidder-created). Only the admin marks paid / unpaid or deletes. This is
-    // where non-payment is recorded before an account is banned for good.
+    // Orders — auction wins (created by the close function via admin SDK) and
+    // private-sale reservations (bidder-created). Only the admin marks paid /
+    // unpaid or deletes. This is where non-payment is recorded before a ban.
     match /zc_orders/{orderId} {
       allow read: if zcAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
       allow create: if zcAdmin()
@@ -87,7 +85,6 @@ service cloud.firestore {
       allow update, delete: if zcAdmin();
     }
 
-    // Everything else — denied.
     match /{document=**} { allow read, write: if false; }
   }
 }
