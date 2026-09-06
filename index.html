@@ -829,18 +829,18 @@ body.zc-links a{text-decoration:underline!important;outline:1px dashed var(--gol
     </div>
     <div class="dept-grid reveal">
       <div class="dept large">
-        <img src="https://images.unsplash.com/photo-1578321272176-b7bbc0679853?auto=format&fit=crop&w=1000&q=80" alt="Fine art painting" />
+        <img data-plate="Jewish Art" alt="Jewish and Israeli art" />
         <div class="dept-cap"><h3 data-i18n="deptFineArt">Fine Art</h3><span>1,240 <span data-i18n="pieces">pieces</span></span>
           <div class="go"><span data-i18n="browseDept">Browse department</span> <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0l-6-6m6 6l-6 6"/></svg></div></div>
       </div>
-      <div class="dept"><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=700&q=80" alt="Antique Hebrew books" />
-        <div class="dept-cap"><h3 data-i18n="deptWatches">Watches</h3><span>410 <span data-i18n="pieces">pieces</span></span></div></div>
-      <div class="dept"><img src="https://images.unsplash.com/photo-1601058268499-e52658b8ebf8?auto=format&fit=crop&w=700&q=80" alt="Antique silver menorah" />
-        <div class="dept-cap"><h3 data-i18n="deptJewellery">Jewellery</h3><span>530 <span data-i18n="pieces">pieces</span></span></div></div>
-      <div class="dept"><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=700&q=80" alt="Judaica and rare books" />
-        <div class="dept-cap"><h3 data-i18n="deptJudaica">Judaica &amp; Rare Books</h3><span>620 <span data-i18n="pieces">pieces</span></span></div></div>
-      <div class="dept"><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=700&q=80" alt="Hasidic manuscripts and ephemera" />
-        <div class="dept-cap"><h3 data-i18n="deptDesign">Design &amp; Antiquities</h3><span>800 <span data-i18n="pieces">pieces</span></span></div></div>
+      <div class="dept"><img src="assets/book-aged.webp" alt="Antique Hebrew books" />
+        <div class="dept-cap"><h3 data-i18n="deptWatches">Hebrew Books</h3><span>410 <span data-i18n="pieces">pieces</span></span></div></div>
+      <div class="dept"><img src="assets/menorah-aged.webp" alt="Ceremonial silver menorah" />
+        <div class="dept-cap"><h3 data-i18n="deptJewellery">Ceremonial Silver</h3><span>530 <span data-i18n="pieces">pieces</span></span></div></div>
+      <div class="dept"><img data-plate="Manuscripts" alt="Manuscripts and scrolls" />
+        <div class="dept-cap"><h3 data-i18n="deptJudaica">Manuscripts &amp; Scrolls</h3><span>620 <span data-i18n="pieces">pieces</span></span></div></div>
+      <div class="dept"><img data-plate="Hasidic & Rabbinic" alt="Hasidic manuscripts and ephemera" />
+        <div class="dept-cap"><h3 data-i18n="deptDesign">Hasidic &amp; Ephemera</h3><span>800 <span data-i18n="pieces">pieces</span></span></div></div>
     </div>
   </div>
 </section>
@@ -1166,7 +1166,7 @@ const I18N = {
     colEyebrow:"The saleroom", colTitle:"Pieces on offer", colSub:"Bid in the daily and weekly auctions, or acquire immediately by private sale — every lot direct from the collection.", colCatalogue:"View full catalogue",
     tabAll:"All lots", tabLive:"Live auction", tabSoon:"Upcoming", tabBuy:"Private sale", loadMore:"Load more lots",
     deptEyebrow:"Collecting categories", deptTitle:"Explore by department", browseDept:"Browse department", pieces:"pieces",
-    deptFineArt:"Jewish &amp; Israeli Art", deptWatches:"Hebrew Books &amp; Imprints", deptJewellery:"Judaica Silver", deptJudaica:"Manuscripts &amp; Scrolls", deptDesign:"Hasidic Heritage &amp; Ephemera",
+    deptFineArt:"Jewish & Israeli Art", deptWatches:"Hebrew Books & Imprints", deptJewellery:"Judaica Silver", deptJudaica:"Manuscripts & Scrolls", deptDesign:"Hasidic Heritage & Ephemera",
     houseEyebrow:"The House of Zilbershlag", houseTitle:"A name entrusted with fine things for three generations.",
     houseP1:"What began in 1962 as one collector's pursuit of the rare and the beautiful has become a private institution — a house known for discretion, scholarship and an unerring eye. Each object is researched, documented and catalogued with the care of an archive.",
     houseP2:"Today the collection opens its doors. Whether by daily auction, the weekly signature sale, or quiet private acquisition, every piece carries the provenance and assurance of the House.", houseCta:"Request a private viewing",
@@ -1324,6 +1324,8 @@ function platePlaceholder(cat){
 }
 function primeDemo(){ const n=Date.now(); DEMO.forEach(l=>{ l.demo=true; const p=platePlaceholder(l.cat); l.img=p; l.images=[p]; if(l.status==="live") l.endsAt=n+l.hours*3600*1000; else if(l.status==="upcoming") l.endsAt=n+l.days*24*3600*1000; }); }
 primeDemo();
+// Fill any department tiles that use a generated plate instead of a photo.
+document.querySelectorAll("img[data-plate]").forEach(im=>{ im.src=platePlaceholder(im.dataset.plate); });
 
 let LOTS = DEMO.slice();
 
@@ -1678,7 +1680,7 @@ function fromDoc(id,d){
     est:d.est||"", price:d.price||(d.priceNum?money(d.priceNum):""), bid:(typeof d.currentBid==="number"?d.currentBid:null),
     openingBid:Number(d.openingBid)||0, reserve:Number(d.reserve)||0, reserveMet:d.reserveMet!==false,
     minIncrement:d.minIncrement||100, status, startsAt:startMs, endsAt:endMs,
-    img:images[0]||"https://images.unsplash.com/photo-1578321272176-b7bbc0679853?auto=format&fit=crop&w=800&q=80", images,
+    img:images[0]||platePlaceholder(d.cat||"Jewish Art"), images,
     description:d.description||"", provenance:d.provenance||"", condition:d.condition||"" };
 }
 function attachLots(){
